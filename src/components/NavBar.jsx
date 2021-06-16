@@ -4,8 +4,6 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import Form from 'react-bootstrap/Form'
-import FormControl from 'react-bootstrap/FormControl'
-import Button from 'react-bootstrap/Button'
 
 function nave() {
   return (
@@ -19,6 +17,8 @@ function nave() {
               <Nav.Link href="#link">Estado de cuenta</Nav.Link>
               <Nav.Link href="#link">Estado de órdenes</Nav.Link>
               <Nav.Link href="#link">Invertir</Nav.Link>
+            </Nav>
+            <Form inline>
               <NavDropdown title="Mi cuenta" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Invertir</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.1">Cargar Saldo</NavDropdown.Item>
@@ -28,10 +28,6 @@ function nave() {
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action/3.4">Salir</NavDropdown.Item>
               </NavDropdown>
-            </Nav>
-            <Form inline>
-              <FormControl type="text" placeholder="Buscar" className="mr-sm-2" />
-              <Button variant="outline-success">Buscar</Button>
             </Form>
           </Navbar.Collapse>
         </Navbar>
