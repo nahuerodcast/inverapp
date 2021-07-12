@@ -1,0 +1,18 @@
+#nahue {
+    height: 80vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#card {
+    margin: 15px;
+    border-radius: 20px;
+}
+
+.card-img {
+    width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px;
+}
