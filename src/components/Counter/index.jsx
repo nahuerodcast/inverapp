@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import '../Counter/styles.css'
 
 export const Counter = ({ quantity }) => {
     const [counter, setCounter] = useState(1)
@@ -15,11 +16,21 @@ export const Counter = ({ quantity }) => {
         }
     }
 
+    const manualChange = (e) => {
+        let value = e.target.value
+        if (value > quantity) {
+            setCounter(quantity)
+        } else {
+            alert('No hay suficiente cantidad para esta orden')
+            setCounter(value)
+        }
+    }
+
     return (
-        <div>
-            <button onClick={restar}>-</button>
-            <p>{counter}</p>
-            <button onClick={sumar}>+</button>
+        <div className="counter-div">
+            <button onClick={restar} className="button-left">-</button>
+            <input type="number" value={counter} onChange={manualChange} className="text-center button-input" />
+            <button onClick={sumar} className="button-right">+</button>
         </div>
     )
 }

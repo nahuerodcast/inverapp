@@ -20,6 +20,7 @@ export const ItemListContainer = (props) => {
     return (
         <div>
             <h1>{props.greeting}</h1>
+            <h4>{props.subdesc}</h4>
             <div id="nahue">
                 < Cards name={producto.name} price={producto.price} quantity={producto.quantity} img={producto.img} />
                 < Cards name={producto2.name} price={producto2.price} quantity={producto2.quantity} img={producto2.img} />

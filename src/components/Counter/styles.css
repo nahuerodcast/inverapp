@@ -1,0 +1,27 @@
+.button-left {
+    padding-left: 8px;
+    padding-right: 8px;
+    height: 31px;
+    border: none;
+}
+
+.button-right {
+    height: 31px;
+    border: none;
+}
+
+.button-input {
+    width: 200px;
+    height: 30px;
+    border-left: none;
+    border-right: none;
+    border: none;
+}
+
+.counter-div {
+    border: 1px gray solid;
+    border-radius: 20px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}

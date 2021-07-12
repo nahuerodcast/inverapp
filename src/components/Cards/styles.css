@@ -11,8 +11,23 @@
 }
 
 .card-img {
-    width: 100px;
     margin-left: auto;
     margin-right: auto;
     padding: 15px;
+    width: 50%;
+    height: 16vh;
+    object-fit: cover;
+}
+
+.boton {
+    margin: 0 5px;
+    border-radius: 30px;
+}
+
+.card-inverapp {
+    border: none;
+    border-radius: 35px;
+    filter: drop-shadow(5px 2px 12px rgba(0, 0, 0, 0.25));
+    -webkit-filter: drop-shadow(5px 2px 21px rgba(0, 0, 0, 0.25));
+    -moz-filter: drop-shadow(5px 2px 12px rgba(0, 0, 0, 0.25));
 }
