@@ -5,9 +5,9 @@ import { ItemListContainer } from './components/ItemListContainer';
 function App() {
   return (
     <div className="App">
-    < Navbar />
-    <br></br>
-    < ItemListContainer greeting='Inverapp' subdesc='Acciones recomendadas del día' />
+      < Navbar />
+      <br></br>
+      < ItemListContainer greeting='Inverapp' subdesc='Acciones recomendadas del día' />
     </div>
   );
 }

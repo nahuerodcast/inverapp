@@ -1,0 +1,23 @@
+[ 
+    {
+    "id": 1,
+    "name": "Apple",
+    "price": "140",
+    "quantity": "12",
+    "img": "http://1000marcas.net/wp-content/uploads/2019/11/Apple-Logo.jpg"
+},
+{
+    "id": 2,
+    "name": "Tesla",
+    "price": "656,95",
+    "quantity": "5",
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Tesla_T_symbol.svg/602px-Tesla_T_symbol.svg.png"
+},
+    {
+    "id": 3,
+    "name": "Barrick Gold",
+    "price": "22.45",
+    "quantity": "7",
+    "img": "https://img2.freepng.es/20181112/klz/kisspng-barrick-gold-nyseabx-mining-donlin-gold-mine-5be911a43123e0.6967570515420010602013.jpg"
+    }
+]

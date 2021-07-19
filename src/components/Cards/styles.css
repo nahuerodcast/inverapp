@@ -1,4 +1,5 @@
 #nahue {
+    width: 100vw;
     height: 80vh;
     display: flex;
     flex-direction: row;
@@ -15,7 +16,7 @@
     margin-right: auto;
     padding: 15px;
     width: 50%;
-    height: 16vh;
+    height: 21vh;
     object-fit: cover;
 }
 
