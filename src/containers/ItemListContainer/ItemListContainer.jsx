@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { ItemList } from "../components/ItemList";
+import { ItemList } from "../../components/ItemList";
 
 export const ItemListContainer = ({ greeting, subdesc }) => {
     const [productos, setProductos] = useState([]);
@@ -9,7 +9,7 @@ export const ItemListContainer = ({ greeting, subdesc }) => {
         fetch("../stocks.json")
             .then(response => response.json())
             .then(data => {
-                setTimeout(() => { setProductos(data) }, 1000);
+                setTimeout(() => { setProductos(data) }, 100);
             });
     }, []);
 
@@ -20,7 +20,6 @@ export const ItemListContainer = ({ greeting, subdesc }) => {
             <h1>{greeting}</h1>
             <h4>{subdesc}</h4>
             <div id="nahue">
-                {/* < Cards name={producto.name} price={producto.price} quantity={producto.quantity} img={producto.img} /> */}
                 <ItemList productos={productos} />
             </div>
         </div>
