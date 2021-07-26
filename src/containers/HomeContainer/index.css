@@ -8,6 +8,7 @@
 }
 
 .inverapp-home-cards {
+
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -15,6 +16,23 @@
     margin: 30px;
 }
 
-.inverapp-buttons{
+.inverapp-buttons {
     color: white;
+    margin: 0 5px;
+    border-radius: 30px;
+}
+
+.inverapp-buttons:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.home-main-cards {
+    margin: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 35px;
+    filter: drop-shadow(5px 2px 12px rgba(0, 0, 0, 0.1));
+    -webkit-filter: drop-shadow(5px 2px 21px rgba(0, 0, 0, 0.1));
+    -moz-filter: drop-shadow(5px 2px 12px rgba(0, 0, 0, 0.1));
 }

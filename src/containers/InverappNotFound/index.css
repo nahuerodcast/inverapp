@@ -1,8 +1,13 @@
-.inverapp-account-state {
+.inverapp-notfound {
     margin: 30px;
     display: flex;
     flex-direction: column;
-justify-content: center;
+    justify-content: center;
     align-items: center;
     height: 72vh;
+}
+
+.main-img-notfound{
+    height: 250px;
+    width: auto;
 }
