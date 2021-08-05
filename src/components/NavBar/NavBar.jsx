@@ -5,14 +5,13 @@ import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
-import CartWidget from "../CartWidget/CartWidget";
 
 function nave() {
   return (
     <div className="Navbar">
       <Navbar bg="light" expand="lg">
         <Navbar.Brand>
-          <Link to={"/"} className="text-decoration">
+          <Link to={"/"} className="text-decoration animate__animated animate__bounceIn" id="inverapp-logo">
             Inverapp
           </Link>
         </Navbar.Brand>
@@ -35,7 +34,7 @@ function nave() {
               </Link>
             </Nav.Link>
           </Nav>
-          <Form inline>
+          <Form inline className="inverapp-account">
             <NavDropdown title="Mi cuenta" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Invertir</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.1">
@@ -51,7 +50,6 @@ function nave() {
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.4">Salir</NavDropdown.Item>
             </NavDropdown>
-            <CartWidget />
           </Form>
         </Navbar.Collapse>
       </Navbar>

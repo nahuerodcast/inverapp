@@ -25,3 +25,23 @@
     padding: 0;
     overflow: hidden;
 }
+
+.order-resume {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chevron-style {
+    color: black;
+}
+
+.chevron-up {
+    margin-left: 10px;
+    transition: 300ms all ease;
+}
+
+.chevron-up:hover {
+    color: black;
+    transform: scale(1.3);
+}

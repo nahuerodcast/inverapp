@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ItemList } from "../../components/ItemList";
 import "../ItemListContainer/index.css";
+import { OrderWidget } from "../../components/OrderWidget/OrderWidget";
 
-export const ItemListContainer = () => {
+export const ItemListContainer = ({ onAdd, orderCount }) => {
   const [productos, setProductos] = useState([]);
 
   useEffect(() => {
@@ -16,14 +17,22 @@ export const ItemListContainer = () => {
       });
   }, []);
 
+
   return (
     <div>
-      <div className="acciones-recomendadas">
-        <h1 className="text-center">Inverapp</h1>
-        <h4 className="text-center"> Acciones recomendadas del día</h4>
+      <div className="father-orderWidget">
+        <OrderWidget orderCount={orderCount} />
       </div>
-      <div id="nahue">
-        <ItemList productos={productos} />
+      <div className="top-stocks">
+        <div>
+          <div className="acciones-recomendadas">
+            <h1 className="text-center">Inverapp</h1>
+            <h4 className="text-center"> Acciones recomendadas del día</h4>
+          </div>
+          <div id="nahue">
+            <ItemList productos={productos} onAdd={onAdd} />
+          </div>
+        </div>
       </div>
     </div>
   );

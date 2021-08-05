@@ -31,4 +31,12 @@
     filter: drop-shadow(5px 2px 12px rgba(0, 0, 0, 0.1));
     -webkit-filter: drop-shadow(5px 2px 21px rgba(0, 0, 0, 0.1));
     -moz-filter: drop-shadow(5px 2px 12px rgba(0, 0, 0, 0.1));
+    transition: 300ms all ease;
+}
+
+.card-inverapp:hover {
+    transform: scale(1.01);
+    filter: drop-shadow(5px 2px 12px rgba(0, 0, 0, 0.3));
+    -webkit-filter: drop-shadow(5px 2px 21px rgba(0, 0, 0, 0.3));
+    -moz-filter: drop-shadow(5px 2px 12px rgba(0, 0, 0, 0.3));
 }

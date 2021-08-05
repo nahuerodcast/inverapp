@@ -1,3 +1,18 @@
-.acciones-recomendadas{
+.acciones-recomendadas {
     margin: 25px 0;
+}
+
+.father-orderWidget {
+    position: absolute;
+    height: 90vh;
+    width: 100vw;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.top-stocks {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
 }

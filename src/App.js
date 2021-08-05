@@ -6,8 +6,10 @@ import { HomeContainer } from "./containers/HomeContainer";
 import { AccountStateContainer } from "./containers/AccountStateContainer";
 import Footer from "./components/Footer";
 import { InverappNotFound } from "./containers/InverappNotFound";
+import { useState } from "react";
 
 function App() {
+  const [counterValue, setCounterValue] = useState(0);
   return (
     <BrowserRouter>
       <Navbar />
@@ -18,19 +20,19 @@ function App() {
           path="/estado-de-cuenta"
           component={AccountStateContainer}
         />
-        <Route
-          exact
-          path="/acciones-recomendadas"
-          component={ItemListContainer}
-        />
+        <Route exact path="/acciones-recomendadas">
+          <ItemListContainer
+            onAdd={() => {
+              setCounterValue(counterValue + 1);
+              console.log("noooo");
+            }}
+            orderCount={counterValue}
+          />
+        </Route>
         <Route exact path="/invertir" component={InverappNotFound} />
         <Route exact path="*" component={InverappNotFound} />
         <div className="App">
           <br></br>
-          <ItemListContainer
-            greeting="Inverapp"
-            subdesc="Acciones recomendadas del día"
-          />
         </div>
       </Switch>
       <Footer />

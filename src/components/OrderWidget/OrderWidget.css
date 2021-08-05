@@ -1,0 +1,30 @@
+/* .fixed-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: baseline;
+    margin-right: 15px;
+    margin-bottom: 150px;
+} */
+
+.fixed-orderState {
+    margin-right: 15px;
+    width: 40vw;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99999;
+    background-color: rgb(255, 255, 255);
+    padding: 10px 30px;
+    border: none;
+    border-radius: 35px;
+    filter: drop-shadow(5px 2px 12px rgba(0, 0, 0, 0.2));
+    -webkit-filter: drop-shadow(5px 2px 21px rgba(0, 0, 0, 0.2));
+    -moz-filter: drop-shadow(5px 2px 12px rgba(0, 0, 0, 0.2));
+}
+
+.fixed-orderState h4 {
+    margin: 0;
+    padding: 5px;
+}
