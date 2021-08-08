@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ItemListContainer } from "./containers/ItemListContainer/ItemListContainer";
 import { HomeContainer } from "./containers/HomeContainer";
 import { AccountStateContainer } from "./containers/AccountStateContainer";
+import { InvestContainer } from "./containers/InvestContainer/InvestContainer";
 import Footer from "./components/Footer";
 import { InverappNotFound } from "./containers/InverappNotFound";
 import { useState } from "react";
@@ -29,7 +30,9 @@ function App() {
             orderCount={counterValue}
           />
         </Route>
-        <Route exact path="/invertir" component={InverappNotFound} />
+        <Route exact path="/invertir">
+          <InvestContainer></InvestContainer>
+        </Route>
         <Route exact path="*" component={InverappNotFound} />
         <div className="App">
           <br></br>

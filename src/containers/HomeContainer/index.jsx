@@ -11,10 +11,12 @@ export const HomeContainer = () => {
         Bienvenido a <strong>Inverapp</strong>
       </h1>
       <h4>¿Que deseas hacer?</h4>
-      <div className="inverapp-home-cards">
-        <Card style={{ width: "18rem" }} className="home-main-cards">
+      <div className="inverapp-home-cards animate__animated animate__bounceIn">
+        <Card style={{ width: "18rem" }} className="home-main-cards ">
           <Card.Body>
-            <Card.Title>Cargá saldo de Inverapp</Card.Title>
+            <Card.Title>
+              Cargá saldo de <strong>Inverapp</strong>
+            </Card.Title>
             <Card.Text>
               Podes ingresar pesos o dólares. Los mismos van a ser acreditados
               en tu cuenta.
@@ -26,7 +28,7 @@ export const HomeContainer = () => {
             </Link>
           </Card.Body>
         </Card>
-        <Card style={{ width: "18rem" }} className="home-main-cards">
+        <Card style={{ width: "18rem" }} className="home-main-cards ">
           <Card.Body>
             <Card.Title>Invertí en simples pasos</Card.Title>
             <Card.Text>
@@ -35,7 +37,7 @@ export const HomeContainer = () => {
             </Card.Text>
             <Link to={"/invertir"} className="inverapp-buttons">
               <Button variant="success" className="inverapp-buttons">
-                Invertir
+                <strong>Invertir</strong>
               </Button>
             </Link>
           </Card.Body>

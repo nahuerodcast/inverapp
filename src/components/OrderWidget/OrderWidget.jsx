@@ -8,7 +8,7 @@ export const OrderWidget = ({ orderCount }) => {
       <div>
         <h4>Resumen de órdenes: </h4>
       </div>
-      <CartWidget value={orderCount} />
+      <CartWidget value={orderCount} className="animate__slideInUp"/>
     </div>
   );
 };

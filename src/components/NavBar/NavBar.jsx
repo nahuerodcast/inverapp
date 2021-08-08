@@ -11,8 +11,12 @@ function nave() {
     <div className="Navbar">
       <Navbar bg="light" expand="lg">
         <Navbar.Brand>
-          <Link to={"/"} className="text-decoration animate__animated animate__bounceIn" id="inverapp-logo">
-            Inverapp
+          <Link
+            to={"/"}
+            className="text-decoration animate__animated animate__bounceIn"
+            id="inverapp-logo"
+          >
+            <strong>Inverapp</strong>
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
