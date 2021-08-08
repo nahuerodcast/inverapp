@@ -17,13 +17,12 @@ export const ItemListContainer = ({ onAdd, orderCount }) => {
       });
   }, []);
 
-
   return (
     <div>
-      <div className="father-orderWidget">
+      <div className="father-orderWidget ">
         <OrderWidget orderCount={orderCount} />
       </div>
-      <div className="top-stocks">
+      <div className="top-stocks animate__animated animate__fadeIn">
         <div>
           <div className="acciones-recomendadas">
             <h1 className="text-center">Inverapp</h1>

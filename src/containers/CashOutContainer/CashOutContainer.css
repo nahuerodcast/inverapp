@@ -1,0 +1,15 @@
+.cash-out-input {
+    width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.boton {
+    margin: 0 5px;
+    border-radius: 30px;
+}
+
+.cash-out-button{
+    display: flex;
+    justify-content: center;
+}

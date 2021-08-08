@@ -1,0 +1,52 @@
+.cash-in-heading {
+    font-size: 45px;
+}
+
+.cash-in-detail {
+    max-width: 500px;
+    text-align: center;
+    font-size: small;
+}
+
+.cash-in-card {
+    padding: 10px;
+    border: none;
+    border-radius: 35px;
+    filter: drop-shadow(5px 2px 12px rgba(0, 0, 0, 0.1));
+    -webkit-filter: drop-shadow(5px 2px 21px rgba(0, 0, 0, 0.1));
+    -moz-filter: drop-shadow(5px 2px 12px rgba(0, 0, 0, 0.1));
+    transition: 300ms all ease;
+}
+
+.cash-in-card:hover {
+    filter: drop-shadow(5px 2px 12px rgba(0, 0, 0, 0.2));
+    -webkit-filter: drop-shadow(5px 2px 21px rgba(0, 0, 0, 0.2));
+    -moz-filter: drop-shadow(5px 2px 12px rgba(0, 0, 0, 0.2));
+}
+
+.cash-in-title {
+    font-size: 25px;
+}
+
+.cash-in-desc {
+    margin: 5px;
+}
+
+.cash-in-flex {
+    width: 70vw;
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+}
+
+.cash-in-img {
+    height: 150px;
+    width: auto;
+}
+
+.cash-in-container {
+    margin: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

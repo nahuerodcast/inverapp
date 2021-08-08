@@ -5,6 +5,9 @@ import { ItemListContainer } from "./containers/ItemListContainer/ItemListContai
 import { HomeContainer } from "./containers/HomeContainer";
 import { AccountStateContainer } from "./containers/AccountStateContainer";
 import { InvestContainer } from "./containers/InvestContainer/InvestContainer";
+import { CashInContainer } from "./containers/CashInContainer/CashInContainer";
+import { CashOutContainer } from "./containers/CashOutContainer/CashOutContainer";
+import { ChartContainer } from "./containers/ChartContainer/ChartContainer";
 import Footer from "./components/Footer";
 import { InverappNotFound } from "./containers/InverappNotFound";
 import { useState } from "react";
@@ -32,6 +35,15 @@ function App() {
         </Route>
         <Route exact path="/invertir">
           <InvestContainer></InvestContainer>
+        </Route>
+        <Route exact path="/graficos">
+          <ChartContainer></ChartContainer>
+        </Route>
+        <Route exact path="/cargar-saldo">
+          <CashInContainer></CashInContainer>
+        </Route>
+        <Route exact path="/egresar-fondos">
+        <CashOutContainer></CashOutContainer>
         </Route>
         <Route exact path="*" component={InverappNotFound} />
         <div className="App">

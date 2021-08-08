@@ -4,9 +4,21 @@
     font-size: 25px;
 }
 
+.inverapp-zoom {
+    transition: 300ms all ease;
+}
+
+.inverapp-zoom:hover {
+    transform: scale(1.01);
+    filter: drop-shadow(5px 2px 12px rgba(0, 0, 0, 0.3));
+    -webkit-filter: drop-shadow(5px 2px 21px rgba(0, 0, 0, 0.3));
+    -moz-filter: drop-shadow(5px 2px 12px rgba(0, 0, 0, 0.3));
+}
+
 .text-decoration {
     text-decoration: none;
-    color: rgb(58, 58, 58);
+    color: rgb(121, 121, 121);
+    transition: 300ms all ease;
 }
 
 .text-decoration:hover {
@@ -16,4 +28,8 @@
 
 .inverapp-account {
     color: black;
+}
+
+.user{
+    transform: scale(1.3);
 }

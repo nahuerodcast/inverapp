@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 export const HomeContainer = () => {
   return (
-    <div className="inverapp-home">
+    <div className="inverapp-home animate__animated animate__fadeIn">
       <h1>
         Bienvenido a <strong>Inverapp</strong>
       </h1>
