@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import "../Counter/styles.css";
 
-export const Counter = ({ quantity }) => {
+export const Counter = ({ quantity, quant }) => {
   const [counter, setCounter] = useState(1);
   console.log("render");
+
   const sumar = () => {
     if (counter < quantity) {
       setCounter(counter + 1);

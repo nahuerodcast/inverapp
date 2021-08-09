@@ -11,7 +11,7 @@ export const Cards = ({ product, onAdd }) => {
         <Card.Body>
           <Card.Title>{product.name}</Card.Title>
           <Card.Text>${product.price}</Card.Text>
-          <Counter quantity={product.quantity} />
+          <Counter quantity={product.quantity} quant={product.quantity} />
           <Card.Text>Cantidad máxima: {product.quantity}</Card.Text>
           <Button variant="success" className="boton" onClick={onAdd}>
             Comprar

@@ -18,12 +18,12 @@ function App() {
     <BrowserRouter>
       <Navbar />
       <Switch>
-        <Route exact path="/" component={HomeContainer} />
-        <Route
-          exact
-          path="/estado-de-cuenta"
-          component={AccountStateContainer}
-        />
+        <Route exact path="/">
+          <HomeContainer></HomeContainer>
+        </Route>
+        <Route exact path="/estado-de-cuenta">
+          <AccountStateContainer></AccountStateContainer>
+        </Route>
         <Route exact path="/acciones-recomendadas">
           <ItemListContainer
             onAdd={() => {
@@ -43,12 +43,9 @@ function App() {
           <CashInContainer></CashInContainer>
         </Route>
         <Route exact path="/egresar-fondos">
-        <CashOutContainer></CashOutContainer>
+          <CashOutContainer></CashOutContainer>
         </Route>
         <Route exact path="*" component={InverappNotFound} />
-        <div className="App">
-          <br></br>
-        </div>
       </Switch>
       <Footer />
     </BrowserRouter>
