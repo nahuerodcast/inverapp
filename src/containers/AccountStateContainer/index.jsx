@@ -14,18 +14,34 @@ export const AccountStateContainer = () => {
       <h1>Estado de cuenta al {inverappDate}</h1>
       <h4>Resumen de movimientos</h4>
       <div className="account-state-main">
-        <div className="main-box">
-          <div className="account-state-flex">
-            <h3 className="font-weight-bold">Total de la cuenta</h3>
-            <h3 className="font-weight-bold saldo">ARS:</h3>
+        <div className="account-state-currencies">
+          <div className="main-box main-box-container">
+            <div className="account-state-flex">
+              <h3 className="font-weight-bold">Total de la cuenta</h3>
+              <h3 className="font-weight-bold saldo">ARS:</h3>
+            </div>
+            <div className="account-state-flex">
+              <h5>Saldo disponible</h5>
+              <h5 className="saldo">ARS:</h5>
+            </div>
+            <div className="account-state-flex">
+              <h5>Inversiones</h5>
+              <h5 className="inversiones">ARS:</h5>
+            </div>
           </div>
-          <div className="account-state-flex">
-            <h5>Saldo disponible</h5>
-            <h5 className="saldo">ARS:</h5>
-          </div>
-          <div className="account-state-flex">
-            <h5>Inversiones</h5>
-            <h5 className="inversiones">ARS:</h5>
+          <div className="main-box main-box-container">
+            <div className="account-state-flex">
+              <h3 className="font-weight-bold">Total de la cuenta</h3>
+              <h3 className="font-weight-bold saldo">USD:</h3>
+            </div>
+            <div className="account-state-flex">
+              <h5>Saldo disponible</h5>
+              <h5 className="saldo">USD:</h5>
+            </div>
+            <div className="account-state-flex">
+              <h5>Inversiones</h5>
+              <h5 className="inversiones">USD:</h5>
+            </div>
           </div>
         </div>
         <div className="main-box">

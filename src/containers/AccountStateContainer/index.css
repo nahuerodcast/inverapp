@@ -13,6 +13,10 @@
     margin: 20px 0 10px 0;
 }
 
+.main-box-container {
+    width: 500px;
+}
+
 .account-state-main {
     margin: 30px auto;
     width: 90vw;
@@ -47,4 +51,10 @@
     display: inline;
     margin: auto;
     width: 100vw;
+}
+
+.account-state-currencies {
+    width: 90vw;
+    display: flex;
+    justify-content: space-around;
 }
