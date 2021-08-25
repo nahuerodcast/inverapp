@@ -1,0 +1,71 @@
+.welcome {
+    width: 500px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome h1 {
+    font-size: 60px;
+}
+
+.inverapp-logo-login {
+    transition: 300ms all ease;
+}
+
+.inverapp-logo-login:hover {
+    transform: scale(1.01);
+    filter: drop-shadow(5px 2px 12px rgba(0, 0, 0, 0.3));
+    -webkit-filter: drop-shadow(5px 2px 21px rgba(0, 0, 0, 0.3));
+    -moz-filter: drop-shadow(5px 2px 12px rgba(0, 0, 0, 0.3));
+}
+
+.login-body {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.boton {
+    margin: 0 5px;
+    border-radius: 30px;
+}
+
+.welcome-buttons {
+    width: 500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.outline-welcome-buttons {
+    width: 500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.welcome-img {
+    height: 350px;
+    width: auto;
+}
+
+.auth-box {
+    width: 750px;
+    height: auto;
+    margin-top: 50px;
+    padding: 0 50px;
+}
+
+.register-modal {
+    margin: 0 5px;
+    border-radius: 30px;
+}
+
+.botones-registro {
+    padding: 15px 70px;
+}

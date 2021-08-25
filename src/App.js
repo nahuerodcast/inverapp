@@ -11,12 +11,16 @@ import { ChartContainer } from "./containers/ChartContainer/ChartContainer";
 import Footer from "./components/Footer";
 import { InverappNotFound } from "./containers/InverappNotFound";
 import { useState } from "react";
+import { useFirebaseApp } from "reactfire";
+import { Auth } from "./containers/Auth/Auth";
 
 function App() {
+  const firebase = useFirebaseApp();
+  console.log(firebase);
   const [counterValue, setCounterValue] = useState(0);
   return (
     <BrowserRouter>
-      <Navbar />
+      <Navbar></Navbar>
       <Switch>
         <Route exact path="/">
           <HomeContainer></HomeContainer>
@@ -44,6 +48,9 @@ function App() {
         </Route>
         <Route exact path="/egresar-fondos">
           <CashOutContainer></CashOutContainer>
+        </Route>
+        <Route exact path="/login">
+          <Auth></Auth>
         </Route>
         <Route exact path="*" component={InverappNotFound} />
       </Switch>
