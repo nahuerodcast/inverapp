@@ -1,5 +1,4 @@
 import "./App.css";
-import Navbar from "./components/NavBar/NavBar";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ItemListContainer } from "./containers/ItemListContainer/ItemListContainer";
 import { HomeContainer } from "./containers/HomeContainer";
@@ -13,6 +12,7 @@ import { InverappNotFound } from "./containers/InverappNotFound";
 import { useState } from "react";
 import { useFirebaseApp } from "reactfire";
 import { Auth } from "./containers/Auth/Auth";
+import { NavBar } from "./components/NavBar/NavBar";
 
 function App() {
   const firebase = useFirebaseApp();
@@ -20,7 +20,7 @@ function App() {
   const [counterValue, setCounterValue] = useState(0);
   return (
     <BrowserRouter>
-      <Navbar></Navbar>
+      <NavBar />
       <Switch>
         <Route exact path="/">
           <HomeContainer></HomeContainer>

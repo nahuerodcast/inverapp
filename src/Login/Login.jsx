@@ -3,24 +3,31 @@ import React, { useState } from "react";
 import "../Login/Login.css";
 import "firebase/auth";
 import { useFirebaseApp } from "reactfire";
+import { useLogin } from "../context/LoginProvider";
 
 export const Login = () => {
+  const { setIsLoggedin } = useLogin();
+  // usando State para despliegue de modals: registro y login
   const [show, setShow] = useState(false);
-
+  const [showLogin, setShowLogin] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleCloseLogin = () => setShowLogin(false);
+  const handleShowLogin = () => setShowLogin(true);
+
+  // Envío de datos a Firebase
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const firebase = useFirebaseApp();
-
   const submit = async () => {
     await firebase.auth().createUserWithEmailAndPassword(email, password);
   };
 
-  const loginForm = () => {
-    alert("login");
+  //Recepción de datos para login Firebase
+
+  const login = async () => {
+    await firebase.auth().signInWithEmailAndPassword(email, password);
   };
 
   return (
@@ -47,7 +54,7 @@ export const Login = () => {
             <Button
               variant="outline-primary"
               className="boton"
-              onClick={loginForm}
+              onClick={handleShowLogin}
             >
               Iniciar sesión
             </Button>
@@ -65,7 +72,7 @@ export const Login = () => {
               <Button variant="success" className="boton" onClick={handleShow}>
                 Abrir cuenta
               </Button>
-              <Button className="boton" onClick={loginForm}>
+              <Button className="boton" onClick={handleShowLogin}>
                 Iniciar sesión
               </Button>
             </div>
@@ -84,8 +91,12 @@ export const Login = () => {
           className="register-modal"
         >
           <div className="auth-box">
-            <h1 className="text-center">Abrí tu cuenta</h1>
-            <h4 className="text-center text-muted">en menos de 5 minutos</h4>
+            <h1 className="text-center" style={{ fontSize: "50px" }}>
+              Abrí tu cuenta
+            </h1>
+            <h4 className="text-center text-muted" style={{ fontSize: "18px" }}>
+              en menos de 5 minutos
+            </h4>
             <Form>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email</Form.Label>
@@ -117,7 +128,7 @@ export const Login = () => {
               Cerrar
             </Button>
             <Button
-              variant="primary"
+              variant="success"
               onClick={(event) => {
                 event.preventDefault();
                 submit();
@@ -129,44 +140,72 @@ export const Login = () => {
           </Modal.Footer>
         </Modal>
 
-        <div className="auth-box collapse">
-          <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Enter email"
-                onChange={(ev) => setEmail(ev.target.value)}
-              />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
-            </Form.Group>
+        <Modal
+          show={showLogin}
+          onHide={handleCloseLogin}
+          size="lg"
+          className="register-modal"
+        >
+          <div className="auth-box">
+            <h1 className="text-center" style={{ fontSize: "50px" }}>
+              Iniciar sesión
+            </h1>
+            <h4 className="text-center text-muted" style={{ fontSize: "18px" }}>
+              Por favor ingresá tu email y contraseña
+            </h4>
+            <Form>
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  placeholder="Ingresar email"
+                  onChange={(ev) => setEmail(ev.target.value)}
+                />
+              </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Password"
-                onChange={(ev) => setPassword(ev.target.value)}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-              <Form.Check type="checkbox" label="Check me out" />
-            </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label>Contraseña</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Ingrese su contraseña."
+                  onChange={(ev) => setPassword(ev.target.value)}
+                />
+              </Form.Group>
+            </Form>
+          </div>
+          <Modal.Footer className="botones-registro">
+            <Button variant="secondary" onClick={handleCloseLogin}>
+              Cerrar
+            </Button>
             <Button
               variant="primary"
-              type="submit"
               onClick={(event) => {
                 event.preventDefault();
-                submit();
+                login();
+                setIsLoggedin(true);
               }}
             >
-              Submit
+              Enviar
             </Button>
-          </Form>
-        </div>
+          </Modal.Footer>
+        </Modal>
       </div>
+      <Navbar bg="light" fixed="bottom">
+        <Container>
+          <Navbar.Brand href="#home">
+            <strong className="inverapp-logo-login">Inverapp</strong>
+          </Navbar.Brand>
+          <Navbar.Toggle />
+          <Navbar.Collapse className="justify-content-end">
+            <Navbar.Text>
+              Desarrollado por:
+              <a href="https://www.linkedin.com/in/nahuel-rodriguez-21260b186">
+                Nahuel Rodriguez
+              </a>
+            </Navbar.Text>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
     </div>
   );
 };

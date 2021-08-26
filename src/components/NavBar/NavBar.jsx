@@ -1,14 +1,17 @@
+import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../NavBar/index.css";
-import Navbar from "react-bootstrap/Navbar";
+import { Navbar } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { useLogin } from "../../context/LoginProvider";
 
-function nave() {
+export const NavBar = () => {
+  const { setIsLoggedin } = useLogin();
   return (
     <div className="Navbar">
       <Navbar bg="light" expand="lg">
@@ -21,8 +24,12 @@ function nave() {
             <strong className="inverapp-zoom">Inverapp</strong>
           </Link>
         </Navbar.Brand>
+
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Collapse
+          id="basic-navbar-nav"
+          className=" mr-auto inverapp-account-dropdown space-around-items"
+        >
           <Nav className="mr-auto">
             <Nav.Link>
               <Link to={"/estado-de-cuenta"} className="text-decoration">
@@ -45,6 +52,7 @@ function nave() {
               </Link>
             </Nav.Link>
           </Nav>
+
           <FontAwesomeIcon icon={faUserCircle} className="user" />
           <Nav>
             <Form inline className="inverapp-account">
@@ -61,7 +69,12 @@ function nave() {
                 </NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.3">Perfil</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">Salir</NavDropdown.Item>
+                <NavDropdown.Item
+                  href="#action/3.4"
+                  onClick={() => setIsLoggedin(false)}
+                >
+                  Salir
+                </NavDropdown.Item>
               </NavDropdown>
             </Form>
           </Nav>
@@ -69,6 +82,4 @@ function nave() {
       </Navbar>
     </div>
   );
-}
-
-export default nave;
+};
