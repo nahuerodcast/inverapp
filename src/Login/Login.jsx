@@ -7,6 +7,7 @@ import { useLogin } from "../context/LoginProvider";
 
 export const Login = () => {
   const { setIsLoggedin } = useLogin();
+  const { isLoggedIn } = useLogin();
   // usando State para despliegue de modals: registro y login
   const [show, setShow] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
@@ -16,18 +17,35 @@ export const Login = () => {
   const handleShowLogin = () => setShowLogin(true);
 
   // Envío de datos a Firebase
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const firebase = useFirebaseApp();
   const submit = async () => {
-    await firebase.auth().createUserWithEmailAndPassword(email, password);
+    await firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        alert("Usuario creado con éxito");
+      })
+      .catch(() => {
+        alert(
+          "No se pudo crear tu usuario, por favor revisá los datos ingresados"
+        );
+      });
   };
 
   //Recepción de datos para login Firebase
-
   const login = async () => {
-    await firebase.auth().signInWithEmailAndPassword(email, password);
+    await firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        setIsLoggedin(true);
+        sessionStorage.setItem("setIsLoggedin", isLoggedIn);
+      })
+      .catch(() => {
+        alert("Usuario no encontrado, por favor revisá los datos ingresados");
+      });
   };
 
   return (
@@ -111,7 +129,7 @@ export const Login = () => {
                 <Form.Label>Contraseña</Form.Label>
                 <Form.Control
                   type="password"
-                  placeholder="Ingrese su contraseña."
+                  placeholder="Ingrese su contraseña"
                   onChange={(ev) => setPassword(ev.target.value)}
                 />
               </Form.Group>
@@ -132,7 +150,6 @@ export const Login = () => {
               onClick={(event) => {
                 event.preventDefault();
                 submit();
-                alert("Su cuenta fue creada con éxito");
               }}
             >
               Enviar
@@ -167,7 +184,7 @@ export const Login = () => {
                 <Form.Label>Contraseña</Form.Label>
                 <Form.Control
                   type="password"
-                  placeholder="Ingrese su contraseña."
+                  placeholder="Ingrese su contraseña"
                   onChange={(ev) => setPassword(ev.target.value)}
                 />
               </Form.Group>
@@ -182,7 +199,6 @@ export const Login = () => {
               onClick={(event) => {
                 event.preventDefault();
                 login();
-                setIsLoggedin(true);
               }}
             >
               Enviar

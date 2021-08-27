@@ -12,6 +12,7 @@ import { useLogin } from "../../context/LoginProvider";
 
 export const NavBar = () => {
   const { setIsLoggedin } = useLogin();
+  const { isLoggedIn } = useLogin();
   return (
     <div className="Navbar">
       <Navbar bg="light" expand="lg">
@@ -70,8 +71,10 @@ export const NavBar = () => {
                 <NavDropdown.Item href="#action/3.3">Perfil</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item
-                  href="#action/3.4"
-                  onClick={() => setIsLoggedin(false)}
+                  onClick={() => {
+                    setIsLoggedin(false);
+                    sessionStorage.setItem("setIsLoggedin", isLoggedIn);
+                  }}
                 >
                   Salir
                 </NavDropdown.Item>
