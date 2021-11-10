@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Heading, Image, Button } from "@chakra-ui/react";
+import { Flex, Heading, Image, Button, Box } from "@chakra-ui/react";
 import { ImUserPlus } from "react-icons/im";
 import {
   Modal,
@@ -13,6 +13,8 @@ import {
 import { useDisclosure } from "@chakra-ui/hooks";
 import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import { Input } from "@chakra-ui/input";
+import { FaBitcoin, FaFlagUsa, FaMoneyBillWave } from "react-icons/fa";
+import { AiOutlineStock } from "react-icons/ai";
 
 export const UnloggedContent = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -111,6 +113,67 @@ export const UnloggedContent = () => {
         <Flex>
           <Image src="../undrawWallet.png" h="250px" />
         </Flex>
+      </Flex>
+
+      <Flex flexDir="row" justifyContent="center" alignItems="center">
+        <Box boxShadow="2xl" rounded="xl" mx={12}>
+          <Heading
+            fontWeight="extrabold"
+            fontFamily="Inter,sans-serif"
+            letterSpacing="tight"
+            textAlign="center"
+            w="fit-content"
+            p={8}
+          >
+            <Flex flexDir="column" alignItems="center">
+              Acciones <AiOutlineStock color="#3584B3" />
+            </Flex>
+          </Heading>
+        </Box>
+        <Box boxShadow="2xl" rounded="xl" mx={12}>
+          <Heading
+            fontWeight="extrabold"
+            fontFamily="Inter,sans-serif"
+            letterSpacing="tight"
+            textAlign="center"
+            w="fit-content"
+            p={8}
+          >
+            <Flex flexDir="column" alignItems="center">
+              Cedears
+              <FaFlagUsa />
+            </Flex>
+          </Heading>
+        </Box>
+        <Box boxShadow="2xl" rounded="xl" mx={12}>
+          <Heading
+            fontWeight="extrabold"
+            fontFamily="Inter,sans-serif"
+            letterSpacing="tight"
+            textAlign="center"
+            w="fit-content"
+            p={8}
+          >
+            <Flex flexDir="column" alignItems="center">
+              Cripto
+              <FaBitcoin color="#ff9416" />
+            </Flex>
+          </Heading>
+        </Box>
+        <Box boxShadow="2xl" rounded="xl" mx={12}>
+          <Heading
+            fontWeight="extrabold"
+            fontFamily="Inter,sans-serif"
+            letterSpacing="tight"
+            textAlign="center"
+            p={8}
+            m="auto"
+          >
+            <Flex flexDir="column" alignItems="center">
+              Dólar MEP <FaMoneyBillWave color="#8dd070" />
+            </Flex>
+          </Heading>
+        </Box>
       </Flex>
     </>
   );

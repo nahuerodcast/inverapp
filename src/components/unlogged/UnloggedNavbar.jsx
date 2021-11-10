@@ -105,23 +105,26 @@ export const UnloggedNavbar = () => {
             onClick={toggleColorMode}
             variant="ghost"
             p={0}
+            m={0}
             borderRadius={9999}
             color="gray.500"
           >
             <WiMoonAltWaningCrescent2 size={20} />
           </Button>
           <Button
-            colorScheme="telegram"
+            colorScheme="blackAlpha"
             variant="solid"
             fontFamily="Inter,sans-serif"
             m={2}
             rightIcon={<ImUserPlus />}
             onClick={onOpen}
+            bgColor="gray.600"
+            color="white"
           >
             Abrir cuenta
           </Button>
           <Button
-            colorScheme="telegram"
+            colorScheme="gray"
             variant="outline"
             fontFamily="Inter,sans-serif"
             m={1}
@@ -142,17 +145,24 @@ export const UnloggedNavbar = () => {
               <ModalBody pb={6}>
                 <FormControl>
                   <FormLabel>Nombre</FormLabel>
-                  <Input ref={initialRef} placeholder="Nombre" isRequired={true}/>
+                  <Input
+                    ref={initialRef}
+                    placeholder="Nombre"
+                    isRequired={true}
+                  />
                 </FormControl>
 
-               
                 <FormControl mt={4}>
                   <FormLabel>E-mail</FormLabel>
-                  <Input placeholder="Ingresá tu e-mail" isRequired={true}/>
+                  <Input placeholder="Ingresá tu e-mail" isRequired={true} />
                 </FormControl>
                 <FormControl mt={4}>
                   <FormLabel>Contraseña</FormLabel>
-                  <Input placeholder="Generá una contraseña segura" type="password" isRequired={true}/>
+                  <Input
+                    placeholder="Generá una contraseña segura"
+                    type="password"
+                    isRequired={true}
+                  />
                 </FormControl>
               </ModalBody>
 
