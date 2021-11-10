@@ -1,13 +1,13 @@
 import * as React from "react";
 import "./App.css";
 import { ChakraProvider } from "@chakra-ui/react";
-import { MainContainer } from "./containers/MainContainer";
+import { UnloggedContainer } from "./containers/UnloggedContainer";
 import theme from "./theme";
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <MainContainer />
+      <UnloggedContainer />
     </ChakraProvider>
   );
 }
