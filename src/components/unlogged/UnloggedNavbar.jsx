@@ -143,7 +143,7 @@ export const UnloggedNavbar = () => {
               <ModalHeader>Creá tu cuenta</ModalHeader>
               <ModalCloseButton />
               <ModalBody pb={6}>
-                <FormControl>
+                <FormControl isRequired>
                   <FormLabel>Nombre</FormLabel>
                   <Input
                     ref={initialRef}
@@ -152,11 +152,11 @@ export const UnloggedNavbar = () => {
                   />
                 </FormControl>
 
-                <FormControl mt={4}>
+                <FormControl mt={4} isRequired>
                   <FormLabel>E-mail</FormLabel>
-                  <Input placeholder="Ingresá tu e-mail" isRequired={true} />
+                  <Input placeholder="Ingresá tu e-mail" />
                 </FormControl>
-                <FormControl mt={4}>
+                <FormControl mt={4} isRequired>
                   <FormLabel>Contraseña</FormLabel>
                   <Input
                     placeholder="Generá una contraseña segura"

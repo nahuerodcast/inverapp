@@ -141,7 +141,7 @@ export const UnloggedContent = () => {
           >
             <Flex flexDir="column" alignItems="center">
               Cedears
-              <FaFlagUsa />
+              <FaFlagUsa  />
             </Flex>
           </Heading>
         </Box>
