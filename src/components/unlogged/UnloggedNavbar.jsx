@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useColorMode } from "@chakra-ui/color-mode";
 import { Flex, Heading } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
 import { WiMoonAltWaningCrescent2 } from "react-icons/wi";
 import { IoIosArrowDown } from "react-icons/io";
 import { ImUserPlus } from "react-icons/im";
-import { MdOutlineLogin } from "react-icons/md";
+import { MdOutlineLogin, MdSafetyDivider } from "react-icons/md";
 import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu";
 import { useDisclosure } from "@chakra-ui/hooks";
 import {
@@ -19,15 +19,28 @@ import {
 } from "@chakra-ui/modal";
 import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import { Input } from "@chakra-ui/input";
+import {
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTrigger,
+} from "@chakra-ui/popover";
+import { Checkbox } from "@chakra-ui/checkbox";
+import { LockIcon } from "@chakra-ui/icons";
 
 export const UnloggedNavbar = () => {
+  //Colors
   const { colorMode, toggleColorMode } = useColorMode();
   console.log(colorMode);
-
+  //Modals
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   const initialRef = React.useRef();
   const finalRef = React.useRef();
+  //Login
+  const [login, setLogin] = useState();
 
   return (
     <div>
@@ -94,7 +107,7 @@ export const UnloggedNavbar = () => {
             <MenuList>
               <MenuItem>¿Quienes somos?</MenuItem>
               <MenuItem>Comisiones</MenuItem>
-              <MenuItem>Fondeo de cuenta</MenuItem>
+              <MenuItem>Cargar y extraer saldo</MenuItem>
               <MenuItem>Asesoramiento</MenuItem>
               <MenuItem>Otras consultas</MenuItem>
             </MenuList>
@@ -123,15 +136,44 @@ export const UnloggedNavbar = () => {
           >
             Abrir cuenta
           </Button>
-          <Button
-            colorScheme="gray"
-            variant="outline"
-            fontFamily="Inter,sans-serif"
-            m={1}
-            rightIcon={<MdOutlineLogin />}
-          >
-            Ingresar
-          </Button>
+
+          <Popover>
+            <PopoverTrigger>
+              <Button
+                colorScheme="gray"
+                variant="outline"
+                fontFamily="Inter,sans-serif"
+                m={1}
+                rightIcon={<MdOutlineLogin />}
+              >
+                Ingresar
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent>
+              <PopoverArrow />
+              <PopoverCloseButton />
+              <PopoverHeader textAlign="center">¡Bienvenido!</PopoverHeader>
+              <PopoverBody>
+                <FormControl my={4} isRequired>
+                  <FormLabel>E-mail</FormLabel>
+                  <Input placeholder="Ingresá tu e-mail" />
+                </FormControl>
+                <FormControl my={4} isRequired>
+                  <FormLabel>Contraseña</FormLabel>
+                  <Input placeholder="Ingresá tu clave" type="password" />
+                </FormControl>
+                <Button
+                  leftIcon={<LockIcon />}
+                  colorScheme="teal"
+                  variant="solid"
+                  w="100%"
+                  mb={4}
+                >
+                  Acceder
+                </Button>
+              </PopoverBody>
+            </PopoverContent>
+          </Popover>
           <Modal
             initialFocusRef={initialRef}
             finalFocusRef={finalRef}
@@ -145,13 +187,8 @@ export const UnloggedNavbar = () => {
               <ModalBody pb={6}>
                 <FormControl isRequired>
                   <FormLabel>Nombre</FormLabel>
-                  <Input
-                    ref={initialRef}
-                    placeholder="Nombre"
-                    isRequired={true}
-                  />
+                  <Input ref={initialRef} placeholder="Nombre" />
                 </FormControl>
-
                 <FormControl mt={4} isRequired>
                   <FormLabel>E-mail</FormLabel>
                   <Input placeholder="Ingresá tu e-mail" />
@@ -163,12 +200,15 @@ export const UnloggedNavbar = () => {
                     type="password"
                     isRequired={true}
                   />
-                </FormControl>
+                </FormControl>{" "}
+                <Checkbox mt={2} isRequired={true}>
+                  Acepto términos y condiciones
+                </Checkbox>
               </ModalBody>
 
               <ModalFooter>
                 <Button colorScheme="blue" mr={3}>
-                  Guardar
+                  ¡Empecemos!
                 </Button>
                 <Button onClick={onClose}>Cancelar</Button>
               </ModalFooter>

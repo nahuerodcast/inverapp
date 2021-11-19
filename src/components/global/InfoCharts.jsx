@@ -30,7 +30,7 @@ export const InfoCharts = () => {
 
   return (
     <div>
-      <Flex w="100vw" justifyContent="center" mt="100px" alignItems="center">
+      <Flex w="100%" justifyContent="center" mt="100px" alignItems="center">
         <Tabs
           variant="soft-rounded"
           colorScheme="blackAlpha"

@@ -3,11 +3,15 @@ import "./App.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { UnloggedContainer } from "./containers/UnloggedContainer";
 import theme from "./theme";
+import { app } from "./fb";
+import { LoggedContainer } from "./containers/LoggedContainer";
 
 function App() {
+  const [user, setUser] = React.useState(null);
+
   return (
     <ChakraProvider theme={theme}>
-      <UnloggedContainer />
+      {user ? <LoggedContainer /> : <UnloggedContainer />}
     </ChakraProvider>
   );
 }

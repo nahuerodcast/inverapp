@@ -24,7 +24,7 @@ export const UnloggedContent = () => {
   return (
     <>
       <Flex
-        w="100vw"
+        w="100%"
         height="70vh"
         justifyContent="center"
         alignItems="center"
@@ -116,13 +116,13 @@ export const UnloggedContent = () => {
       </Flex>
 
       <Flex flexDir="row" justifyContent="center" alignItems="center">
-        <Box boxShadow="2xl" rounded="xl" mx={12}>
+        <Box boxShadow="2xl" rounded="xl" mx={12} w="250px">
           <Heading
             fontWeight="extrabold"
             fontFamily="Inter,sans-serif"
             letterSpacing="tight"
             textAlign="center"
-            w="fit-content"
+            w="100%"
             p={8}
           >
             <Flex flexDir="column" alignItems="center">
@@ -130,13 +130,13 @@ export const UnloggedContent = () => {
             </Flex>
           </Heading>
         </Box>
-        <Box boxShadow="2xl" rounded="xl" mx={12}>
+        <Box boxShadow="2xl" rounded="xl" mx={12} w="250px">
           <Heading
             fontWeight="extrabold"
             fontFamily="Inter,sans-serif"
             letterSpacing="tight"
             textAlign="center"
-            w="fit-content"
+            w="100%"
             p={8}
           >
             <Flex flexDir="column" alignItems="center">
@@ -145,22 +145,22 @@ export const UnloggedContent = () => {
             </Flex>
           </Heading>
         </Box>
-        <Box boxShadow="2xl" rounded="xl" mx={12}>
+        <Box boxShadow="2xl" rounded="xl" mx={12} w="250px">
           <Heading
             fontWeight="extrabold"
             fontFamily="Inter,sans-serif"
             letterSpacing="tight"
             textAlign="center"
-            w="fit-content"
+            w="100%"
             p={8}
           >
-            <Flex flexDir="column" alignItems="center">
+            <Flex flexDir="column" alignItems="center" >
               Cripto
               <FaBitcoin color="#ff9416" />
             </Flex>
           </Heading>
         </Box>
-        <Box boxShadow="2xl" rounded="xl" mx={12}>
+        <Box boxShadow="2xl" rounded="xl" mx={12} w="250px">
           <Heading
             fontWeight="extrabold"
             fontFamily="Inter,sans-serif"
