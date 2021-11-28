@@ -5,7 +5,7 @@ import { Button } from "@chakra-ui/button";
 import { WiMoonAltWaningCrescent2 } from "react-icons/wi";
 import { IoIosArrowDown } from "react-icons/io";
 import { ImUserPlus } from "react-icons/im";
-import { MdOutlineLogin, MdSafetyDivider } from "react-icons/md";
+import { MdOutlineLogin } from "react-icons/md";
 import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu";
 import { useDisclosure } from "@chakra-ui/hooks";
 import {
@@ -31,6 +31,8 @@ import {
 import { Checkbox } from "@chakra-ui/checkbox";
 import { LockIcon } from "@chakra-ui/icons";
 
+import {app} from "../../fb.js"
+
 export const UnloggedNavbar = () => {
   //Colors
   const { colorMode, toggleColorMode } = useColorMode();
@@ -40,7 +42,15 @@ export const UnloggedNavbar = () => {
   const initialRef = React.useRef();
   const finalRef = React.useRef();
   //Login
-  const [login, setLogin] = useState();
+  // const [login, setLogin] = useState();
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    const email = e.target.emailField.value;
+    const password = e.target.passwordField.value;
+    console.log(email, password);
+    app.auth().signInWithEmailAndPassword(email, password)
+  };
 
   return (
     <div>
@@ -153,14 +163,18 @@ export const UnloggedNavbar = () => {
               <PopoverArrow />
               <PopoverCloseButton />
               <PopoverHeader textAlign="center">¡Bienvenido!</PopoverHeader>
-              <PopoverBody>
+              <PopoverBody as="form" onSubmit={submitHandler}>
                 <FormControl my={4} isRequired>
                   <FormLabel>E-mail</FormLabel>
-                  <Input placeholder="Ingresá tu e-mail" />
+                  <Input placeholder="Ingresá tu e-mail" id="emailField" />
                 </FormControl>
                 <FormControl my={4} isRequired>
                   <FormLabel>Contraseña</FormLabel>
-                  <Input placeholder="Ingresá tu clave" type="password" />
+                  <Input
+                    placeholder="Ingresá tu clave"
+                    id="passwordField"
+                    type="password"
+                  />
                 </FormControl>
                 <Button
                   leftIcon={<LockIcon />}
@@ -168,6 +182,7 @@ export const UnloggedNavbar = () => {
                   variant="solid"
                   w="100%"
                   mb={4}
+                  type="submit"
                 >
                   Acceder
                 </Button>

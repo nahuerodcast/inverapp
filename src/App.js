@@ -7,7 +7,7 @@ import { app } from "./fb";
 import { LoggedContainer } from "./containers/LoggedContainer";
 
 function App() {
-  const [user, setUser] = React.useState(null);
+  const [user, setUser] = React.useState(true);
 
   return (
     <ChakraProvider theme={theme}>
