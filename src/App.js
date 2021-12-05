@@ -7,7 +7,7 @@ import { LoggedContainer } from "./containers/LoggedContainer";
 import AuthContextProvider from "./contexts/AuthContext";
 
 function App() {
-  const [user, setUser] = React.useState(true);
+  const [user, setUser] = React.useState(false);
 
   return (
     <AuthContextProvider>
