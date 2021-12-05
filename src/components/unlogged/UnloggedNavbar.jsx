@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useColorMode } from "@chakra-ui/color-mode";
 import { Flex, Heading } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
@@ -31,8 +31,6 @@ import {
 import { Checkbox } from "@chakra-ui/checkbox";
 import { LockIcon } from "@chakra-ui/icons";
 
-import {app} from "../../fb.js"
-
 export const UnloggedNavbar = () => {
   //Colors
   const { colorMode, toggleColorMode } = useColorMode();
@@ -43,15 +41,6 @@ export const UnloggedNavbar = () => {
   const finalRef = React.useRef();
   //Login
   // const [login, setLogin] = useState();
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-    const email = e.target.emailField.value;
-    const password = e.target.passwordField.value;
-    console.log(email, password);
-    app.auth().signInWithEmailAndPassword(email, password)
-  };
-
   return (
     <div>
       <Flex
@@ -163,7 +152,7 @@ export const UnloggedNavbar = () => {
               <PopoverArrow />
               <PopoverCloseButton />
               <PopoverHeader textAlign="center">¡Bienvenido!</PopoverHeader>
-              <PopoverBody as="form" onSubmit={submitHandler}>
+              <PopoverBody as="form">
                 <FormControl my={4} isRequired>
                   <FormLabel>E-mail</FormLabel>
                   <Input placeholder="Ingresá tu e-mail" id="emailField" />

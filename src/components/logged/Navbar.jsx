@@ -13,7 +13,6 @@ import {
   MenuList,
 } from "@chakra-ui/menu";
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { app } from "../../fb.js";
 import {
   FaCog,
   FaEnvelope,
@@ -30,16 +29,6 @@ export const Navbar = () => {
   //Colors
   const { colorMode, toggleColorMode } = useColorMode();
   console.log(colorMode);
-  //Login
-  // const [login, setLogin] = useState();
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-    const email = e.target.emailField.value;
-    const password = e.target.passwordField.value;
-    console.log(email, password);
-    app.auth().signInWithEmailAndPassword(email, password);
-  };
 
   return (
     <div>

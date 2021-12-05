@@ -3,16 +3,18 @@ import "./App.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import { UnloggedContainer } from "./containers/UnloggedContainer";
 import theme from "./theme";
-import { app } from "./fb";
 import { LoggedContainer } from "./containers/LoggedContainer";
+import AuthContextProvider from "./contexts/AuthContext";
 
 function App() {
   const [user, setUser] = React.useState(true);
 
   return (
-    <ChakraProvider theme={theme}>
-      {user ? <LoggedContainer /> : <UnloggedContainer />}
-    </ChakraProvider>
+    <AuthContextProvider>
+      <ChakraProvider theme={theme}>
+        {user ? <LoggedContainer /> : <UnloggedContainer />}
+      </ChakraProvider>
+    </AuthContextProvider>
   );
 }
 
