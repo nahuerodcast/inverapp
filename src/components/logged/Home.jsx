@@ -1,3 +1,4 @@
+import { chakra } from "@chakra-ui/system";
 import React from "react";
 import { useAuth } from "../../contexts/AuthContext";
 
@@ -6,7 +7,9 @@ export const Home = () => {
   return (
     <>
       HOME
-      <h1>{`jajajajajajaj el usuario es ${currentUser}`}</h1>
+      <chakra.pre>
+        {`jajajajajajaj el usuario es ${JSON.stringify(currentUser, null, 2)}`}
+      </chakra.pre>
     </>
   );
 };

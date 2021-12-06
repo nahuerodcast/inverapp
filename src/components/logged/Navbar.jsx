@@ -24,11 +24,16 @@ import {
   FaUserAlt,
 } from "react-icons/fa";
 import { Link as ReactLink } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
+import { Avatar } from "@chakra-ui/avatar";
 
 export const Navbar = () => {
   //Colors
-  const { colorMode, toggleColorMode } = useColorMode();
-  console.log(colorMode);
+  const { toggleColorMode } = useColorMode();
+
+  const { currentUser } = useAuth();
+
+  const { logout } = useAuth();
 
   return (
     <div>
@@ -166,8 +171,17 @@ export const Navbar = () => {
             <WiMoonAltWaningCrescent2 size={20} />
           </Button>
           <Menu>
+            <Avatar
+              // name={currentUser.displayName}
+              // src={currentUser.photoURL}
+              name="asd"
+              src="asd"
+              size="xs"
+              mr={2}
+            />
             <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-              ¡Hola, <strong>Nahuel!</strong>
+              {/* ¡Hola, <strong>{currentUser.displayName}!</strong> */}
+              ¡Hola, <strong>Nahue!</strong>
             </MenuButton>
             <MenuList>
               <MenuGroup title="Perfil">
@@ -204,7 +218,15 @@ export const Navbar = () => {
                   <MenuItem icon={<FaCog />}>Configuración</MenuItem>
                 </ReactLink>
                 <ReactLink to="/logout">
-                  <MenuItem icon={<IoMdLogOut />}>Cerrar sesión</MenuItem>
+                  <MenuItem
+                    icon={<IoMdLogOut />}
+                    onClick={async (e) => {
+                      e.preventDefault();
+                      logout();
+                    }}
+                  >
+                    Cerrar sesión
+                  </MenuItem>
                 </ReactLink>
               </MenuGroup>
             </MenuList>

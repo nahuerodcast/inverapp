@@ -1,10 +1,11 @@
 import React from "react";
 import { Navbar } from "../components/logged/Navbar";
 import { Footer } from "../components/global/Footer";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import { Home } from "../components/logged/Home";
 import { Help } from "../components/global/Help";
 
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 const Acciones = () => {
   return <>acciones</>;
 };
@@ -30,7 +31,7 @@ export const LoggedContainer = () => {
       <Router>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />}></Route>
+          <Route exact path="/" element={<Home />}></Route>
           <Route path="/acciones" element={<Acciones />}></Route>
           <Route path="/cedears" element={<Cedears />}></Route>
           <Route path="/cripto" element={<Cripto />}></Route>

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { useColorMode } from "@chakra-ui/color-mode";
-import { Flex, Heading } from "@chakra-ui/layout";
+import { Center, Divider, Flex, Heading } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
 import { WiMoonAltWaningCrescent2 } from "react-icons/wi";
 import { IoIosArrowDown } from "react-icons/io";
@@ -30,17 +30,33 @@ import {
 } from "@chakra-ui/popover";
 import { Checkbox } from "@chakra-ui/checkbox";
 import { LockIcon } from "@chakra-ui/icons";
+import { useToast } from "@chakra-ui/toast";
+import { useAuth } from "../../contexts/AuthContext";
+import { FaGoogle } from "react-icons/fa";
+
+// import { useNavigate } from "react-router-dom";
 
 export const UnloggedNavbar = () => {
   //Colors
-  const { colorMode, toggleColorMode } = useColorMode();
-  console.log(colorMode);
+  const { toggleColorMode } = useColorMode();
+
   //Modals
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initialRef = React.useRef();
   const finalRef = React.useRef();
   //Login
-  // const [login, setLogin] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const toast = useToast();
+
+  const { register } = useAuth();
+  const { login, signInWithGoogle } = useAuth();
+
+  const mounted = useRef(false);
+
+  // const navigate = useNavigate();
+
   return (
     <div>
       <Flex
@@ -149,33 +165,92 @@ export const UnloggedNavbar = () => {
               </Button>
             </PopoverTrigger>
             <PopoverContent>
-              <PopoverArrow />
-              <PopoverCloseButton />
-              <PopoverHeader textAlign="center">¡Bienvenido!</PopoverHeader>
-              <PopoverBody as="form">
-                <FormControl my={4} isRequired>
-                  <FormLabel>E-mail</FormLabel>
-                  <Input placeholder="Ingresá tu e-mail" id="emailField" />
-                </FormControl>
-                <FormControl my={4} isRequired>
-                  <FormLabel>Contraseña</FormLabel>
-                  <Input
-                    placeholder="Ingresá tu clave"
-                    id="passwordField"
-                    type="password"
-                  />
-                </FormControl>
-                <Button
-                  leftIcon={<LockIcon />}
-                  colorScheme="teal"
-                  variant="solid"
-                  w="100%"
-                  mb={4}
-                  type="submit"
-                >
-                  Acceder
-                </Button>
-              </PopoverBody>
+              <div
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  if (!email || !password) {
+                    toast({
+                      description: "not ok",
+                      status: "error",
+                      duration: 3000,
+                      isClosable: true,
+                    });
+                  }
+                  setIsSubmitting(true);
+                  login(email, password)
+                    .then((response) => {
+                      console.log(response);
+                      toast({
+                        description: "Login",
+                        status: "success",
+                        duration: 3000,
+                        isClosable: true,
+                      });
+                      // navigate.push("/profile");
+                    })
+                    .catch((error) => {
+                      console.log(error.message);
+                      toast({
+                        description: error.message,
+                        status: "error",
+                        duration: 3000,
+                        isClosable: true,
+                      });
+                    })
+                    .finally(() => setIsSubmitting(false));
+                }}
+              >
+                <PopoverArrow />
+                <PopoverCloseButton />
+                <PopoverHeader textAlign="center">¡Bienvenido!</PopoverHeader>
+                <PopoverBody as="form">
+                  <FormControl my={4} isRequired>
+                    <FormLabel>E-mail</FormLabel>
+                    <Input
+                      placeholder="Ingresá tu e-mail"
+                      id="emailField"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </FormControl>
+                  <FormControl my={4} isRequired>
+                    <FormLabel>Contraseña</FormLabel>
+                    <Input
+                      placeholder="Ingresá tu clave"
+                      id="passwordField"
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </FormControl>
+                  <Button
+                    leftIcon={<LockIcon />}
+                    colorScheme="teal"
+                    variant="solid"
+                    w="100%"
+                    isLoading={isSubmitting}
+                    type="submit"
+                  >
+                    Acceder
+                  </Button>
+                  <Flex justifyContent="center" alignItems="center">
+                    <Divider mr={2} />
+                    <p>o</p>
+                    <Divider ml={2} />
+                  </Flex>
+                  <Button
+                    leftIcon={<FaGoogle />}
+                    colorScheme="red"
+                    variant="outline"
+                    isLoading={isSubmitting}
+                    w="100%"
+                    mb={4}
+                    onClick={() => signInWithGoogle()}
+                  >
+                    Iniciar sesión con Google
+                  </Button>
+                </PopoverBody>
+              </div>
             </PopoverContent>
           </Popover>
           <Modal
@@ -186,36 +261,81 @@ export const UnloggedNavbar = () => {
           >
             <ModalOverlay />
             <ModalContent>
-              <ModalHeader>Creá tu cuenta</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody pb={6}>
-                <FormControl isRequired>
-                  <FormLabel>Nombre</FormLabel>
-                  <Input ref={initialRef} placeholder="Nombre" />
-                </FormControl>
-                <FormControl mt={4} isRequired>
-                  <FormLabel>E-mail</FormLabel>
-                  <Input placeholder="Ingresá tu e-mail" />
-                </FormControl>
-                <FormControl mt={4} isRequired>
-                  <FormLabel>Contraseña</FormLabel>
-                  <Input
-                    placeholder="Generá una contraseña segura"
-                    type="password"
-                    isRequired={true}
-                  />
-                </FormControl>{" "}
-                <Checkbox mt={2} isRequired={true}>
-                  Acepto términos y condiciones
-                </Checkbox>
-              </ModalBody>
-
-              <ModalFooter>
-                <Button colorScheme="blue" mr={3}>
-                  ¡Empecemos!
-                </Button>
-                <Button onClick={onClose}>Cancelar</Button>
-              </ModalFooter>
+              <form
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  if (!email || !password) {
+                    toast({
+                      description: "hdp",
+                      status: "error",
+                      duration: 3000,
+                      isClosable: true,
+                    });
+                  }
+                  setIsSubmitting(true);
+                  register(email, password)
+                    .then((response) => {
+                      console.log(response);
+                      toast({
+                        description: "¡Cuenta creada con éxito!",
+                        status: "success",
+                        duration: 3000,
+                        isClosable: true,
+                      });
+                    })
+                    .catch((error) => {
+                      console.log(error.message);
+                      toast({
+                        description: error.message,
+                        status: "error",
+                        duration: 3000,
+                        isClosable: true,
+                      });
+                    })
+                    .finally(() => setIsSubmitting(false));
+                }}
+              >
+                <ModalHeader>Creá tu cuenta</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody pb={6}>
+                  <FormControl isRequired>
+                    <FormLabel>Nombre</FormLabel>
+                    <Input ref={initialRef} placeholder="Nombre" />
+                  </FormControl>
+                  <FormControl mt={4} isRequired>
+                    <FormLabel>E-mail</FormLabel>
+                    <Input
+                      placeholder="Ingresá tu e-mail"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </FormControl>
+                  <FormControl mt={4} isRequired>
+                    <FormLabel>Contraseña</FormLabel>
+                    <Input
+                      placeholder="Generá una contraseña segura"
+                      type="password"
+                      isRequired={true}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </FormControl>{" "}
+                  <Checkbox mt={2} isRequired={true}>
+                    Acepto términos y condiciones
+                  </Checkbox>
+                </ModalBody>
+                <ModalFooter>
+                  <Button
+                    colorScheme="blue"
+                    mr={3}
+                    isLoading={isSubmitting}
+                    type="submit"
+                  >
+                    ¡Empecemos!
+                  </Button>
+                  <Button onClick={onClose}>Cancelar</Button>
+                </ModalFooter>
+              </form>
             </ModalContent>
           </Modal>
         </Flex>
