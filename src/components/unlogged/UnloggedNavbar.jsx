@@ -33,6 +33,7 @@ import { LockIcon } from "@chakra-ui/icons";
 import { useToast } from "@chakra-ui/toast";
 import { useAuth } from "../../contexts/AuthContext";
 import { FaGoogle } from "react-icons/fa";
+import useMounted from "../../hooks/useMounted";
 
 // import { useNavigate } from "react-router-dom";
 
@@ -53,7 +54,7 @@ export const UnloggedNavbar = () => {
   const { register } = useAuth();
   const { login, signInWithGoogle } = useAuth();
 
-  const mounted = useRef(false);
+  const mounted = useMounted();
 
   // const navigate = useNavigate();
 
@@ -197,7 +198,7 @@ export const UnloggedNavbar = () => {
                         isClosable: true,
                       });
                     })
-                    .finally(() => setIsSubmitting(false));
+                    .finally(() => mounted.current && setIsSubmitting(false));
                 }}
               >
                 <PopoverArrow />
@@ -292,7 +293,7 @@ export const UnloggedNavbar = () => {
                         isClosable: true,
                       });
                     })
-                    .finally(() => setIsSubmitting(false));
+                    .finally(() => mounted.current && setIsSubmitting(false));
                 }}
               >
                 <ModalHeader>Creá tu cuenta</ModalHeader>

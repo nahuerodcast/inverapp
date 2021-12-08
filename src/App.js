@@ -4,16 +4,18 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { UnloggedContainer } from "./containers/UnloggedContainer";
 import theme from "./theme";
 import { LoggedContainer } from "./containers/LoggedContainer";
-import AuthContextProvider from "./contexts/AuthContext";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import AuthContextProvider, { useAuth } from "./contexts/AuthContext";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";  
 
 function App() {
   const [user, setUser] = React.useState(true);
+  const { currentUser } = useAuth();
 
   return (
     <AuthContextProvider>
       <ChakraProvider theme={theme}>
-        {user ? <LoggedContainer /> : <UnloggedContainer />}
+        {!currentUser === null ? <LoggedContainer /> : <UnloggedContainer />}
+        {console.log(currentUser)}
       </ChakraProvider>
     </AuthContextProvider>
 
