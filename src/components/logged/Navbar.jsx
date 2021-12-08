@@ -32,6 +32,7 @@ export const Navbar = () => {
   const { toggleColorMode } = useColorMode();
 
   const { currentUser } = useAuth();
+  console.log(currentUser);
 
   const { logout } = useAuth();
 
@@ -172,16 +173,16 @@ export const Navbar = () => {
           </Button>
           <Menu>
             <Avatar
-              // name={currentUser.displayName}
-              // src={currentUser.photoURL}
-              name="asd"
-              src="asd"
+              name={currentUser.displayName ? currentUser.displayName : currentUser.email}
+              src={currentUser.photoURL ? currentUser.photoURL : "./"}
               size="xs"
               mr={2}
             />
             <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-              {/* ¡Hola, <strong>{currentUser.displayName}!</strong> */}
-              ¡Hola, <strong>Nahue!</strong>
+              ¡Hola,{" "}
+              <strong>
+                {currentUser.displayName ? currentUser.displayName : currentUser.email}!
+              </strong>
             </MenuButton>
             <MenuList>
               <MenuGroup title="Perfil">

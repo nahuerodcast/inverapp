@@ -1,6 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useColorMode } from "@chakra-ui/color-mode";
-import { Center, Divider, Flex, Heading } from "@chakra-ui/layout";
+import { Divider, Flex, Heading } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
 import { WiMoonAltWaningCrescent2 } from "react-icons/wi";
 import { IoIosArrowDown } from "react-icons/io";
@@ -35,8 +35,6 @@ import { useAuth } from "../../contexts/AuthContext";
 import { FaGoogle } from "react-icons/fa";
 import useMounted from "../../hooks/useMounted";
 
-// import { useNavigate } from "react-router-dom";
-
 export const UnloggedNavbar = () => {
   //Colors
   const { toggleColorMode } = useColorMode();
@@ -48,6 +46,7 @@ export const UnloggedNavbar = () => {
   //Login
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const toast = useToast();
 
@@ -55,8 +54,6 @@ export const UnloggedNavbar = () => {
   const { login, signInWithGoogle } = useAuth();
 
   const mounted = useMounted();
-
-  // const navigate = useNavigate();
 
   return (
     <div>
@@ -182,7 +179,7 @@ export const UnloggedNavbar = () => {
                     .then((response) => {
                       console.log(response);
                       toast({
-                        description: "Login",
+                        description: "Sesión iniciada con éxito",
                         status: "success",
                         duration: 3000,
                         isClosable: true,
