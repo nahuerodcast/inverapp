@@ -202,7 +202,7 @@ export const UnloggedNavbar = () => {
                 <PopoverCloseButton />
                 <PopoverHeader textAlign="center">¡Bienvenido!</PopoverHeader>
                 <PopoverBody as="form">
-                  <FormControl my={4} isRequired>
+                  <FormControl my={2} isRequired>
                     <FormLabel>E-mail</FormLabel>
                     <Input
                       placeholder="Ingresá tu e-mail"
@@ -211,7 +211,7 @@ export const UnloggedNavbar = () => {
                       onChange={(e) => setEmail(e.target.value)}
                     />
                   </FormControl>
-                  <FormControl my={4} isRequired>
+                  <FormControl my={2} mb={4} isRequired>
                     <FormLabel>Contraseña</FormLabel>
                     <Input
                       placeholder="Ingresá tu clave"
@@ -231,10 +231,10 @@ export const UnloggedNavbar = () => {
                   >
                     Acceder
                   </Button>
-                  <Flex justifyContent="center" alignItems="center">
-                    <Divider mr={2} />
+                <Flex justifyContent="center" alignItems="center" my={4}>
+                    <Divider m={2} />
                     <p>o</p>
-                    <Divider ml={2} />
+                    <Divider m={2} />
                   </Flex>
                   <Button
                     leftIcon={<FaGoogle />}

@@ -1,15 +1,15 @@
-import { chakra } from "@chakra-ui/system";
-import React from "react";
-import { useAuth } from "../../contexts/AuthContext";
+import { Heading } from '@chakra-ui/layout'
+import React from 'react'
+
+
 
 export const Home = () => {
-  const { currentUser } = useAuth();
+
+  
+
   return (
-    <>
-      HOME
-      <chakra.pre>
-        {`jajajajajajaj el usuario es ${JSON.stringify(currentUser, null, 2)}`}
-      </chakra.pre>
-    </>
-  );
-};
+    <Heading as="h1">
+      Bienvenido 
+    </Heading>
+  )
+}

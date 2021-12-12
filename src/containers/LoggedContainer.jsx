@@ -6,6 +6,9 @@ import { Home } from "../components/logged/Home";
 import { Help } from "../components/global/Help";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { MyAccount } from "../components/logged/MyAccount";
+import { Settings } from "../components/logged/Settings";
+import { NotFound } from "../components/global/NotFound";
 const Acciones = () => {
   return <>acciones</>;
 };
@@ -38,6 +41,9 @@ export const LoggedContainer = () => {
           <Route path="/fci" element={<Fci />}></Route>
           <Route path="/usd" element={<Usd />}></Route>
           <Route path="/help" element={<Help />}></Route>
+          <Route path="/mi-cuenta" element={<MyAccount />}></Route>
+          <Route path="/configuracion" element={<Settings />}></Route>
+          <Route path="*" element={<NotFound />}></Route>
         </Routes>
         <Footer />
       </Router>
