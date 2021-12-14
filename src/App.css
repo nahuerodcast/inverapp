@@ -3,6 +3,10 @@
   font-family: 'Inter', sans-serif;
 }
 
+*{
+  font-family: 'Inter', sans-serif;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
