@@ -13,6 +13,7 @@ import {
   AlertDialogHeader,
   AlertDialogContent,
   AlertDialogOverlay,
+  Text,
 } from "@chakra-ui/react";
 import { useAuth } from "../../contexts/AuthContext";
 import { Avatar } from "@chakra-ui/avatar";
@@ -28,11 +29,10 @@ export const Settings = () => {
   const cancelRef = React.useRef();
 
   return (
-    <Flex flexDir="row" mt={10} justifyContent="center">
+    <Flex flexDir="row" mt={10} justifyContent="center" h="60vh">
       <Tabs variant="enclosed" w="50%">
         <TabList>
           <Tab>Mi perfil</Tab>
-          <Tab>Preferencias</Tab>
           <Tab>Cuentas bancarias</Tab>
         </TabList>
         <TabPanels>
@@ -49,19 +49,20 @@ export const Settings = () => {
                     ? currentUser.photoURL
                     : "https://bit.ly/broken-link"
                 }
-                size="lg"
+                size="xl"
                 mr={2}
+                mt={8}
               />
-              <Heading as="p" fontSize="sm" fontWeight="medium" mt={1}>
+              <Heading as="p" fontSize="md" fontWeight="medium" mt={1} mb={8}>
                 {currentUser.displayName}
               </Heading>
             </Flex>
             <Flex justifyContent="space-between">
-              <Heading as="p" fontSize="sm">
+              <Heading as="p" fontSize="sm" fontWeight="medium">
                 E-mail: {currentUser.email}
               </Heading>
               <Flex flexDir="column" alignItems="center">
-                <Heading as="p" fontSize="sm">
+                <Heading as="p" fontSize="sm" fontWeight="medium">
                   Contraseña: *********
                 </Heading>
                 <Button
@@ -99,35 +100,14 @@ export const Settings = () => {
                 </AlertDialog>
               </Flex>
             </Flex>
-            Estado
-            <Progress value={80} />
-          </TabPanel>
-          <TabPanel>
             <Flex justifyContent="space-between" mt={5}>
               <FormControl w="100%">
-                <FormLabel mb="0">
-                  Habilitar modo {colorMode === "light" ? "oscuro" : "claro"}
-                </FormLabel>
-                <FormLabel mb="0">
-                  adasdasdasdasdasdasdasdasd modo{" "}
-                  {colorMode === "light" ? "oscuro" : "claro"}
-                </FormLabel>
-                <FormLabel mb="0">
-                  holaohla modo {colorMode === "light" ? "oscuro" : "claro"}
-                </FormLabel>
-                <FormLabel mb="0">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Perferendis,
-                  {colorMode === "light" ? "oscuro" : "claro"}
-                </FormLabel>
+                <FormLabel mb="0">Apalancamiento habilitado</FormLabel>
                 <FormLabel mb="0">
                   Habilitar modo {colorMode === "light" ? "oscuro" : "claro"}
                 </FormLabel>
               </FormControl>
               <Flex flexDir="column">
-                <Switch />
-                <Switch />
-                <Switch />
                 <Switch />
                 <Switch
                   onChange={toggleColorMode}
@@ -135,14 +115,21 @@ export const Settings = () => {
                 />
               </Flex>
             </Flex>
-            <Button
-              colorScheme="red"
-              variant="outline"
-              leftIcon={<SmallCloseIcon />}
-            >
-              Dar de baja
-            </Button>
+            <Text mt={10} mb={2}>
+              Estado del perfil:
+            </Text>
+            <Progress value={100} />
+            <Flex justifyContent="flex-end" mt={4}>
+              <Button
+                colorScheme="red"
+                variant="outline"
+                leftIcon={<SmallCloseIcon />}
+              >
+                Dar de baja
+              </Button>
+            </Flex>
           </TabPanel>
+          <TabPanel>cuentas</TabPanel>
         </TabPanels>
       </Tabs>
     </Flex>
