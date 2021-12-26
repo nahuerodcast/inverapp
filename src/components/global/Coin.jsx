@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Flex, Heading, Image } from "@chakra-ui/react";
+import { Button, Divider, Flex, Heading, Image } from "@chakra-ui/react";
 import {
   Modal,
   ModalCloseButton,

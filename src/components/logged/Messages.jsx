@@ -1,22 +1,22 @@
 import React from "react";
-import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../utils/init-firebase";
+import { doc, onSnapshot } from "firebase/firestore";
 import { Message } from "./Message";
+import { useEffect } from "react";
 
 export const Messages = () => {
-  const getdata = async () => {
-    const querySnapshot = await getDocs(collection(db, "messages"));
-    querySnapshot.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data());
+  useEffect(() => {
+    const unsub = onSnapshot(doc(db, "messages"), (doc) => {
+      console.log(doc.id, "Current data: ", doc.data());
     });
-    console.log("hola");
-  };
+    console.log(unsub);
+  }, []);
 
   const tremendo = "value";
 
-  console.log(getdata.querySnapshot);
   return (
     <>
+      <button> get dataaaaa</button>
       <Message subject={tremendo} message={tremendo} />
     </>
   );

@@ -12,24 +12,13 @@ import {
 } from "@chakra-ui/layout";
 import { Select } from "@chakra-ui/select";
 import React, { useState } from "react";
-import { FaPlus } from "react-icons/fa";
 import { useAuth } from "../../contexts/AuthContext";
-import { collection, addDoc, getDocs } from "firebase/firestore";
-import { db } from "../../utils/init-firebase";
 import { NewMessageModal } from "./NewMessageModal";
 import { Messages } from "./Messages";
 
 export const MessageCenter = () => {
   const { currentUser } = useAuth();
-  const [newMessages, setNewMessages] = useState(false);
-
-  async function porongaDos() {
-    const querySnapshot = await getDocs(collection(db, "users"));
-    console.log(querySnapshot);
-    querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data().first}`);
-    });
-  }
+  const [newMessages] = useState(false);
 
   return (
     <Flex justifyContent="center" minH="60vh">

@@ -10,6 +10,7 @@ import { MyAccount } from "../components/logged/MyAccount";
 import { Settings } from "../components/logged/Settings";
 import { NotFound } from "../components/global/NotFound";
 import { MessageCenter } from "../components/logged/MessageCenter";
+import { AccountBalance } from "../components/logged/AccountBalance";
 const Acciones = () => {
   return <>acciones</>;
 };
@@ -45,6 +46,7 @@ export const LoggedContainer = () => {
           <Route path="/mi-cuenta" element={<MyAccount />}></Route>
           <Route path="/configuracion" element={<Settings />}></Route>
           <Route path="/mensajeria" element={<MessageCenter />}></Route>
+          <Route path="/saldo-app" element={<AccountBalance />}></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
         <Footer />

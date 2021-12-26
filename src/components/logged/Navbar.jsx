@@ -3,7 +3,7 @@ import { useColorMode } from "@chakra-ui/color-mode";
 import { Flex, Heading } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
 import { WiMoonAltWaningCrescent2 } from "react-icons/wi";
-import { IoIosArrowDown, IoMdLogOut } from "react-icons/io";
+import { IoMdLogOut } from "react-icons/io";
 import {
   Menu,
   MenuButton,
@@ -26,13 +26,14 @@ import {
 import { Link as ReactLink } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { Avatar } from "@chakra-ui/avatar";
+import { BsBook, BsBookFill } from "react-icons/bs";
+import { MdMenuBook } from "react-icons/md";
 
 export const Navbar = () => {
   //Colors
   const { toggleColorMode } = useColorMode();
 
   const { currentUser } = useAuth();
-  console.log(currentUser);
 
   const { logout } = useAuth();
 
@@ -56,108 +57,6 @@ export const Navbar = () => {
           >
             <ReactLink to="/">Inverapp</ReactLink>
           </Heading>
-          <Flex justifyContent="flex-start">
-            <Menu>
-              <MenuButton
-                as={Button}
-                variant="ghost"
-                rightIcon={<IoIosArrowDown />}
-                color="gray.400"
-              >
-                Invertí
-              </MenuButton>
-              <MenuList>
-                <ReactLink to="/acciones">
-                  <MenuItem>Acciones</MenuItem>
-                </ReactLink>
-                <ReactLink to="/cedears">
-                  <MenuItem>Cedears</MenuItem>
-                </ReactLink>
-                <ReactLink to="/cripto">
-                  <MenuItem>Cripto</MenuItem>
-                </ReactLink>
-                <ReactLink to="/fci">
-                  <MenuItem>Fondos comunes</MenuItem>
-                </ReactLink>
-                <ReactLink to="/usd">
-                  <MenuItem>Comprá dólares</MenuItem>
-                </ReactLink>
-              </MenuList>
-            </Menu>
-
-            <Menu>
-              <MenuButton
-                as={Button}
-                variant="ghost"
-                rightIcon={<IoIosArrowDown />}
-                color="gray.400"
-              >
-                Aprendé
-              </MenuButton>
-              <MenuList>
-                <ReactLink to="/help">
-                  <MenuItem>Guía de ayuda</MenuItem>
-                </ReactLink>
-                <ReactLink to="/tutoriales">
-                  <MenuItem>Tutoriales</MenuItem>
-                </ReactLink>
-                <ReactLink to="/cursos-gratis">
-                  <MenuItem>Cursos gratis</MenuItem>
-                </ReactLink>
-              </MenuList>
-            </Menu>
-            <Menu>
-              <MenuButton
-                as={Button}
-                variant="ghost"
-                rightIcon={<IoIosArrowDown />}
-                color="gray.400"
-              >
-                Herramientas
-              </MenuButton>
-              <MenuList>
-                <ReactLink to="/cotizaciones">
-                  <MenuItem>Cotizaciones</MenuItem>
-                </ReactLink>
-                <ReactLink to="/graficos">
-                  <MenuItem>Gráficos</MenuItem>
-                </ReactLink>
-                <ReactLink to="/simulador">
-                  <MenuItem>Simulador</MenuItem>
-                </ReactLink>
-                <ReactLink to="/test-inversor">
-                  <MenuItem>Test del inversor</MenuItem>
-                </ReactLink>
-              </MenuList>
-            </Menu>
-            <Menu>
-              <MenuButton
-                as={Button}
-                variant="ghost"
-                rightIcon={<IoIosArrowDown />}
-                color="gray.400"
-              >
-                FAQ
-              </MenuButton>
-              <MenuList>
-                <ReactLink to="/quienes-somos">
-                  <MenuItem>¿Quienes somos?</MenuItem>
-                </ReactLink>
-                <ReactLink to="/comisiones">
-                  <MenuItem>Comisiones</MenuItem>
-                </ReactLink>
-                <ReactLink to="/saldo">
-                  <MenuItem>Cargar y extraer saldo</MenuItem>
-                </ReactLink>
-                <ReactLink to="/asesoramiento">
-                  <MenuItem>Asesoramiento</MenuItem>
-                </ReactLink>
-                <ReactLink to="/otras-consultas">
-                  <MenuItem>Otras consultas</MenuItem>
-                </ReactLink>
-              </MenuList>
-            </Menu>
-          </Flex>
         </Flex>
         <Flex alignItems="center">
           <Button
@@ -173,15 +72,22 @@ export const Navbar = () => {
           </Button>
           <Menu>
             <Avatar
-              name={currentUser.displayName ? currentUser.displayName : currentUser.email}
+              name={
+                currentUser.displayName
+                  ? currentUser.displayName
+                  : currentUser.email
+              }
               src={currentUser.photoURL ? currentUser.photoURL : "./"}
               size="xs"
               mr={2}
             />
             <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-              ¡Hola,{" "}
+              ¡Hola,
               <strong>
-                {currentUser.displayName ? currentUser.displayName : currentUser.email}!
+                {currentUser.displayName
+                  ? currentUser.displayName
+                  : currentUser.email}
+                !
               </strong>
             </MenuButton>
             <MenuList>
@@ -206,8 +112,8 @@ export const Navbar = () => {
                 <ReactLink to="/faq">
                   <MenuItem icon={<FaQuestionCircle />}>FAQ</MenuItem>
                 </ReactLink>
-                <ReactLink to="/otras-consultas">
-                  <MenuItem icon={<FaInfoCircle />}>Otras consultas</MenuItem>
+                <ReactLink to="/aprender">
+                  <MenuItem icon={<MdMenuBook />}>Aprender</MenuItem>
                 </ReactLink>
                 <ReactLink to="/mensajeria">
                   <MenuItem icon={<FaEnvelope />}>Mensajería</MenuItem>

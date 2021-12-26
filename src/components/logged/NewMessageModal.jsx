@@ -17,6 +17,7 @@ import { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../utils/init-firebase";
 import { useToast } from "@chakra-ui/react";
+import { useAuth } from "../../contexts/AuthContext";
 
 export const NewMessageModal = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -25,16 +26,18 @@ export const NewMessageModal = () => {
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const { currentUser } = useAuth();
+
   const toast = useToast();
-  const nose = () => {
+  const sendData = () => {
     setIsSubmitting(true);
     async function sendForm() {
       try {
         const docRef = await addDoc(collection(db, "messages"), {
           subject: subject,
           message: message,
+          currentUser: currentUser.email,
         });
-
         onClose();
         toast({
           title: "Mensaje enviado con éxito.",
@@ -88,7 +91,11 @@ export const NewMessageModal = () => {
             <Button variant="ghost " mr={3} onClick={onClose}>
               Cerrar
             </Button>
-            <Button colorScheme="blue" onClick={nose} isLoading={isSubmitting}>
+            <Button
+              colorScheme="blue"
+              onClick={sendData}
+              isLoading={isSubmitting}
+            >
               Enviar
             </Button>
           </ModalFooter>
