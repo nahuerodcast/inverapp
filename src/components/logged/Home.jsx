@@ -1,14 +1,16 @@
 import { Button } from "@chakra-ui/button";
 import { Flex, Heading, Stack, Divider } from "@chakra-ui/layout";
 import React from "react";
-import { CgTrending, CgTrendingDown } from "react-icons/cg";
-import { BsArrowBarUp, BsArrowBarDown, BsBook } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { FaMoneyBill, FaPlus } from "react-icons/fa";
 import { MdMenuBook } from "react-icons/md";
+import { InverappDate } from "../global/InverappDate";
 
 export const Home = () => {
   const navigate = useNavigate();
+
+  var date = new Date(1640176492282);
+  console.log(date.toUTCString());
 
   return (
     <Flex flexDir={"column"}>
@@ -17,10 +19,17 @@ export const Home = () => {
         w="100vw"
         justifyContent="center"
         alignItems="center"
-        mt={20}
+        my={14}
+        mb={6}
       >
-        <Heading as="h1">Bienvenido,</Heading>
-        <Heading as="h1">¿Que deseas hacer?</Heading>
+        <Heading as="h1">
+          <p> Bienvenido,</p>
+        </Heading>
+        <Heading as="h1">
+          {" "}
+          <p>¿Que deseas hacer?</p>{" "}
+        </Heading>
+
         <Stack direction="row" mt={4}>
           <Button leftIcon={<FaPlus />} onClick={() => navigate("/operar")}>
             Operar
@@ -41,9 +50,23 @@ export const Home = () => {
         </Stack>
       </Flex>
       <Flex flexDir={"column"} px="200px">
+        <Heading
+          as="h4"
+          fontWeight={"normal"}
+          fontSize={"sm"}
+          textAlign={"end"}
+          color={"GrayText"}
+          mb={1}
+        >
+          Estado de cuenta al <InverappDate />
+        </Heading>
+
+        <Flex my={1}>Saldo actual</Flex>
         <Divider />
-        <Flex>Saldo actual</Flex>
-        <Flex>Mis inversiones</Flex>
+        <Flex my={1}>Mis inversiones</Flex>
+        <Divider />
+        <Flex my={1}>Últimos movimientos</Flex>
+        <Divider />
       </Flex>
     </Flex>
   );

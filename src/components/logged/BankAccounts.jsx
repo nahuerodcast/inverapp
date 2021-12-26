@@ -1,4 +1,4 @@
-import { collection, doc, getDocs, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 import React, { useEffect } from "react";
 import { db } from "../../utils/init-firebase";
 
@@ -14,6 +14,7 @@ export const BankAccounts = () => {
       doc(db, "bankAccounts", "ulUruWDEsC3j1Sq9dBNC"),
       (doc) => {
         console.log("Current data: ", doc.data());
+        console.log(datos);
       }
     );
   }, []);

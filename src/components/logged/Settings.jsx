@@ -39,8 +39,8 @@ export const Settings = () => {
                 size="xl"
                 mt={8}
               />
-              <Heading as="p" fontSize="lg" fontWeight="medium" mt={1}>
-                {currentUser.displayName}
+              <Heading as="p" fontSize="lg" fontWeight="semibold" mt={1}>
+                <p> {currentUser.displayName}</p>
               </Heading>
               <Heading
                 fontSize="sm"
@@ -48,7 +48,7 @@ export const Settings = () => {
                 mb={8}
                 color="gray.500"
               >
-                Cuenta plus gold
+                <p> Cuenta plus gold</p>
               </Heading>
             </Flex>
             <Flex justifyContent="space-between">
@@ -67,6 +67,9 @@ export const Settings = () => {
                 <FormLabel mb="0">Apalancamiento habilitado</FormLabel>
                 <FormLabel mb="0">
                   Habilitar modo {colorMode === "light" ? "oscuro" : "claro"}
+                </FormLabel>
+                <FormLabel color={"GrayText"} fontWeight={"normal"}>
+                  Cuenta creada: {currentUser.createdAt}
                 </FormLabel>
               </FormControl>
               <Flex flexDir="column">

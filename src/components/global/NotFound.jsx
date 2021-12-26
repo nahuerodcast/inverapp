@@ -2,7 +2,6 @@ import React from "react";
 import { Flex, Heading, Button } from "@chakra-ui/react";
 import { WarningIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
-import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
 
 export const NotFound = () => {

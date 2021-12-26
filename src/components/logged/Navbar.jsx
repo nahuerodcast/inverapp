@@ -17,7 +17,6 @@ import {
   FaCog,
   FaEnvelope,
   FaFileAlt,
-  FaInfoCircle,
   FaMoneyBill,
   FaPlus,
   FaQuestionCircle,
@@ -26,7 +25,6 @@ import {
 import { Link as ReactLink } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { Avatar } from "@chakra-ui/avatar";
-import { BsBook, BsBookFill } from "react-icons/bs";
 import { MdMenuBook } from "react-icons/md";
 
 export const Navbar = () => {
@@ -82,7 +80,7 @@ export const Navbar = () => {
               mr={2}
             />
             <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-              ¡Hola,
+              ¡Hola,{" "}
               <strong>
                 {currentUser.displayName
                   ? currentUser.displayName
