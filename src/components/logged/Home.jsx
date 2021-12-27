@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { FaMoneyBill, FaPlus } from "react-icons/fa";
 import { MdMenuBook } from "react-icons/md";
 import { InverappDate } from "../global/InverappDate";
+import { FcBullish, FcMoneyTransfer, FcReading } from "react-icons/fc";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ export const Home = () => {
         w="100vw"
         justifyContent="center"
         alignItems="center"
-        my={14}
+        my={20}
         mb={6}
       >
         <Heading as="h1">
@@ -31,18 +32,18 @@ export const Home = () => {
         </Heading>
 
         <Stack direction="row" mt={4}>
-          <Button leftIcon={<FaPlus />} onClick={() => navigate("/operar")}>
+          <Button leftIcon={<FcBullish />} onClick={() => navigate("/operar")}>
             Operar
           </Button>
 
           <Button
-            leftIcon={<FaMoneyBill />}
+            leftIcon={<FcMoneyTransfer />}
             onClick={() => navigate("/saldo-app")}
           >
             Cargar/retirar saldo
           </Button>
           <Button
-            leftIcon={<MdMenuBook />}
+            leftIcon={<FcReading />}
             onClick={() => navigate("/aprender")}
           >
             Aprender

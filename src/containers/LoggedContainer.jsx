@@ -1,10 +1,10 @@
 import React from "react";
 import { Navbar } from "../components/logged/Navbar";
 import { Footer } from "../components/global/Footer";
-
 import { Home } from "../components/logged/Home";
+import { Withdrawal } from "../components/logged/Withdrawal";
+import { BankTransfers } from "../components/logged/BankTransfers";
 import { Help } from "../components/global/Help";
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { MyAccount } from "../components/logged/MyAccount";
 import { Settings } from "../components/logged/Settings";
@@ -46,7 +46,17 @@ export const LoggedContainer = () => {
           <Route path="/mi-cuenta" element={<MyAccount />}></Route>
           <Route path="/configuracion" element={<Settings />}></Route>
           <Route path="/mensajeria" element={<MessageCenter />}></Route>
-          <Route path="/saldo-app" element={<AccountBalance />}></Route>
+          <Route exact path="/saldo-app" element={<AccountBalance />}></Route>
+          <Route
+            exact
+            path="/saldo-app/retirar"
+            element={<Withdrawal />}
+          ></Route>
+          <Route
+            exact
+            path="/saldo-app/cargar"
+            element={<BankTransfers />}
+          ></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Routes>
         <Footer />

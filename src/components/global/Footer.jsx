@@ -1,5 +1,13 @@
 import { Button } from "@chakra-ui/button";
-import { Box, Flex, Heading, Kbd, List, ListItem } from "@chakra-ui/layout";
+import {
+  Box,
+  Flex,
+  Heading,
+  Kbd,
+  List,
+  ListItem,
+  Divider,
+} from "@chakra-ui/layout";
 import React from "react";
 import { IoLogoInstagram, IoLogoTwitter } from "react-icons/io";
 import { MdOutlineFacebook } from "react-icons/md";
@@ -7,6 +15,7 @@ import { MdOutlineFacebook } from "react-icons/md";
 export const Footer = () => {
   return (
     <>
+      <Divider />
       <Flex w="100vw" h="150px" mt="20px">
         <Flex
           flexDir="row"
