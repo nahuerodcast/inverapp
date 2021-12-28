@@ -2,8 +2,6 @@ import { Button } from "@chakra-ui/button";
 import { Flex, Heading, Stack, Divider } from "@chakra-ui/layout";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { FaMoneyBill, FaPlus } from "react-icons/fa";
-import { MdMenuBook } from "react-icons/md";
 import { InverappDate } from "../global/InverappDate";
 import { FcBullish, FcMoneyTransfer, FcReading } from "react-icons/fc";
 

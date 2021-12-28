@@ -1,21 +1,10 @@
-import {
-  Box,
-  Button,
-  Divider,
-  Flex,
-  Heading,
-  Text,
-  useToast,
-} from "@chakra-ui/react";
+import { Button, Divider, Flex, Heading } from "@chakra-ui/react";
 import React from "react";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import { IoIosCopy } from "react-icons/io";
-import { FcMoneyTransfer } from "react-icons/fc";
+import { FcExternal, FcInternal } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
 
 export const AccountBalance = () => {
-  const toast = useToast();
   const navigate = useNavigate();
   return (
     <>
@@ -34,22 +23,22 @@ export const AccountBalance = () => {
         alignItems={"center"}
       >
         <Flex mt={10} flexDir={"column"}>
-          <Heading my={2}>
+          <Heading my={1}>
             <h1> Saldo actual:</h1>
           </Heading>
         </Flex>
         <Flex flexDir={"column"} alignItems={"center"}>
           <Divider />
-          <Flex height="75px" w={"100%"} mt={4}>
+          <Flex height="65px" w={"100%"} my={4}>
             <Flex justifyContent={"center"} w={"100%"} alignItems={"center"}>
               <Heading w={"250px"} textAlign={"center"}>
-                <p> ARS: 100</p>
+                <p> ARS: $100</p>
               </Heading>
             </Flex>
             <Divider orientation="vertical" />
             <Flex justifyContent={"center"} w={"100%"} alignItems={"center"}>
               <Heading w={"250px"} textAlign={"center"}>
-                <p> USD: 100</p>
+                <p> USD: $100</p>
               </Heading>
             </Flex>
           </Flex>
@@ -57,10 +46,18 @@ export const AccountBalance = () => {
         </Flex>
       </Flex>
       <Flex justifyContent={"center"} my={4} mb={12}>
-        <Button onClick={() => navigate("/saldo-app/cargar")} mx={2}>
+        <Button
+          onClick={() => navigate("/saldo-app/cargar")}
+          mx={2}
+          leftIcon={<FcExternal />}
+        >
           Cargar saldo
         </Button>
-        <Button onClick={() => navigate("/saldo-app/retirar")} mx={2}>
+        <Button
+          onClick={() => navigate("/saldo-app/retirar")}
+          mx={2}
+          leftIcon={<FcInternal />}
+        >
           Retirar saldo
         </Button>
       </Flex>

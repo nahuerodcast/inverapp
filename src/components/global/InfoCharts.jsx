@@ -28,6 +28,7 @@ export const InfoCharts = () => {
     coin.name.toLowerCase().includes(search.toLowerCase())
   );
 
+
   return (
     <div>
       <Flex w="100%" justifyContent="center" mt="100px" alignItems="center">

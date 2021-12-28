@@ -8,7 +8,6 @@ import {
   InputGroup,
   Select,
   Text,
-  useToast,
 } from "@chakra-ui/react";
 import React from "react";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
@@ -16,7 +15,6 @@ import { FcInternal } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 
 export const Withdrawal = () => {
-  const toast = useToast();
   const saldo = `Saldo disponible: ARS${100}`;
   const saldoUSD = `Saldo disponible: USD${100}`;
 
@@ -52,10 +50,12 @@ export const Withdrawal = () => {
           color={"GrayText"}
           mb={4}
         >
-          Podes egresar los fondos líquidos que tengas en tu cuenta de
-          inversiones, hacia tu cuenta de banco o billetera virtual.
+          <p>
+            Podes egresar los fondos líquidos que tengas en tu cuenta de
+            inversiones, hacia tu cuenta de banco o billetera virtual.
+          </p>
         </Heading>
-        <Flex mb={20}>
+        <Flex>
           <Box
             w="md"
             borderWidth="1px"
@@ -142,7 +142,18 @@ export const Withdrawal = () => {
             </Flex>
           </Box>
         </Flex>
-        <Divider />
+        <Heading
+          textAlign={"center"}
+          fontSize={"sm"}
+          fontWeight={"normal"}
+          color={"GrayText"}
+          mb={20}
+        >
+          <p>
+            La acreditación puede demorar como máximo 24 hs hábiles desde que la
+            realizaste.
+          </p>
+        </Heading>
       </Flex>
     </>
   );

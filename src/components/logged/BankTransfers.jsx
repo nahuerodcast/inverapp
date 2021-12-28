@@ -128,6 +128,17 @@ export const BankTransfers = () => {
               <Text textAlign={"center"}>Alias: inverapp.pesos</Text>
             </Box>
           </Flex>
+          <Heading
+            textAlign={"center"}
+            fontSize={"sm"}
+            fontWeight={"normal"}
+            color={"GrayText"}
+          >
+            <p>
+              La acreditación puede demorar como máximo 24 hs hábiles desde que
+              la realizaste.
+            </p>
+          </Heading>
         </Flex>
       </Flex>
     </>

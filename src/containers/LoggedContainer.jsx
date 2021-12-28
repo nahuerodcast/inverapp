@@ -11,6 +11,7 @@ import { Settings } from "../components/logged/Settings";
 import { NotFound } from "../components/global/NotFound";
 import { MessageCenter } from "../components/logged/MessageCenter";
 import { AccountBalance } from "../components/logged/AccountBalance";
+import { Trade } from "../components/logged/Trade";
 const Acciones = () => {
   return <>acciones</>;
 };
@@ -58,6 +59,7 @@ export const LoggedContainer = () => {
             element={<BankTransfers />}
           ></Route>
           <Route path="*" element={<NotFound />}></Route>
+          <Route exact path="/operar" element={<Trade />}></Route>
         </Routes>
         <Footer />
       </Router>
