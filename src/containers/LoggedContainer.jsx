@@ -12,6 +12,7 @@ import { NotFound } from "../components/global/NotFound";
 import { MessageCenter } from "../components/logged/MessageCenter";
 import { AccountBalance } from "../components/logged/AccountBalance";
 import { Trade } from "../components/logged/Trade";
+import { Flex, Stack } from "@chakra-ui/react";
 const Acciones = () => {
   return <>acciones</>;
 };
@@ -35,33 +36,46 @@ export const LoggedContainer = () => {
   return (
     <>
       <Router>
-        <Navbar />
-        <Routes>
-          <Route exact path="/" element={<Home />}></Route>
-          <Route path="/acciones" element={<Acciones />}></Route>
-          <Route path="/cedears" element={<Cedears />}></Route>
-          <Route path="/cripto" element={<Cripto />}></Route>
-          <Route path="/fci" element={<Fci />}></Route>
-          <Route path="/usd" element={<Usd />}></Route>
-          <Route path="/help" element={<Help />}></Route>
-          <Route path="/mi-cuenta" element={<MyAccount />}></Route>
-          <Route path="/configuracion" element={<Settings />}></Route>
-          <Route path="/mensajeria" element={<MessageCenter />}></Route>
-          <Route exact path="/saldo-app" element={<AccountBalance />}></Route>
-          <Route
-            exact
-            path="/saldo-app/retirar"
-            element={<Withdrawal />}
-          ></Route>
-          <Route
-            exact
-            path="/saldo-app/cargar"
-            element={<BankTransfers />}
-          ></Route>
-          <Route path="*" element={<NotFound />}></Route>
-          <Route exact path="/operar" element={<Trade />}></Route>
-        </Routes>
-        <Footer />
+        <Flex
+          maxW={"100vw"}
+          flexDir={"column"}
+          justifyContent={"space-between"}
+          minH={"100vh"}
+        >
+          <Flex flexDir={"column"}>
+            <Navbar />
+            <Routes>
+              <Route exact path="/" element={<Home />}></Route>
+              <Route path="/acciones" element={<Acciones />}></Route>
+              <Route path="/cedears" element={<Cedears />}></Route>
+              <Route path="/cripto" element={<Cripto />}></Route>
+              <Route path="/fci" element={<Fci />}></Route>
+              <Route path="/usd" element={<Usd />}></Route>
+              <Route path="/help" element={<Help />}></Route>
+              <Route path="/mi-cuenta" element={<MyAccount />}></Route>
+              <Route path="/configuracion" element={<Settings />}></Route>
+              <Route path="/mensajeria" element={<MessageCenter />}></Route>
+              <Route
+                exact
+                path="/saldo-app"
+                element={<AccountBalance />}
+              ></Route>
+              <Route
+                exact
+                path="/saldo-app/retirar"
+                element={<Withdrawal />}
+              ></Route>
+              <Route
+                exact
+                path="/saldo-app/cargar"
+                element={<BankTransfers />}
+              ></Route>
+              <Route path="*" element={<NotFound />}></Route>
+              <Route exact path="/operar" element={<Trade />}></Route>
+            </Routes>
+          </Flex>
+          <Footer />
+        </Flex>
       </Router>
     </>
   );

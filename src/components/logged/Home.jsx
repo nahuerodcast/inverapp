@@ -12,7 +12,7 @@ export const Home = () => {
   console.log(date.toUTCString());
 
   return (
-    <Flex flexDir={"column"}>
+    <Flex flexDir={"column"}  className="animate__animated animate__fadeIn">
       <Flex
         flexDir="column"
         w="100vw"

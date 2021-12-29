@@ -21,12 +21,17 @@ export const Withdrawal = () => {
   const navigate = useNavigate();
 
   return (
-    <>
+    <Flex
+      flexDir={"column"}
+      minH={"100%"}
+      className="animate__animated animate__fadeIn"
+    >
       <Button
         mt={4}
         onClick={() => navigate("/saldo-app")}
         leftIcon={<FaArrowAltCircleLeft />}
         ml={"200px"}
+        w={"150px"}
       >
         Volver atrás
       </Button>
@@ -155,6 +160,6 @@ export const Withdrawal = () => {
           </p>
         </Heading>
       </Flex>
-    </>
+    </Flex>
   );
 };

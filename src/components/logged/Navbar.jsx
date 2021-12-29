@@ -44,6 +44,7 @@ export const Navbar = () => {
         px="200px"
         py={4}
         boxShadow="lg"
+       
       >
         <Flex flexDir="row" alignItems="center" w="100%">
           <Heading

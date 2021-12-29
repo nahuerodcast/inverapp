@@ -14,7 +14,7 @@ import { MdOutlineFacebook } from "react-icons/md";
 
 export const Footer = () => {
   return (
-    <>
+    <Flex maxH={"30vh"} flexDir={"column"} overflow={"hidden"}>
       <Divider />
       <Flex w="100vw" h="150px" mt="20px">
         <Flex
@@ -102,6 +102,6 @@ export const Footer = () => {
           Aplicación realizada en <Kbd>React JS</Kbd>
         </Box>
       </Flex>
-    </>
+    </Flex>
   );
 };

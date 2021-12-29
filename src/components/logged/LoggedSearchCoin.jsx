@@ -21,11 +21,12 @@ export const LoggedSearchCoin = ({
   symbol,
 }) => {
   const [setSymbol, setSetSymbol] = useState("");
+    
   return (
     <>
       <Flex justifyContent={"space-between"}>
         <Flex alignItems={"center"}>
-          <Heading mr={4} fontSize={"lg"}  fontWeight={"thin"} w={6}>
+          <Heading mr={4} ml={1} fontSize={"lg"} fontWeight={"thin"} w={8}>
             <p>{id}</p>
           </Heading>
           <Img src={image} alt={name} w="40px" mr={4} />
@@ -35,7 +36,7 @@ export const LoggedSearchCoin = ({
           <Heading fontSize={"lg"} w={120} fontWeight={"normal"}>
             <p>${price.toLocaleString()}</p>
           </Heading>
-          <Text fontSize={"lg"} w={120} >
+          <Text fontSize={"lg"} w={120}>
             <p>
               {priceChange > 0 ? (
                 <Stat>
@@ -58,10 +59,14 @@ export const LoggedSearchCoin = ({
           </Text>
         </Flex>
         <Flex>
-          <Button onClick={() => console.log(name)}>Seleccionar</Button>
+          <Button mr={4} onClick={() => console.log(name)}>
+            Seleccionar
+          </Button>
         </Flex>
       </Flex>
-      <Divider my={2}/>
+      <Divider my={2} />
     </>
   );
 };
+
+

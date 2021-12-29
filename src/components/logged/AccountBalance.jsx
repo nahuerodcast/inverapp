@@ -1,4 +1,4 @@
-import { Button, Divider, Flex, Heading } from "@chakra-ui/react";
+import { Button, Divider, Flex, Heading, Stack } from "@chakra-ui/react";
 import React from "react";
 import { FcExternal, FcInternal } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
@@ -7,12 +7,13 @@ import { FaArrowAltCircleLeft } from "react-icons/fa";
 export const AccountBalance = () => {
   const navigate = useNavigate();
   return (
-    <>
+    <Stack className="animate__animated animate__fadeIn">
       <Button
         mt={4}
         onClick={() => navigate("/")}
         leftIcon={<FaArrowAltCircleLeft />}
         ml={"200px"}
+        w={"150px"}
       >
         Volver atrás
       </Button>
@@ -80,6 +81,6 @@ export const AccountBalance = () => {
           </p>
         </Heading>
       </Flex>
-    </>
+    </Stack>
   );
 };
