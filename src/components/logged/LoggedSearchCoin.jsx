@@ -1,32 +1,67 @@
-import { Button, Flex, Heading, Img, Text } from "@chakra-ui/react";
+import {
+  Button,
+  Divider,
+  Flex,
+  Heading,
+  Img,
+  Stat,
+  StatArrow,
+  StatHelpText,
+  Text,
+} from "@chakra-ui/react";
 import React from "react";
 import { useState } from "react";
 
 export const LoggedSearchCoin = ({
+  id,
   image,
   name,
   price,
   priceChange,
   symbol,
-  
 }) => {
   const [setSymbol, setSetSymbol] = useState("");
   return (
-    <Flex>
-      <Img src={image} alt={name} h="40px" />
-      <Heading fontSize={"lg"}>
-        <p>{name}</p>
-      </Heading>
-      <Heading>
-        <p>{price}</p>
-      </Heading>
-      <Text>
-        <p>{priceChange}</p>
-      </Text>
-      <Text>
-        <p>{symbol}</p>
-      </Text>
-      <Button onClick={() => console.log(name)}>seleccionar cripto</Button>
-    </Flex>
+    <>
+      <Flex justifyContent={"space-between"}>
+        <Flex alignItems={"center"}>
+          <Heading mr={4} fontSize={"lg"}  fontWeight={"thin"} w={6}>
+            <p>{id}</p>
+          </Heading>
+          <Img src={image} alt={name} w="40px" mr={4} />
+          <Heading fontSize={"lg"} w={160} fontWeight={"normal"}>
+            <p>{name}</p>
+          </Heading>
+          <Heading fontSize={"lg"} w={120} fontWeight={"normal"}>
+            <p>${price.toLocaleString()}</p>
+          </Heading>
+          <Text fontSize={"lg"} w={120} >
+            <p>
+              {priceChange > 0 ? (
+                <Stat>
+                  <StatHelpText>
+                    <StatArrow type="increase" />+{priceChange.toFixed(2)}%
+                  </StatHelpText>
+                </Stat>
+              ) : (
+                <Stat>
+                  <StatHelpText>
+                    <StatArrow type="decrease" />
+                    {priceChange.toFixed(2)}%
+                  </StatHelpText>
+                </Stat>
+              )}
+            </p>
+          </Text>
+          <Text fontSize={"lg"} w={"60px"}>
+            <p>{symbol.toUpperCase()}</p>
+          </Text>
+        </Flex>
+        <Flex>
+          <Button onClick={() => console.log(name)}>Seleccionar</Button>
+        </Flex>
+      </Flex>
+      <Divider my={2}/>
+    </>
   );
 };

@@ -34,8 +34,9 @@ export const Trade = () => {
         alignItems={"center"}
         my={16}
       >
+        <Flex>holu</Flex>
         <Box
-          w="2xl"
+          w="3xl"
           minH={"sm"}
           borderWidth="1px"
           borderRadius="lg"
@@ -43,6 +44,9 @@ export const Trade = () => {
           p={4}
           m={2}
         >
+          <Heading my={4}>
+            <p> Comprar {search}</p>
+          </Heading>
           <Input
             placeholder="Buscá una criptomoneda"
             onChange={handleChange}
@@ -52,6 +56,7 @@ export const Trade = () => {
             return (
               <LoggedSearchCoin
                 key={coin.id}
+                id={`${coin.market_cap_rank}.`}
                 name={coin.name}
                 price={coin.current_price}
                 symbol={coin.symbol}
