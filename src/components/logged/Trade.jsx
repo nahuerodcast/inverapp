@@ -6,6 +6,7 @@ import {
   Heading,
   Input,
   Stack,
+  Text,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -67,7 +68,17 @@ export const Trade = () => {
             m={2}
           >
             <Heading my={4}>
-              <p> Operar {search}</p>
+              <p> Operar </p>
+              <Text
+                fontSize={"md"}
+                color={"GrayText"}
+                fontWeight={"normal"}
+                mt={1}
+              >
+                Saldo disponible: 
+                
+                ARS $100 y USD $100
+              </Text>
             </Heading>
             <Input
               placeholder="Buscá una criptomoneda"
