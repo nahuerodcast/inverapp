@@ -165,7 +165,9 @@ export const LoggedSearchCoin = ({
                     <Button mr={1}>Comprar</Button>
                     <Button ml={1}>Vender</Button>
                   </Flex>
-                  <Text>Total:</Text>
+                  <Text>
+                    Total {symbol.toUpperCase()} a recibir: {(quantity / price).toFixed(4)} {symbol.toUpperCase()}
+                  </Text>
                 </Flex>
               </ModalBody>
               <ModalFooter>
