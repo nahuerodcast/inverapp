@@ -8,7 +8,7 @@ import { FcBullish, FcMoneyTransfer, FcReading } from "react-icons/fc";
 export const Home = () => {
   const navigate = useNavigate();
 
-  var date = new Date(1640176492282);
+  let date = new Date(1640176492282);
   console.log(date.toUTCString());
 
   return (

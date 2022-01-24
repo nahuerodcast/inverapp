@@ -1,5 +1,6 @@
 import {
   Button,
+  Center,
   Divider,
   Flex,
   Heading,
@@ -35,6 +36,7 @@ export const LoggedSearchCoin = ({
 }) => {
   const [quantity, setQuantity] = useState("0");
   const [currencySwitch, setCurrencySwitch] = useState(false);
+  const [isSelected, setIsSelected] = useState(false);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -98,8 +100,20 @@ export const LoggedSearchCoin = ({
           >
             <ModalOverlay />
             <ModalContent ref={initRef}>
-              <ModalHeader textAlign={"center"} mb={0}>
-                Operar {name}
+              <ModalHeader mb={0} mt={4} fontSize={35}>
+                <Center>
+                  <Img src={image} alt={name} w="40px" mr={2} />
+                  {name}
+                </Center>
+
+                <Text
+                  fontSize={"md"}
+                  color={"GrayText"}
+                  fontWeight={"normal"}
+                  textAlign={"center"}
+                >
+                  Precio: ${price.toLocaleString()}
+                </Text>
               </ModalHeader>
               <ModalCloseButton />
               <ModalBody>
@@ -109,27 +123,11 @@ export const LoggedSearchCoin = ({
                   justifyContent={"center"}
                   w={"100%"}
                 >
-                  <Text
-                    fontSize={"md"}
-                    color={"GrayText"}
-                    fontWeight={"normal"}
-                    textAlign={"center"}
-                  >
-                    Saldo disponible
-                  </Text>
-                  <Text
-                    fontSize={"md"}
-                    color={"GrayText"}
-                    fontWeight={"normal"}
-                    textAlign={"center"}
-                  >
-                    {!currencySwitch ? `ARS ${ars}` : `USD ${usd}`}
-                  </Text>
-                  <Text>Precio : ${price.toLocaleString()}</Text>
                   <Flex
                     alignItems={"center"}
-                    justifyContent={"center"}
+                    justifyContent={"space-between"}
                     h={"fit-content"}
+                    w={"40%"}
                   >
                     <Text mr={4}>
                       Operar en {!currencySwitch ? "pesos" : "dólares"}
@@ -139,11 +137,46 @@ export const LoggedSearchCoin = ({
                       onChange={() => setCurrencySwitch(!currencySwitch)}
                     />
                   </Flex>
+                  <Flex
+                    flexDir={"row"}
+                    justifyContent={"space-between"}
+                    w={"40%"}
+                  >
+                    <Text
+                      fontSize={"md"}
+                      fontWeight={"normal"}
+                      textAlign={"center"}
+                    >
+                      Saldo disponible
+                    </Text>
+                    <Text
+                      fontSize={"md"}
+                      fontWeight={"normal"}
+                      textAlign={"center"}
+                    >
+                      {!currencySwitch ? (
+                        <strong>{`ARS $${ars}`}</strong>
+                      ) : (
+                        <strong>{`USD $${usd}`}</strong>
+                      )}
+                    </Text>
+                  </Flex>
+                  <Flex
+                    flexDir={"row"}
+                    justifyContent={"space-between"}
+                    w={"40%"}
+                  >
+                    <Text>Total {symbol.toUpperCase()} a recibir: </Text>
+                    <Text>
+                      {(quantity / price).toFixed(4)} {symbol.toUpperCase()}
+                    </Text>
+                  </Flex>
+
                   <NumberInput
                     my={2}
-                    max={100}
                     keepWithinRange={false}
                     clampValueOnBlur={false}
+                    w={"40%"}
                   >
                     <NumberInputField
                       placeholder="Cantidad"
@@ -161,13 +194,14 @@ export const LoggedSearchCoin = ({
                         : "No posee suficiente saldo"}
                     </Text>
                   </NumberInput>
-                  <Flex flexDir={"row"} w={"100%"} justifyContent={"center"}>
-                    <Button mr={1}>Comprar</Button>
-                    <Button ml={1}>Vender</Button>
+                  <Flex flexDir={"row"} w={"40%"} justifyContent={"center"}>
+                    <Button mr={1} colorScheme={"green"} w={"100%"}>
+                      Comprar
+                    </Button>
+                    <Button ml={1} colorScheme={"gray"} w={"100%"}>
+                      Vender
+                    </Button>
                   </Flex>
-                  <Text>
-                    Total {symbol.toUpperCase()} a recibir: {(quantity / price).toFixed(4)} {symbol.toUpperCase()}
-                  </Text>
                 </Flex>
               </ModalBody>
               <ModalFooter>
