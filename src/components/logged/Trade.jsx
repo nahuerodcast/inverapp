@@ -30,11 +30,6 @@ export const Trade = () => {
       .catch();
   }, []);
 
-  useEffect(() => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/pikachu/`)
-      .then((response) => response.json())
-      .then((pokemon) => console.log(pokemon));
-  }, []);
 
   const handleChange = (e) => {
     setSearch(e.target.value);

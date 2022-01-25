@@ -1,9 +1,15 @@
 import { Button } from "@chakra-ui/button";
-import { Flex, Heading, Stack, Divider } from "@chakra-ui/layout";
+import { Flex, Heading, Stack, Divider, Text } from "@chakra-ui/layout";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { InverappDate } from "../global/InverappDate";
 import { FcBullish, FcMoneyTransfer, FcReading } from "react-icons/fc";
+import { Img } from "@chakra-ui/react";
+import { Portfolio } from "./Portfolio";
+import { db } from "../../utils/init-firebase";
+import { useState } from "react";
+import { useEffect } from "react";
+import { collection, getDocs } from "firebase/firestore";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -11,8 +17,35 @@ export const Home = () => {
   let date = new Date(1640176492282);
   console.log(date.toUTCString());
 
+  const data = db;
+  console.log(data);
+
+  const [portfolio, setPortfolio] = useState([]);
+
+  const portfolioRef = collection(db, "portfolio");
+
+  useEffect(() => {
+    const getPortfolio = async () => {
+      const data = await getDocs(portfolioRef);
+      setPortfolio(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+
+    getPortfolio();
+  }, []);
+
+  const fakeData = [
+    {
+      id: 1,
+      symbol: "Bitcoin",
+    },
+    {
+      id: 2,
+      symbol: "Ethreum",
+    },
+  ];
+
   return (
-    <Flex flexDir={"column"}  className="animate__animated animate__fadeIn">
+    <Flex flexDir={"column"} className="animate__animated animate__fadeIn">
       <Flex
         flexDir="column"
         w="100vw"
@@ -48,7 +81,7 @@ export const Home = () => {
           </Button>
         </Stack>
       </Flex>
-      <Flex flexDir={"column"} px="200px">
+      <Flex flexDir={"column"} px="400px">
         <Heading
           as="h4"
           fontWeight={"normal"}
@@ -62,8 +95,7 @@ export const Home = () => {
 
         <Flex my={1}>Saldo actual</Flex>
         <Divider />
-        <Flex my={1}>Mis inversiones</Flex>
-        <Divider />
+        <Portfolio arrayPortfolio={portfolio} />
         <Flex my={1}>Últimos movimientos</Flex>
         <Divider />
       </Flex>

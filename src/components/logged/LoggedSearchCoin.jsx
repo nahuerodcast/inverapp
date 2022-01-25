@@ -5,7 +5,6 @@ import {
   Flex,
   Heading,
   Img,
-  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -15,7 +14,6 @@ import {
   ModalOverlay,
   NumberInput,
   NumberInputField,
-  Stack,
   Stat,
   StatArrow,
   StatHelpText,
@@ -25,6 +23,11 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { useState } from "react";
+import { HiCheckCircle } from "react-icons/hi";
+import { useToast } from "@chakra-ui/react";
+import { CgTrendingDown, CgTrending } from "react-icons/cg";
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../../utils/init-firebase";
 
 export const LoggedSearchCoin = ({
   id,
@@ -34,16 +37,25 @@ export const LoggedSearchCoin = ({
   priceChange,
   symbol,
 }) => {
-  const [quantity, setQuantity] = useState("0");
+  // Own useStates
+  const [quantity, setQuantity] = useState(0);
   const [currencySwitch, setCurrencySwitch] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
 
+  // Chakra UI hooks & stuff
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   const initRef = React.useRef();
+  const toast = useToast();
 
+  // Fake balance
   const ars = 1000;
   const usd = 100;
+
+  // Firebase functions
+  const portfolioRef = collection(db, "portfolio");
+  const createOrder = async () => {
+    await addDoc(portfolioRef, { id, image, name, price, priceChange, symbol, quantity });
+  };
 
   return (
     <>
@@ -91,6 +103,7 @@ export const LoggedSearchCoin = ({
           >
             Seleccionar
           </Button>
+
           <Modal
             onClose={onClose}
             isOpen={isOpen}
@@ -99,8 +112,8 @@ export const LoggedSearchCoin = ({
             size={"2xl"}
           >
             <ModalOverlay />
-            <ModalContent ref={initRef}>
-              <ModalHeader mb={0} mt={4} fontSize={35}>
+            <ModalContent ref={initRef} minH={"50vh"}>
+              <ModalHeader mb={0} mt={4} fontSize={35} fontWeight={"bold"}>
                 <Center>
                   <Img src={image} alt={name} w="40px" mr={2} />
                   {name}
@@ -116,96 +129,192 @@ export const LoggedSearchCoin = ({
                 </Text>
               </ModalHeader>
               <ModalCloseButton />
-              <ModalBody>
-                <Flex
-                  flexDir={"column"}
-                  alignItems={"center"}
-                  justifyContent={"center"}
-                  w={"100%"}
-                >
+              {isSelected === false ? (
+                <ModalBody>
                   <Flex
+                    flexDir={"column"}
                     alignItems={"center"}
-                    justifyContent={"space-between"}
-                    h={"fit-content"}
-                    w={"40%"}
+                    justifyContent={"center"}
+                    w={"100%"}
                   >
-                    <Text mr={4}>
-                      Operar en {!currencySwitch ? "pesos" : "dólares"}
-                    </Text>
-                    <Switch
-                      colorScheme="teal"
-                      onChange={() => setCurrencySwitch(!currencySwitch)}
-                    />
-                  </Flex>
-                  <Flex
-                    flexDir={"row"}
-                    justifyContent={"space-between"}
-                    w={"40%"}
-                  >
-                    <Text
-                      fontSize={"md"}
-                      fontWeight={"normal"}
-                      textAlign={"center"}
+                    <Flex
+                      alignItems={"center"}
+                      justifyContent={"space-between"}
+                      h={"fit-content"}
+                      w={"50%"}
                     >
-                      Saldo disponible
-                    </Text>
-                    <Text
-                      fontSize={"md"}
-                      fontWeight={"normal"}
-                      textAlign={"center"}
+                      <Text mr={4}>
+                        Operar en {!currencySwitch ? "pesos" : "dólares"}
+                      </Text>
+                      <Switch
+                        colorScheme="teal"
+                        onChange={() => setCurrencySwitch(!currencySwitch)}
+                      />
+                    </Flex>
+                    <Flex
+                      flexDir={"row"}
+                      justifyContent={"space-between"}
+                      w={"50%"}
                     >
-                      {!currencySwitch ? (
-                        <strong>{`ARS $${ars}`}</strong>
-                      ) : (
-                        <strong>{`USD $${usd}`}</strong>
-                      )}
-                    </Text>
-                  </Flex>
-                  <Flex
-                    flexDir={"row"}
-                    justifyContent={"space-between"}
-                    w={"40%"}
-                  >
-                    <Text>Total {symbol.toUpperCase()} a recibir: </Text>
-                    <Text>
-                      {(quantity / price).toFixed(4)} {symbol.toUpperCase()}
-                    </Text>
-                  </Flex>
+                      <Text
+                        fontSize={"md"}
+                        fontWeight={"normal"}
+                        textAlign={"center"}
+                      >
+                        Saldo disponible
+                      </Text>
+                      <Text
+                        fontSize={"md"}
+                        fontWeight={"normal"}
+                        textAlign={"center"}
+                      >
+                        {!currencySwitch ? (
+                          <strong>{`ARS $${ars}`}</strong>
+                        ) : (
+                          <strong>{`USD $${usd}`}</strong>
+                        )}
+                      </Text>
+                    </Flex>
+                    <Flex
+                      flexDir={"row"}
+                      justifyContent={"space-between"}
+                      w={"50%"}
+                    >
+                      <Text>Total {symbol.toUpperCase()} a recibir: </Text>
+                      <Text>
+                        {(quantity / price).toFixed(4)} {symbol.toUpperCase()}
+                      </Text>
+                    </Flex>
 
-                  <NumberInput
-                    my={2}
-                    keepWithinRange={false}
-                    clampValueOnBlur={false}
-                    w={"40%"}
-                  >
-                    <NumberInputField
-                      placeholder="Cantidad"
-                      onChange={(e) => setQuantity(e.target.value)}
-                    />
-                    <Text
-                      color={"red.700"}
-                      textAlign={"center"}
-                      fontSize={"sm"}
-                      my={1}
+                    <NumberInput
+                      my={2}
+                      mt={4}
+                      keepWithinRange={false}
+                      clampValueOnBlur={false}
+                      w={"50%"}
                     >
-                      {(ars >= quantity && !currencySwitch) ||
-                      (usd >= quantity && currencySwitch)
-                        ? ""
-                        : "No posee suficiente saldo"}
-                    </Text>
-                  </NumberInput>
-                  <Flex flexDir={"row"} w={"40%"} justifyContent={"center"}>
-                    <Button mr={1} colorScheme={"green"} w={"100%"}>
-                      Comprar
-                    </Button>
-                    <Button ml={1} colorScheme={"gray"} w={"100%"}>
-                      Vender
-                    </Button>
+                      <NumberInputField
+                        placeholder="Cantidad"
+                        onChange={(e) => setQuantity(e.target.value)}
+                      />
+                      <Text
+                        color={"red.700"}
+                        textAlign={"center"}
+                        fontSize={"sm"}
+                        my={1}
+                      >
+                        {(ars >= quantity && !currencySwitch) ||
+                        (usd >= quantity && currencySwitch)
+                          ? ""
+                          : "No posee suficiente saldo 👎"}
+                      </Text>
+                    </NumberInput>
+                    <Flex flexDir={"row"} w={"50%"} justifyContent={"center"}>
+                      <Button
+                        mr={1}
+                        colorScheme={"green"}
+                        w={"100%"}
+                        onClick={() => {
+                          setIsSelected(!isSelected);
+                        }}
+                        isDisabled={
+                          (quantity !== 0 &&
+                            quantity !== "0" &&
+                            quantity !== "" &&
+                            ars >= quantity &&
+                            !currencySwitch) ||
+                          (usd >= quantity && currencySwitch)
+                            ? false
+                            : true
+                        }
+                        leftIcon={<CgTrending />}
+                      >
+                        {console.log(quantity)}
+                        Comprar
+                      </Button>
+                      <Button
+                        ml={1}
+                        colorScheme={"gray"}
+                        w={"100%"}
+                        onClick={() =>
+                          alert(
+                            "Por el momento no está habilitada la venta, disculpe las molestias."
+                          )
+                        }
+                        leftIcon={<CgTrendingDown />}
+                      >
+                        Vender
+                      </Button>
+                    </Flex>
                   </Flex>
-                </Flex>
-              </ModalBody>
+                </ModalBody>
+              ) : (
+                <ModalBody>
+                  <Flex
+                    flexDir={"column"}
+                    alignItems={"center"}
+                    justifyContent={"center"}
+                    w={"100%"}
+                    h={"80%"}
+                  >
+                    <Flex
+                      flexDir={"row"}
+                      justifyContent={"space-between"}
+                      w={"50%"}
+                      alignItems={"center"}
+                    >
+                      <Text>Vas a pagar </Text>
+                      <Text>
+                        {!currencySwitch ? (
+                          <strong>{`ARS $${quantity}`}</strong>
+                        ) : (
+                          <strong>{`USD $${quantity}`}</strong>
+                        )}
+                      </Text>
+                    </Flex>
+                    <Flex
+                      flexDir={"row"}
+                      justifyContent={"space-between"}
+                      w={"50%"}
+                      alignItems={"center"}
+                      my={2}
+                    >
+                      <Text>Total {symbol.toUpperCase()} a recibir: </Text>
+                      <Text>
+                        {(quantity / price).toFixed(4)} {symbol.toUpperCase()}
+                      </Text>
+                    </Flex>
+
+                    <Flex flexDir={"row"} w={"50%"} justifyContent={"center"}>
+                      <Button
+                        mr={1}
+                        colorScheme={"blue"}
+                        w={"100%"}
+                        onClick={() => {
+                          setIsSelected(!isSelected);
+                          onClose();
+                          toast({
+                            title: `¡Bravo! Compra de ${name} exitosa`,
+                            description: `Compraste ${(
+                              quantity / price
+                            ).toFixed(4)} ${symbol.toUpperCase()}`,
+                            status: "success",
+                            duration: 4000,
+                            isClosable: true,
+                          });
+                          createOrder();
+                        }}
+                        rightIcon={<HiCheckCircle />}
+                      >
+                        Confirmar
+                      </Button>
+                    </Flex>
+                  </Flex>
+                </ModalBody>
+              )}
+
               <ModalFooter>
-                <Button onClick={onClose}>Close</Button>
+                <Button onClick={onClose}>Cerrar</Button>
               </ModalFooter>
             </ModalContent>
           </Modal>
