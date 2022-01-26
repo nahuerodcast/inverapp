@@ -1,10 +1,9 @@
 import { Button } from "@chakra-ui/button";
-import { Flex, Heading, Stack, Divider, Text } from "@chakra-ui/layout";
+import { Flex, Heading, Stack, Divider } from "@chakra-ui/layout";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { InverappDate } from "../global/InverappDate";
 import { FcBullish, FcMoneyTransfer, FcReading } from "react-icons/fc";
-import { Img } from "@chakra-ui/react";
 import { Portfolio } from "./Portfolio";
 import { db } from "../../utils/init-firebase";
 import { useState } from "react";
@@ -15,10 +14,6 @@ export const Home = () => {
   const navigate = useNavigate();
 
   let date = new Date(1640176492282);
-  console.log(date.toUTCString());
-
-  const data = db;
-  console.log(data);
 
   const [portfolio, setPortfolio] = useState([]);
 
@@ -32,17 +27,6 @@ export const Home = () => {
 
     getPortfolio();
   }, []);
-
-  const fakeData = [
-    {
-      id: 1,
-      symbol: "Bitcoin",
-    },
-    {
-      id: 2,
-      symbol: "Ethreum",
-    },
-  ];
 
   return (
     <Flex flexDir={"column"} className="animate__animated animate__fadeIn">
@@ -93,10 +77,18 @@ export const Home = () => {
           Estado de cuenta al <InverappDate />
         </Heading>
 
-        <Flex my={1}>Saldo actual</Flex>
-        <Divider />
+        <Flex my={1} >
+          <Heading fontSize={"2xl"}>
+            <p> Saldo actual</p>
+          </Heading>
+        </Flex>
+        <Divider mb={4}/>
         <Portfolio arrayPortfolio={portfolio} />
-        <Flex my={1}>Últimos movimientos</Flex>
+        <Flex my={1} mt={4}>
+          <Heading fontSize={"2xl"}>
+            <p> Últimos movimientos</p>
+          </Heading>
+        </Flex>
         <Divider />
       </Flex>
     </Flex>

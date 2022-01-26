@@ -28,6 +28,7 @@ import { useToast } from "@chakra-ui/react";
 import { CgTrendingDown, CgTrending } from "react-icons/cg";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../utils/init-firebase";
+import { useAuth } from "../../contexts/AuthContext";
 
 export const LoggedSearchCoin = ({
   id,
@@ -54,8 +55,19 @@ export const LoggedSearchCoin = ({
   // Firebase functions
   const portfolioRef = collection(db, "portfolio");
   const createOrder = async () => {
-    await addDoc(portfolioRef, { id, image, name, price, priceChange, symbol, quantity });
+    await addDoc(portfolioRef, {
+      id,
+      image,
+      name,
+      price,
+      priceChange,
+      symbol,
+      quantity,
+      email,
+    });
   };
+  const { currentUser } = useAuth();
+  const email = currentUser.email;
 
   return (
     <>
@@ -97,7 +109,6 @@ export const LoggedSearchCoin = ({
           <Button
             mr={4}
             onClick={() => {
-              console.log(name);
               onOpen();
             }}
           >
@@ -229,7 +240,6 @@ export const LoggedSearchCoin = ({
                         }
                         leftIcon={<CgTrending />}
                       >
-                        {console.log(quantity)}
                         Comprar
                       </Button>
                       <Button

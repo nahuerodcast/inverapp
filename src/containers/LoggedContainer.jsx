@@ -12,7 +12,7 @@ import { NotFound } from "../components/global/NotFound";
 import { MessageCenter } from "../components/logged/MessageCenter";
 import { AccountBalance } from "../components/logged/AccountBalance";
 import { Trade } from "../components/logged/Trade";
-import { Flex, Stack } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 const Acciones = () => {
   return <>acciones</>;
 };
