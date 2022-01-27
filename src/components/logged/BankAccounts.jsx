@@ -21,8 +21,7 @@ export const BankAccounts = () => {
 
   return (
     <>
-      <h1>puto</h1>
-      <h2>re</h2>
+     <p>""</p>
     </>
   );
 };

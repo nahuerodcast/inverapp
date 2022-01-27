@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/button";
-import { Flex, Heading, Stack, Divider } from "@chakra-ui/layout";
+import { Flex, Heading, Stack, Divider, Box } from "@chakra-ui/layout";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { InverappDate } from "../global/InverappDate";
@@ -9,11 +9,10 @@ import { db } from "../../utils/init-firebase";
 import { useState } from "react";
 import { useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
+import { HomeBalance } from "./HomeBalance";
 
 export const Home = () => {
   const navigate = useNavigate();
-
-  let date = new Date(1640176492282);
 
   const [portfolio, setPortfolio] = useState([]);
 
@@ -27,6 +26,8 @@ export const Home = () => {
 
     getPortfolio();
   }, []);
+
+
 
   return (
     <Flex flexDir={"column"} className="animate__animated animate__fadeIn">
@@ -65,25 +66,26 @@ export const Home = () => {
           </Button>
         </Stack>
       </Flex>
-      <Flex flexDir={"column"} px="400px">
-        <Heading
-          as="h4"
-          fontWeight={"normal"}
-          fontSize={"sm"}
-          textAlign={"end"}
-          color={"GrayText"}
-          mb={1}
+      <Flex flexDir={"column"} px="350px">
+        <Box
+          borderWidth="1px"
+          borderRadius="xl"
+          overflow="hidden"
+          p={6}
+          boxShadow={"xl"}
+          mb={12}
         >
-          Estado de cuenta al <InverappDate />
-        </Heading>
-
-        <Flex my={1} >
-          <Heading fontSize={"2xl"}>
-            <p> Saldo actual</p>
-          </Heading>
-        </Flex>
-        <Divider mb={4}/>
-        <Portfolio arrayPortfolio={portfolio} />
+          <HomeBalance />
+        </Box>
+        <Box
+          borderWidth="1px"
+          borderRadius="xl"
+          overflow="hidden"
+          p={6}
+          boxShadow={"xl"}
+          mb={12}
+        >
+        <Portfolio arrayPortfolio={portfolio} />  </Box>
         <Flex my={1} mt={4}>
           <Heading fontSize={"2xl"}>
             <p> Últimos movimientos</p>

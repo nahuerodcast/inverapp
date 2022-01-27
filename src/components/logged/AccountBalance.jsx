@@ -1,10 +1,40 @@
-import { Button, Divider, Flex, Heading, Stack } from "@chakra-ui/react";
+import { Button, Divider, Flex, Heading, Stack, Text } from "@chakra-ui/react";
 import React from "react";
 import { FcExternal, FcInternal } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../utils/init-firebase";
+import { useAuth } from "../../contexts/AuthContext";
+import { useEffect } from "react";
+import { useState } from "react";
 
 export const AccountBalance = () => {
+  //useState
+  const [balanceData, setBalanceData] = useState([]);
+
+  const { currentUser } = useAuth();
+  const email = currentUser.email;
+  const balanceRef = collection(db, "balance");
+
+  // Reading Firebase Data
+  useEffect(() => {
+    const getBalanceData = async () => {
+      const data = await getDocs(balanceRef);
+      setBalanceData(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+
+    getBalanceData();
+  }, []);
+
+  const filteredEmail = balanceData.filter((a) =>
+    a.email.includes(currentUser.email)
+  );
+
+  const validatedEmail = filteredEmail.map((a) => {
+    return a.email === currentUser.email && a.isGenerated ? true : false;
+  });
+
   const navigate = useNavigate();
   return (
     <Stack className="animate__animated animate__fadeIn">
@@ -32,14 +62,48 @@ export const AccountBalance = () => {
           <Divider />
           <Flex height="65px" w={"100%"} my={4}>
             <Flex justifyContent={"center"} w={"100%"} alignItems={"center"}>
-              <Heading w={"250px"} textAlign={"center"}>
-                <p> ARS: $100</p>
+              <Heading w={"300px"} textAlign={"center"}>
+                <p>
+                  {validatedEmail[0] ? (
+                    filteredEmail.map((a) => {
+                      return (
+                        <Flex justifyContent={"center"}>
+                          ARS: $
+                          {a.email === currentUser.email ? (
+                            <p>{a.ars.toLocaleString(4)}</p>
+                          ) : (
+                            "false"
+                          )}
+                        </Flex>
+                      );
+                    })
+                  ) : (
+                    <Text>ARS$500.000</Text>
+                  )}
+                </p>
               </Heading>
             </Flex>
             <Divider orientation="vertical" />
             <Flex justifyContent={"center"} w={"100%"} alignItems={"center"}>
-              <Heading w={"250px"} textAlign={"center"}>
-                <p> USD: $100</p>
+            <Heading w={"300px"} textAlign={"center"}>
+                <p>
+                  {validatedEmail[0] ? (
+                    filteredEmail.map((a) => {
+                      return (
+                        <Flex justifyContent={"center"}>
+                          USD: $
+                          {a.email === currentUser.email ? (
+                            <p>{a.usd.toLocaleString(4)}</p>
+                          ) : (
+                            "false"
+                          )}
+                        </Flex>
+                      );
+                    })
+                  ) : (
+                    <Text>ARS$500.000</Text>
+                  )}
+                </p>
               </Heading>
             </Flex>
           </Flex>

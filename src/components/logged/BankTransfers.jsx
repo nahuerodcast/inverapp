@@ -7,145 +7,215 @@ import {
   Text,
   useToast,
 } from "@chakra-ui/react";
-import React from "react";
-import { CopyToClipboard } from "react-copy-to-clipboard";
-import { IoIosCopy } from "react-icons/io";
-import { FcMoneyTransfer } from "react-icons/fc";
+import React, { useState } from "react";
+
+import { FcIdea, FcCheckmark, FcBullish } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
-import { FaArrowAltCircleLeft } from "react-icons/fa";
+import { addDoc, collection, getDocs } from "firebase/firestore";
+import { db } from "../../utils/init-firebase";
+import { useAuth } from "../../contexts/AuthContext";
+import { useEffect } from "react";
+import { BankTransfersDetails } from "./BankTransfersDetails";
 
 export const BankTransfers = () => {
+  // Hooks
   const toast = useToast();
   const navigate = useNavigate();
+
+  //useState
+  const [balanceData, setBalanceData] = useState([]);
+  const [demoBalance, setDemoBalance] = useState(false);
+
+  //Creating Firebase Data
+  const { currentUser } = useAuth();
+  const email = currentUser.email;
+  const balanceRef = collection(db, "balance");
+  const createBalance = async () => {
+    await addDoc(balanceRef, {
+      ars: 500000,
+      usd: 5000,
+      isGenerated: !demoBalance,
+      email,
+    });
+  };
+
+  // Reading Firebase Data
+  useEffect(() => {
+    const getBalanceData = async () => {
+      const data = await getDocs(balanceRef);
+      setBalanceData(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+
+    getBalanceData();
+  }, []);
+
+  const filteredEmail = balanceData.filter((a) =>
+    a.email.includes(currentUser.email)
+  );
+
+  const validatedEmail = filteredEmail.map((a) => {
+    return a.email === currentUser.email && a.isGenerated ? true : false;
+  });
+
   return (
-    <Flex
-      flexDir={"column"}
-      minH={"100%"}
-      className="animate__animated animate__fadeIn"
-    >
-      <Button
-        mt={4}
-        onClick={() => navigate("/saldo-app")}
-        leftIcon={<FaArrowAltCircleLeft />}
-        ml={"200px"}
-        w={"150px"}
-      >
-        Volver atrás
-      </Button>
+    <>
+      <BankTransfersDetails />
       <Flex
-        maxW="2sm"
-        h="100%"
-        flexDir="column"
-        justifyContent={"center"}
-        alignItems={"center"}
-        mb={"20vh"}
+        flexDir={"column"}
+        minH={"100%"}
+        className="animate__animated animate__fadeIn"
       >
-        <Flex flexDir={"column"} alignItems={"center"}>
-          <Heading fontWeight={"semibold"} mt={10}>
-            <Flex alignItems={"center"} justifyContent={"center"}>
-              <p>Empezá a invertir </p>
-              <strong style={{ marginLeft: "10px" }}> ahora </strong>
-              <FcMoneyTransfer style={{ marginLeft: "10px" }} />
+        <Flex
+          maxW="2sm"
+          h="100%"
+          flexDir="column"
+          justifyContent={"center"}
+          alignItems={"center"}
+          mb={"10vh"}
+        >
+          <Flex flexDir={"column"} alignItems={"center"}>
+            <Flex
+              w={"100%"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              flexDir={"column"}
+              mt={4}
+            >
+              <Text my={1}>o</Text>
+              <Divider />
+              <Heading fontWeight={"semibold"} mt={10}>
+                <Flex alignItems={"center"} justifyContent={"center"}>
+                  <p>Simulá tu transferencia </p>
+                  <FcIdea style={{ marginLeft: "10px" }} />
+                </Flex>
+              </Heading>
+              <Heading
+                textAlign={"center"}
+                fontSize={"sm"}
+                fontWeight={"normal"}
+                color={"GrayText"}
+                mb={4}
+              >
+                <p>
+                  Podes simular tu transferencia con saldo falso, para que
+                  puedas practicar en tu cuenta demo antes de invertir.
+                </p>
+              </Heading>
+
+              <Flex flexDir={"column"} alignItems={"center"} w={"100%"}>
+                <Divider />
+                <Flex height="65px" my={4} w={"100%"}>
+                  <Flex
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                    w={"100%"}
+                  >
+                    <Heading textAlign={"center"}>
+                      <p>
+                        {validatedEmail[0] ? (
+                          filteredEmail.map((a) => {
+                            return (
+                              <Flex>
+                                ARS: $
+                                {a.email === currentUser.email ? (
+                                  <p>{a.ars.toLocaleString(4)}</p>
+                                ) : (
+                                  "false"
+                                )}
+                              </Flex>
+                            );
+                          })
+                        ) : (
+                          <Text color={demoBalance ? "black" : "lightgray"}>
+                            ARS$500.000
+                          </Text>
+                        )}
+                      </p>
+                    </Heading>
+                  </Flex>
+                  <Divider orientation="vertical" />
+                  <Flex
+                    justifyContent={"center"}
+                    w={"100%"}
+                    alignItems={"center"}
+                  >
+                    <Heading textAlign={"center"}>
+                      <p>
+                        {validatedEmail[0] ? (
+                          filteredEmail.map((a) => {
+                            return (
+                              <Flex>
+                                USD: $
+                                {a.email === currentUser.email ? (
+                                  <p>{a.usd}</p>
+                                ) : (
+                                  "false"
+                                )}
+                              </Flex>
+                            );
+                          })
+                        ) : (
+                          <Text color={demoBalance ? "black" : "lightgray"}>
+                            USD$5.000
+                          </Text>
+                        )}
+                      </p>
+                    </Heading>
+                  </Flex>
+                </Flex>
+                <Divider />
+              </Flex>
+
+              <Box boxShadow={"lg"} mt={1} borderRadius={2}>
+                {validatedEmail[0] ? (
+                  <Button
+                    mt={2}
+                    onClick={() => {
+                      navigate("/operar");
+                    }}
+                    leftIcon={<FcBullish />}
+                  >
+                    ¡Comenzar a invertir!
+                  </Button>
+                ) : (
+                  <>
+                    {demoBalance ? (
+                      <Button
+                        mt={2}
+                        onClick={() => {
+                          navigate("/operar");
+                        }}
+                        leftIcon={<FcBullish />}
+                      >
+                        ¡Comenzar a invertir!
+                      </Button>
+                    ) : (
+                      <Button
+                        mt={2}
+                        onClick={() => {
+                          setDemoBalance(!demoBalance);
+                          toast({
+                            title: "Saldo demo habilitado con éxito",
+                            description: "Ya podes simular tus inversiones",
+                            status: "success",
+                            duration: 2000,
+                            isClosable: true,
+                            variant: "subtle",
+                          });
+                          createBalance();
+                        }}
+                        leftIcon={<FcCheckmark />}
+                      >
+                        Habilitar saldo demo
+                      </Button>
+                    )}
+                  </>
+                )}
+              </Box>
             </Flex>
-          </Heading>
-          <Heading
-            textAlign={"center"}
-            fontSize={"sm"}
-            fontWeight={"normal"}
-            color={"GrayText"}
-            mb={4}
-          >
-            <p>
-              Para comenzar a invertir necesitas realizar una transferencia
-              bancaria automática hacia nuestras cuentas bancarias.
-            </p>
-          </Heading>
-          <Divider />
-          <Flex>
-            <Box
-              w="md"
-              borderWidth="1px"
-              borderRadius="lg"
-              overflow="hidden"
-              p={4}
-              m={2}
-            >
-              <Heading textAlign={"center"} fontSize={"36px"}>
-                <p>Cargá pesos argentinos</p>
-              </Heading>
-              <Text textAlign={"center"}>
-                CBU: 1430001713000119250011
-                <CopyToClipboard text="1430001713000119250011">
-                  <Button
-                    onClick={() =>
-                      toast({
-                        title: "CBU en pesos copiado con éxito",
-                        description: "Ya podes realizar tu transferencia",
-                        status: "success",
-                        duration: 2000,
-                        isClosable: true,
-                      })
-                    }
-                    variant="ghost"
-                    borderRadius="30px"
-                    p="0"
-                  >
-                    <IoIosCopy />
-                  </Button>
-                </CopyToClipboard>
-              </Text>
-              <Text textAlign={"center"}>Alias: inverapp.pesos</Text>
-            </Box>
-
-            <Box
-              w="md"
-              borderWidth="1px"
-              borderRadius="lg"
-              overflow="hidden"
-              p={4}
-              m={2}
-            >
-              <Heading textAlign={"center"} fontSize={"35px"}>
-                <p> Cargá dólares americanos</p>
-              </Heading>
-              <Text textAlign={"center"}>
-                CBU: 1430001714000119250029
-                <CopyToClipboard text="1430001714000119250029">
-                  <Button
-                    onClick={() =>
-                      toast({
-                        title: "CBU en dólares copiado con éxito",
-                        description: "Ya podes realizar tu transferencia",
-                        status: "success",
-                        duration: 2000,
-                        isClosable: true,
-                      })
-                    }
-                    variant="ghost"
-                    borderRadius="30px"
-                    p="0"
-                  >
-                    <IoIosCopy />
-                  </Button>
-                </CopyToClipboard>
-              </Text>
-
-              <Text textAlign={"center"}>Alias: inverapp.pesos</Text>
-            </Box>
           </Flex>
-          <Heading
-            textAlign={"center"}
-            fontSize={"sm"}
-            fontWeight={"normal"}
-            color={"GrayText"}
-          >
-            <p>
-              La acreditación puede demorar como máximo 24 hs hábiles desde que
-              la realizaste.
-            </p>
-          </Heading>
         </Flex>
       </Flex>
-    </Flex>
+    </>
   );
 };

@@ -33,6 +33,8 @@ export const Portfolio = ({ arrayPortfolio }) => {
 
   const currentUserEmail = currentUser.email;
 
+  
+
   const navigate = useNavigate();
   return (
     <Flex my={1} flexDir={"column"}>
@@ -41,7 +43,6 @@ export const Portfolio = ({ arrayPortfolio }) => {
       </Heading>
       <Divider mb={2} />
 
-      
       {arrayPortfolio.length === 0 ? (
         <Flex
           justifyContent={"center"}
@@ -68,7 +69,9 @@ export const Portfolio = ({ arrayPortfolio }) => {
             <Text w={28}>Precio actual</Text>
             <Text w={24}>Gan/Per $</Text>
             <Text w={36}>Gan/Per %</Text>
-            <Text w={24}><strong>Total</strong></Text>
+            <Text w={24}>
+              <strong>Total</strong>
+            </Text>
           </Flex>
           <Divider />
         </>

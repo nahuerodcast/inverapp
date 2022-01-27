@@ -30,7 +30,6 @@ export const Trade = () => {
       .catch();
   }, []);
 
-
   const handleChange = (e) => {
     setSearch(e.target.value);
   };
@@ -54,7 +53,7 @@ export const Trade = () => {
       >
         Volver atrás
       </Button>
-      <Flex maxH={"60vh"} justifyContent={"center"} mt={4} mb={16}>
+      <Flex justifyContent={"center"} mt={4} mb={16}>
         <Box
           w="4xl"
           h={"xl"}
@@ -63,6 +62,8 @@ export const Trade = () => {
           overflow="hidden"
           p={6}
           m={2}
+          boxShadow={"lg"}
+          mb={12}
         >
           <Heading my={4}>
             <p> Operar </p>
@@ -86,7 +87,7 @@ export const Trade = () => {
               : ""}
           </Center>
 
-          <Scrollbars autoHide>
+          <Scrollbars autoHide >
             {filteredCoins.map((coin) => {
               return (
                 <LoggedSearchCoin

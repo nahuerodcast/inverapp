@@ -1,6 +1,6 @@
 import React from "react";
 import { useColorMode } from "@chakra-ui/color-mode";
-import { Flex, Heading } from "@chakra-ui/layout";
+import { Flex, Heading, Box } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
 import { WiMoonAltWaningCrescent2 } from "react-icons/wi";
 import { IoMdLogOut } from "react-icons/io";
@@ -44,7 +44,6 @@ export const Navbar = () => {
         px="200px"
         py={4}
         boxShadow="lg"
-       
       >
         <Flex flexDir="row" alignItems="center" w="100%">
           <Heading
@@ -80,15 +79,17 @@ export const Navbar = () => {
               size="xs"
               mr={2}
             />
-            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-              ¡Hola,{" "}
-              <strong>
-                {currentUser.displayName
-                  ? currentUser.displayName
-                  : currentUser.email}
-                !
-              </strong>
-            </MenuButton>
+            <Box boxShadow={"md"} borderRadius={4} >
+              <MenuButton as={Button} rightIcon={<ChevronDownIcon />} pl={4}>
+                ¡Hola,{" "}
+                <strong>
+                  {currentUser.displayName
+                    ? currentUser.displayName
+                    : currentUser.email}
+                  !
+                </strong>
+              </MenuButton>
+            </Box>
             <MenuList>
               <MenuGroup title="Perfil">
                 <ReactLink to="/mi-cuenta">
