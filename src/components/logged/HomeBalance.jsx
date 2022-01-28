@@ -1,10 +1,12 @@
 import { Divider, Flex, Heading, Text, Tooltip } from "@chakra-ui/react";
 import React from "react";
+import { useBalance } from "../../contexts/BalanceContext";
 import { InverappDate } from "../global/InverappDate";
 
 export const HomeBalance = () => {
   const updateBalance = async (id, ars, usd, user) => {};
 
+  const { ars, usd, positionArs, positionUsd} = useBalance();
   return (
     <Flex my={2} mb={6} flexDir={"column"}>
       <Flex justifyContent={"space-between"} alignItems={"center"}>
@@ -30,15 +32,15 @@ export const HomeBalance = () => {
             <Text>Total disponible</Text>
           </Tooltip>
 
-          <Text>ARS: $1.000</Text>
-          <Text>USD: $100</Text>
+          <Text>{ars}</Text>
+          <Text>{usd}</Text>
         </Flex>
         <Flex flexDir={"column"} alignItems={"flex-end"}>
           <Tooltip label="Total disponible utilizado en tu cuenta">
             <Text>Total invertido</Text>
           </Tooltip>
-          <Text>ARS: $1.000</Text>
-          <Text>USD: $100</Text>
+          <Text>{positionArs}</Text>
+          <Text>{positionUsd}</Text>
         </Flex>
       </Flex>
     </Flex>

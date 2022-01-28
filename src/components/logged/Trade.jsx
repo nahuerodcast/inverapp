@@ -14,6 +14,7 @@ import { LoggedSearchCoin } from "./LoggedSearchCoin";
 import { Scrollbars } from "react-custom-scrollbars";
 import { useNavigate } from "react-router-dom";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
+import { useBalance } from "../../contexts/BalanceContext";
 
 export const Trade = () => {
   const [coins, setCoins] = useState([]);
@@ -41,6 +42,8 @@ export const Trade = () => {
   );
 
   const navigate = useNavigate();
+
+  const { ars, usd } = useBalance();
 
   return (
     <Stack className="animate__animated animate__fadeIn">
@@ -73,7 +76,9 @@ export const Trade = () => {
               fontWeight={"normal"}
               mt={1}
             >
-              Saldo disponible: ARS $100 y USD $100
+              <Flex>
+                Saldo disponible: {ars} y {usd}
+              </Flex>
             </Text>
           </Heading>
           <Input
@@ -87,7 +92,7 @@ export const Trade = () => {
               : ""}
           </Center>
 
-          <Scrollbars autoHide >
+          <Scrollbars autoHide>
             {filteredCoins.map((coin) => {
               return (
                 <LoggedSearchCoin

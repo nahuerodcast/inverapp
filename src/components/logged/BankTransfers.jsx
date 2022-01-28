@@ -16,6 +16,7 @@ import { db } from "../../utils/init-firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import { useEffect } from "react";
 import { BankTransfersDetails } from "./BankTransfersDetails";
+import { useBalance } from "../../contexts/BalanceContext";
 
 export const BankTransfers = () => {
   // Hooks
@@ -34,6 +35,8 @@ export const BankTransfers = () => {
     await addDoc(balanceRef, {
       ars: 500000,
       usd: 5000,
+      positionArs: 0,
+      positionUsd: 0,
       isGenerated: !demoBalance,
       email,
     });
@@ -56,6 +59,8 @@ export const BankTransfers = () => {
   const validatedEmail = filteredEmail.map((a) => {
     return a.email === currentUser.email && a.isGenerated ? true : false;
   });
+
+  const { usd, ars } = useBalance();
 
   return (
     <>
@@ -111,26 +116,7 @@ export const BankTransfers = () => {
                     w={"100%"}
                   >
                     <Heading textAlign={"center"}>
-                      <p>
-                        {validatedEmail[0] ? (
-                          filteredEmail.map((a) => {
-                            return (
-                              <Flex>
-                                ARS: $
-                                {a.email === currentUser.email ? (
-                                  <p>{a.ars.toLocaleString(4)}</p>
-                                ) : (
-                                  "false"
-                                )}
-                              </Flex>
-                            );
-                          })
-                        ) : (
-                          <Text color={demoBalance ? "black" : "lightgray"}>
-                            ARS$500.000
-                          </Text>
-                        )}
-                      </p>
+                      <p>{ars}</p>
                     </Heading>
                   </Flex>
                   <Divider orientation="vertical" />
@@ -140,26 +126,7 @@ export const BankTransfers = () => {
                     alignItems={"center"}
                   >
                     <Heading textAlign={"center"}>
-                      <p>
-                        {validatedEmail[0] ? (
-                          filteredEmail.map((a) => {
-                            return (
-                              <Flex>
-                                USD: $
-                                {a.email === currentUser.email ? (
-                                  <p>{a.usd}</p>
-                                ) : (
-                                  "false"
-                                )}
-                              </Flex>
-                            );
-                          })
-                        ) : (
-                          <Text color={demoBalance ? "black" : "lightgray"}>
-                            USD$5.000
-                          </Text>
-                        )}
-                      </p>
+                      <p>{usd}</p>
                     </Heading>
                   </Flex>
                 </Flex>

@@ -29,6 +29,7 @@ import { CgTrendingDown, CgTrending } from "react-icons/cg";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../utils/init-firebase";
 import { useAuth } from "../../contexts/AuthContext";
+import { useBalance } from "../../contexts/BalanceContext";
 
 export const LoggedSearchCoin = ({
   id,
@@ -48,9 +49,8 @@ export const LoggedSearchCoin = ({
   const initRef = React.useRef();
   const toast = useToast();
 
-  // Fake balance
-  const ars = 1000;
-  const usd = 100;
+  // Balance
+  const { ars, usd, numberArs, numberUsd } = useBalance();
 
   // Firebase functions
   const portfolioRef = collection(db, "portfolio");
@@ -180,9 +180,9 @@ export const LoggedSearchCoin = ({
                         textAlign={"center"}
                       >
                         {!currencySwitch ? (
-                          <strong>{`ARS $${ars}`}</strong>
+                          <strong>{ars}</strong>
                         ) : (
-                          <strong>{`USD $${usd}`}</strong>
+                          <strong>{usd}</strong>
                         )}
                       </Text>
                     </Flex>
@@ -206,7 +206,7 @@ export const LoggedSearchCoin = ({
                     >
                       <NumberInputField
                         placeholder="Cantidad"
-                        onChange={(e) => setQuantity(e.target.value)}
+                        onChange={(e) => setQuantity(parseInt(e.target.value))}
                       />
                       <Text
                         color={"red.700"}
@@ -214,8 +214,8 @@ export const LoggedSearchCoin = ({
                         fontSize={"sm"}
                         my={1}
                       >
-                        {(ars >= quantity && !currencySwitch) ||
-                        (usd >= quantity && currencySwitch)
+                        {(numberArs >= quantity && !currencySwitch) ||
+                        (numberUsd >= quantity && currencySwitch)
                           ? ""
                           : "No posee suficiente saldo 👎"}
                       </Text>
@@ -232,9 +232,13 @@ export const LoggedSearchCoin = ({
                           (quantity !== 0 &&
                             quantity !== "0" &&
                             quantity !== "" &&
-                            ars >= quantity &&
+                            numberArs[0] >= quantity &&
                             !currencySwitch) ||
-                          (usd >= quantity && currencySwitch)
+                          (quantity !== 0 &&
+                            quantity !== "0" &&
+                            quantity !== "" &&
+                            numberUsd[0] >= quantity &&
+                            currencySwitch)
                             ? false
                             : true
                         }
