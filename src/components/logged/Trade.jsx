@@ -60,12 +60,11 @@ export const Trade = () => {
         <Box
           w="4xl"
           h={"xl"}
-          borderWidth="1px"
-          borderRadius="lg"
+          borderRadius="xl"
           overflow="hidden"
-          p={6}
+          p={8}
           m={2}
-          boxShadow={"lg"}
+          boxShadow={"xl"}
           mb={12}
         >
           <Heading my={4}>

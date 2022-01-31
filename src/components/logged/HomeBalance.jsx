@@ -4,9 +4,7 @@ import { useBalance } from "../../contexts/BalanceContext";
 import { InverappDate } from "../global/InverappDate";
 
 export const HomeBalance = () => {
-  const updateBalance = async (id, ars, usd, user) => {};
-
-  const { ars, usd, positionArs, positionUsd} = useBalance();
+  const { ars, usd, positionArs, positionUsd } = useBalance();
   return (
     <Flex my={2} mb={6} flexDir={"column"}>
       <Flex justifyContent={"space-between"} alignItems={"center"}>

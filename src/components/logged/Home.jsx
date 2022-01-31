@@ -2,7 +2,6 @@ import { Button } from "@chakra-ui/button";
 import { Flex, Heading, Stack, Divider, Box } from "@chakra-ui/layout";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { InverappDate } from "../global/InverappDate";
 import { FcBullish, FcMoneyTransfer, FcReading } from "react-icons/fc";
 import { Portfolio } from "./Portfolio";
 import { db } from "../../utils/init-firebase";
@@ -26,8 +25,6 @@ export const Home = () => {
 
     getPortfolio();
   }, []);
-
-
 
   return (
     <Flex flexDir={"column"} className="animate__animated animate__fadeIn">
@@ -67,25 +64,12 @@ export const Home = () => {
         </Stack>
       </Flex>
       <Flex flexDir={"column"} px="350px">
-        <Box
-          borderWidth="1px"
-          borderRadius="xl"
-          overflow="hidden"
-          p={6}
-          boxShadow={"xl"}
-          mb={12}
-        >
+        <Box borderRadius="xl" overflow="hidden" p={6} boxShadow={"xl"} mb={12}>
           <HomeBalance />
         </Box>
-        <Box
-          borderWidth="1px"
-          borderRadius="xl"
-          overflow="hidden"
-          p={6}
-          boxShadow={"xl"}
-          mb={12}
-        >
-        <Portfolio arrayPortfolio={portfolio} />  </Box>
+        <Box borderRadius="xl" overflow="hidden" p={6} boxShadow={"xl"} mb={12}>
+          <Portfolio arrayPortfolio={portfolio} />{" "}
+        </Box>
         <Flex my={1} mt={4}>
           <Heading fontSize={"2xl"}>
             <p> Últimos movimientos</p>

@@ -1,21 +1,11 @@
-import {
-  Button,
-  Center,
-  Divider,
-  Flex,
-  Heading,
-  Stack,
-} from "@chakra-ui/react";
+import { Button, Divider, Flex, Heading, Stack } from "@chakra-ui/react";
 import React from "react";
 import { FcExternal, FcInternal } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
-import { useAuth } from "../../contexts/AuthContext";
 import { useBalance } from "../../contexts/BalanceContext";
 
 export const AccountBalance = () => {
-  const { currentUser } = useAuth();
-
   const { ars, usd } = useBalance();
 
   const navigate = useNavigate();

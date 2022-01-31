@@ -26,6 +26,7 @@ import { Link as ReactLink } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { Avatar } from "@chakra-ui/avatar";
 import { MdMenuBook } from "react-icons/md";
+import { RiExchangeDollarLine } from "react-icons/ri";
 
 export const Navbar = () => {
   //Colors
@@ -58,11 +59,20 @@ export const Navbar = () => {
         </Flex>
         <Flex alignItems="center">
           <Button
+            variant="ghost"
+            p={0}
+            m={0}
+            borderRadius={9999}
+            color="gray.500"
+          >
+            <RiExchangeDollarLine size={20} />
+          </Button>
+          <Button
             onClick={toggleColorMode}
             variant="ghost"
             p={0}
             m={0}
-            mr={1}
+            mr={2}
             borderRadius={9999}
             color="gray.500"
           >
@@ -79,7 +89,7 @@ export const Navbar = () => {
               size="xs"
               mr={2}
             />
-            <Box boxShadow={"md"} borderRadius={4} >
+            <Box boxShadow={"md"} borderRadius={4}>
               <MenuButton as={Button} rightIcon={<ChevronDownIcon />} pl={4}>
                 ¡Hola,{" "}
                 <strong>

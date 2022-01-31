@@ -52,7 +52,7 @@ export default function BalanceContextProvider({ children }) {
   const valorARS = validatedEmail[0]
     ? filteredEmail.map((a) => {
         return a.email === currentUser.email
-          ? `ARS: $${Number(a.ars).toLocaleString(4)}`
+          ? `ARS: $${Number(a.numberArs).toLocaleString(4)}`
           : false;
       })
     : spinner();
@@ -114,6 +114,7 @@ export default function BalanceContextProvider({ children }) {
     positionUsd: positionUsd,
     numberArs: numberArs,
     numberUsd: numberUsd,
+    balanceData,
   };
   return (
     <BalanceContext.Provider value={value}>{children}</BalanceContext.Provider>

@@ -26,7 +26,7 @@ import { useState } from "react";
 import { HiCheckCircle } from "react-icons/hi";
 import { useToast } from "@chakra-ui/react";
 import { CgTrendingDown, CgTrending } from "react-icons/cg";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../utils/init-firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import { useBalance } from "../../contexts/BalanceContext";
@@ -44,13 +44,28 @@ export const LoggedSearchCoin = ({
   const [currencySwitch, setCurrencySwitch] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
 
+  const validation = () => {
+    return (
+      (quantity !== 0 &&
+        quantity !== "0" &&
+        quantity !== "" &&
+        numberArs[0] >= quantity &&
+        !currencySwitch) ||
+      (quantity !== 0 &&
+        quantity !== "0" &&
+        quantity !== "" &&
+        numberUsd[0] >= quantity &&
+        currencySwitch)
+    );
+  };
+
   // Chakra UI hooks & stuff
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initRef = React.useRef();
   const toast = useToast();
 
   // Balance
-  const { ars, usd, numberArs, numberUsd } = useBalance();
+  const { ars, usd, numberArs, numberUsd, balanceData } = useBalance();
 
   // Firebase functions
   const portfolioRef = collection(db, "portfolio");
@@ -64,10 +79,27 @@ export const LoggedSearchCoin = ({
       symbol,
       quantity,
       email,
+      currencySwitch,
     });
   };
   const { currentUser } = useAuth();
   const email = currentUser.email;
+
+  const balanceDataID = balanceData.map((a) => {
+    return a.id;
+  });
+
+  console.log(balanceDataID[0]);
+
+  const updateBalance = async () => {
+    const userDoc = doc(db, "balance", "5ldZSQdBcHStFReRfuXP");
+    const newFields = {
+      numberArs: numberArs - quantity,
+      numberUsd: numberUsd - quantity,
+      positionArs: quantity,
+    };
+    await updateDoc(userDoc, newFields);
+  };
 
   return (
     <>
@@ -206,7 +238,7 @@ export const LoggedSearchCoin = ({
                     >
                       <NumberInputField
                         placeholder="Cantidad"
-                        onChange={(e) => setQuantity(parseInt(e.target.value))}
+                        onChange={(e) => setQuantity(e.target.value)}
                       />
                       <Text
                         color={"red.700"}
@@ -214,8 +246,12 @@ export const LoggedSearchCoin = ({
                         fontSize={"sm"}
                         my={1}
                       >
-                        {(numberArs >= quantity && !currencySwitch) ||
-                        (numberUsd >= quantity && currencySwitch)
+                        {(quantity !== "0" &&
+                          numberArs[0] >= quantity &&
+                          !currencySwitch) ||
+                        (quantity !== "0" &&
+                          numberUsd[0] >= quantity &&
+                          currencySwitch)
                           ? ""
                           : "No posee suficiente saldo 👎"}
                       </Text>
@@ -228,20 +264,7 @@ export const LoggedSearchCoin = ({
                         onClick={() => {
                           setIsSelected(!isSelected);
                         }}
-                        isDisabled={
-                          (quantity !== 0 &&
-                            quantity !== "0" &&
-                            quantity !== "" &&
-                            numberArs[0] >= quantity &&
-                            !currencySwitch) ||
-                          (quantity !== 0 &&
-                            quantity !== "0" &&
-                            quantity !== "" &&
-                            numberUsd[0] >= quantity &&
-                            currencySwitch)
-                            ? false
-                            : true
-                        }
+                        isDisabled={validation() ? false : true}
                         leftIcon={<CgTrending />}
                       >
                         Comprar
@@ -317,6 +340,7 @@ export const LoggedSearchCoin = ({
                             isClosable: true,
                           });
                           createOrder();
+                          updateBalance();
                         }}
                         rightIcon={<HiCheckCircle />}
                       >
