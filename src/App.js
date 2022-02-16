@@ -18,11 +18,11 @@ function App() {
   };
   return (
     <AuthContextProvider>
-      <BalanceContextProvider>
-        <ChakraProvider theme={theme}>
+      <ChakraProvider theme={theme}>
+        <BalanceContextProvider>
           <LoginProvider />
-        </ChakraProvider>
-      </BalanceContextProvider>
+        </BalanceContextProvider>
+      </ChakraProvider>
     </AuthContextProvider>
   );
 }

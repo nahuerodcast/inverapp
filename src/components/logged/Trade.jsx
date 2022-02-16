@@ -43,7 +43,7 @@ export const Trade = () => {
 
   const navigate = useNavigate();
 
-  const { ars, usd } = useBalance();
+  const { stringARS, stringUSD } = useBalance();
 
   return (
     <Stack className="animate__animated animate__fadeIn">
@@ -76,7 +76,7 @@ export const Trade = () => {
               mt={1}
             >
               <Flex>
-                Saldo disponible: {ars} y {usd}
+                Saldo disponible: {stringARS} y {stringUSD}
               </Flex>
             </Text>
           </Heading>

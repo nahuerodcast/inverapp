@@ -11,7 +11,14 @@ import React, { useState } from "react";
 
 import { FcIdea, FcCheckmark, FcBullish } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  setDoc,
+  doc,
+  getDocs,
+  onSnapshot,
+  collection,
+} from "firebase/firestore";
 import { db } from "../../utils/init-firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import { useEffect } from "react";
@@ -29,41 +36,41 @@ export const BankTransfers = () => {
 
   //Creating Firebase Data
   const { currentUser } = useAuth();
-  const email = currentUser.email;
-  const balanceRef = collection(db, "balance");
+
+  const balanceRef = doc(db, "balance", currentUser.email);
+
   const createBalance = async () => {
-    await addDoc(balanceRef, {
+    await setDoc(balanceRef, {
       ars: 500000,
       usd: 5000,
       positionArs: 0,
       positionUsd: 0,
       isGenerated: !demoBalance,
-      email,
     });
   };
 
-  // Reading Firebase Data
-  useEffect(() => {
-    const getBalanceData = async () => {
-      const data = await getDocs(balanceRef);
-      setBalanceData(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
+  // useEffect(() => {
+  //   const getBalanceData = async () => {
+  //     const data = await getDocs(balanceRef);
+  //     setBalanceData(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  //   };
 
-    getBalanceData();
-  }, []);
+  //   getBalanceData();
+  // }, []);
 
-  const filteredEmail = balanceData.filter((a) =>
-    a.email.includes(currentUser.email)
-  );
+  // const filteredEmail = balanceData.filter((a) =>
+  //   a.email.includes(currentUser.email)
+  // );
 
-  const validatedEmail = filteredEmail.map((a) => {
-    return a.email === currentUser.email && a.isGenerated ? true : false;
-  });
+  // const validatedEmail = filteredEmail.map((a) => {
+  //   return a.email === currentUser.email && a.isGenerated ? true : false;
+  // });
 
-  const { usd, ars } = useBalance();
+  const { ars, usd, isGenerated } = useBalance();
 
   return (
     <>
+    {console.log(currentUser.email)}
       <BankTransfersDetails />
       <Flex
         flexDir={"column"}
@@ -134,7 +141,8 @@ export const BankTransfers = () => {
               </Flex>
 
               <Box boxShadow={"lg"} mt={1} borderRadius={2}>
-                {validatedEmail[0] ? (
+                {isGenerated ? (
+                  // validatedEmail[0]
                   <Button
                     mt={2}
                     onClick={() => {

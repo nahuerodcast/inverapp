@@ -14,6 +14,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../../contexts/AuthContext";
+import { useBalance } from "../../contexts/BalanceContext";
 
 export const Portfolio = ({ arrayPortfolio }) => {
   const [price, setPrice] = useState("");
@@ -43,6 +44,8 @@ export const Portfolio = ({ arrayPortfolio }) => {
 
   const { currentUser } = useAuth();
 
+  const { email } = useBalance();
+
   const currentUserEmail = currentUser.email;
 
   const navigate = useNavigate();
@@ -53,7 +56,7 @@ export const Portfolio = ({ arrayPortfolio }) => {
       </Heading>
       <Divider mb={2} />
 
-      {arrayPortfolio.length === 0 ? (
+      {arrayPortfolio.length === 0 && email === currentUser.email ? (
         <Flex
           justifyContent={"center"}
           flexDir={"column"}

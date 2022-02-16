@@ -1,5 +1,5 @@
 import { Flex, Spinner } from "@chakra-ui/react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, doc, getDocs, onSnapshot } from "firebase/firestore";
 import { useState } from "react";
 import { useEffect } from "react";
 import { createContext, useContext } from "react";
@@ -7,40 +7,48 @@ import { db } from "../utils/init-firebase";
 import { useAuth } from "./AuthContext";
 
 const BalanceContext = createContext({
-  email: null,
   isGenerated: null,
   ars: null,
   usd: null,
   positionArs: null,
   positionUsd: null,
-  numberArs: null,
-  numberUsd: null,
+  stringARS: null,
+  stringUSD: null,
+  stringPositionARS: null,
+  stringPositionUSD: null,
 });
 
 export const useBalance = () => useContext(BalanceContext);
 
 export default function BalanceContextProvider({ children }) {
-  const [balanceData, setBalanceData] = useState([]);
-  const balanceRef = collection(db, "balance");
-
+  // User info
   const { currentUser } = useAuth();
 
-  useEffect(() => {
-    const getBalanceData = async () => {
-      const data = await getDocs(balanceRef);
-      setBalanceData(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
+  const data = () => {
+    return currentUser.email;
+  };
 
-    getBalanceData();
+  console.log(data());
+
+  const [balanceData, setBalanceData] = useState("");
+
+  useEffect(() => {
+    const getBalanceData = onSnapshot(
+      doc(db, "balance", "nahuerodcast@gmail.com"),
+      (doc) => {
+        setBalanceData(doc.data());
+      }
+    );
   }, []);
 
-  const filteredEmail = balanceData.filter((a) =>
-    a.email.includes(currentUser.email)
-  );
+  // const filteredEmail = balanceData.filter((a) =>
+  //   a.email.includes(currentUser.email)
+  // );
 
-  const validatedEmail = filteredEmail.map((a) => {
-    return a.email === currentUser.email && a.isGenerated ? true : false;
-  });
+  // const validatedEmail = filteredEmail.map((a) => {
+  //   return a.email === currentUser.email && a.isGenerated ? true : false;
+  // });
+
   const spinner = () => {
     return (
       <Flex>
@@ -49,72 +57,68 @@ export default function BalanceContextProvider({ children }) {
     );
   };
 
-  const valorARS = validatedEmail[0]
-    ? filteredEmail.map((a) => {
-        return a.email === currentUser.email
-          ? `ARS: $${Number(a.numberArs).toLocaleString(4)}`
-          : false;
-      })
-    : spinner();
+  // const usd = validatedEmail[0]
+  //   ? filteredEmail.map((a) => {
+  //       return a.email === currentUser.email ? Number(a.usd) : false;
+  //     })
+  //   : spinner();
 
-  const valorUSD = validatedEmail[0]
-    ? filteredEmail.map((a) => {
-        return a.email === currentUser.email
-          ? `USD: $${Number(a.usd).toLocaleString(4)}`
-          : false;
-      })
-    : spinner();
+  // const positionArs = validatedEmail[0]
+  //   ? filteredEmail.map((a) => {
+  //       return a.email === currentUser.email ? Number(a.positionArs) : false;
+  //     })
+  //   : spinner();
 
-  const positionArs = validatedEmail[0]
-    ? filteredEmail.map((a) => {
-        return a.email === currentUser.email
-          ? `ARS: $${Number(a.positionArs).toLocaleString(4)}`
-          : false;
-      })
-    : spinner();
+  // const positionUsd = validatedEmail[0]
+  //   ? filteredEmail.map((a) => {
+  //       return a.email === currentUser.email ? Number(a.positionUsd) : false;
+  //     })
+  //   : spinner();
 
-  const positionUsd = validatedEmail[0]
-    ? filteredEmail.map((a) => {
-        return a.email === currentUser.email
-          ? `USD: $${Number(a.positionUsd).toLocaleString(4)}`
-          : false;
-      })
-    : spinner();
+  // const isGenerated = validatedEmail[0]
+  //   ? filteredEmail.map((a) => {
+  //       return a.email === currentUser.email ? Boolean(a.isGenerated) : false;
+  //     })
+  //   : spinner();
 
-  const numberArs = validatedEmail[0]
-    ? filteredEmail.map((a) => {
-        return a.email === currentUser.email ? Number(a.ars) : false;
-      })
-    : spinner();
+  // const email = validatedEmail[0]
+  //   ? filteredEmail.map((a) => {
+  //       return a.email === currentUser.email ? String(a.email) : false;
+  //     })
+  //   : spinner();
 
-  const numberUsd = validatedEmail[0]
-    ? filteredEmail.map((a) => {
-        return a.email === currentUser.email ? Number(a.usd) : false;
-      })
-    : spinner();
+  // const stringPositionARS = validatedEmail[0]
+  //   ? `ARS: $${positionArs.toLocaleString(4)}`
+  //   : spinner();
 
-  const isGenerated = validatedEmail[0]
-    ? filteredEmail.map((a) => {
-        return a.email === currentUser.email ? Boolean(a.isGenerated) : false;
-      })
-    : spinner();
+  // const stringPositionUSD = validatedEmail[0]
+  //   ? `USD: $${positionUsd.toLocaleString(4)}`
+  //   : spinner();
 
-  const email = validatedEmail[0]
-    ? filteredEmail.map((a) => {
-        return a.email === currentUser.email ? String(a.email) : false;
-      })
-    : spinner();
+  // const stringARS = validatedEmail[0]
+  //   ? `ARS: $${ars.toLocaleString(4)}`
+  //   : spinner();
+
+  // const stringUSD = validatedEmail[0]
+  //   ? `USD: $${usd.toLocaleString(4)}`
+  //   : spinner();
+
+  const ars = balanceData ? balanceData.ars : "ARS: $500.000";
+  const usd = balanceData ? balanceData.usd : "USD: $5000";
+  const isGenerated = balanceData ? balanceData.isGenerated : null;
 
   const value = {
-    email: email,
-    isGenerated: isGenerated,
-    ars: valorARS,
-    usd: valorUSD,
-    positionArs: positionArs,
-    positionUsd: positionUsd,
-    numberArs: numberArs,
-    numberUsd: numberUsd,
-    balanceData,
+    // email,
+    isGenerated,
+    ars,
+    usd,
+    // positionArs,
+    // positionUsd,
+    // stringARS,
+    // stringUSD,
+    // stringPositionARS,
+    // stringPositionUSD,
+    // balanceData,
   };
   return (
     <BalanceContext.Provider value={value}>{children}</BalanceContext.Provider>

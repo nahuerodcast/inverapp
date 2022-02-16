@@ -49,12 +49,12 @@ export const LoggedSearchCoin = ({
       (quantity !== 0 &&
         quantity !== "0" &&
         quantity !== "" &&
-        numberArs[0] >= quantity &&
+        ars[0] >= quantity &&
         !currencySwitch) ||
       (quantity !== 0 &&
         quantity !== "0" &&
         quantity !== "" &&
-        numberUsd[0] >= quantity &&
+        usd[0] >= quantity &&
         currencySwitch)
     );
   };
@@ -65,7 +65,7 @@ export const LoggedSearchCoin = ({
   const toast = useToast();
 
   // Balance
-  const { ars, usd, numberArs, numberUsd, balanceData } = useBalance();
+  const { ars, usd, stringARS, stringUSD, balanceData, positionArs } = useBalance();
 
   // Firebase functions
   const portfolioRef = collection(db, "portfolio");
@@ -89,15 +89,15 @@ export const LoggedSearchCoin = ({
     return a.id;
   });
 
-  console.log(balanceDataID[0]);
+  console.log(balanceDataID);
 
   const updateBalance = async () => {
-    const userDoc = doc(db, "balance", "5ldZSQdBcHStFReRfuXP");
+    const userDoc = doc(db, "balance", "HnkOuMC53Ew4V0ygbX4m");
     const newFields = {
-      numberArs: numberArs - quantity,
-      numberUsd: numberUsd - quantity,
-      positionArs: quantity,
+      ars: ars - quantity,
+      positionArs: parseInt(positionArs) + parseInt(quantity),
     };
+    console.log(positionArs);
     await updateDoc(userDoc, newFields);
   };
 
@@ -212,9 +212,9 @@ export const LoggedSearchCoin = ({
                         textAlign={"center"}
                       >
                         {!currencySwitch ? (
-                          <strong>{ars}</strong>
+                          <strong>{stringARS}</strong>
                         ) : (
-                          <strong>{usd}</strong>
+                          <strong>{stringUSD}</strong>
                         )}
                       </Text>
                     </Flex>
@@ -247,10 +247,10 @@ export const LoggedSearchCoin = ({
                         my={1}
                       >
                         {(quantity !== "0" &&
-                          numberArs[0] >= quantity &&
+                          ars[0] >= quantity &&
                           !currencySwitch) ||
                         (quantity !== "0" &&
-                          numberUsd[0] >= quantity &&
+                          usd[0] >= quantity &&
                           currencySwitch)
                           ? ""
                           : "No posee suficiente saldo 👎"}

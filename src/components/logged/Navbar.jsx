@@ -42,7 +42,7 @@ export const Navbar = () => {
         flexDir="row"
         alignItems="center"
         justifyContent="space-between"
-        px="200px"
+        px="15vw"
         py={4}
         boxShadow="lg"
       >

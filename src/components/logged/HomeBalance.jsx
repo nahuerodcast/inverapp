@@ -4,7 +4,8 @@ import { useBalance } from "../../contexts/BalanceContext";
 import { InverappDate } from "../global/InverappDate";
 
 export const HomeBalance = () => {
-  const { ars, usd, positionArs, positionUsd } = useBalance();
+  const { stringARS, stringUSD, stringPositionARS, stringPositionUSD, estring } =
+    useBalance();
   return (
     <Flex my={2} mb={6} flexDir={"column"}>
       <Flex justifyContent={"space-between"} alignItems={"center"}>
@@ -30,15 +31,15 @@ export const HomeBalance = () => {
             <Text>Total disponible</Text>
           </Tooltip>
 
-          <Text>{ars}</Text>
-          <Text>{usd}</Text>
+          <Text>{stringARS}</Text>
+          <Text>{stringUSD}</Text>
         </Flex>
         <Flex flexDir={"column"} alignItems={"flex-end"}>
           <Tooltip label="Total disponible utilizado en tu cuenta">
             <Text>Total invertido</Text>
           </Tooltip>
-          <Text>{positionArs}</Text>
-          <Text>{positionUsd}</Text>
+          <Text>{stringPositionARS}</Text>
+          <Text>{stringPositionUSD}</Text>
         </Flex>
       </Flex>
     </Flex>
