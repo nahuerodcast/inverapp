@@ -18,7 +18,6 @@ import { Messages } from "./Messages";
 
 export const MessageCenter = () => {
   const { currentUser } = useAuth();
-  const [newMessages] = useState(false);
 
   return (
     <Flex justifyContent="center" minH="60vh">
@@ -53,13 +52,6 @@ export const MessageCenter = () => {
           </Flex>
         </Flex>
         <Divider mt={4} />
-        {newMessages ? (
-          "mensajes"
-        ) : (
-          <Center mt={4} color="red.600">
-            No se encontraron mensajes
-          </Center>
-        )}
         <Messages />
         <Flex h="100%" alignItems="flex-end">
           <Stack direction="row">

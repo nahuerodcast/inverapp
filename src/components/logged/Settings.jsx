@@ -48,7 +48,7 @@ export const Settings = () => {
                 mb={8}
                 color="gray.500"
               >
-                <p> Cuenta plus gold</p>
+                <p> Cuenta demo</p>
               </Heading>
             </Flex>
             <Flex justifyContent="space-between">

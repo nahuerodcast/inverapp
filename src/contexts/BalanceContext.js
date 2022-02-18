@@ -3,6 +3,11 @@ import { collection, doc, getDocs, onSnapshot } from "firebase/firestore";
 import { useState } from "react";
 import { useEffect } from "react";
 import { createContext, useContext } from "react";
+import {
+  FormattedArs,
+  FormattedNumbers,
+  FormattedUsd,
+} from "../components/logged/FormattedNumbers";
 import { db } from "../utils/init-firebase";
 import { useAuth } from "./AuthContext";
 
@@ -16,29 +21,29 @@ const BalanceContext = createContext({
   stringUSD: null,
   stringPositionARS: null,
   stringPositionUSD: null,
+  balanceData: null,
 });
 
 export const useBalance = () => useContext(BalanceContext);
 
 export default function BalanceContextProvider({ children }) {
   // User info
-  const { currentUser } = useAuth();
+  // const { currentUser } = useAuth();
 
-  const data = () => {
-    return currentUser.email;
-  };
+  // console.log(currentUser.email);
 
-  console.log(data());
+  // const data = () => {
+  //   return currentUser.email;
+  // };
+
+  // console.log(data());
 
   const [balanceData, setBalanceData] = useState("");
 
   useEffect(() => {
-    const getBalanceData = onSnapshot(
-      doc(db, "balance", "nahuerodcast@gmail.com"),
-      (doc) => {
-        setBalanceData(doc.data());
-      }
-    );
+    onSnapshot(doc(db, "balance", "nahuerodcast@gmail.com"), (doc) => {
+      setBalanceData(doc.data());
+    });
   }, []);
 
   // const filteredEmail = balanceData.filter((a) =>
@@ -106,19 +111,19 @@ export default function BalanceContextProvider({ children }) {
   const ars = balanceData ? balanceData.ars : "ARS: $500.000";
   const usd = balanceData ? balanceData.usd : "USD: $5000";
   const isGenerated = balanceData ? balanceData.isGenerated : null;
+  const positionArs = balanceData ? balanceData.positionArs : "ARS: $0";
+  const positionUsd = balanceData ? balanceData.positionUsd : "USD: $0";
 
   const value = {
-    // email,
     isGenerated,
     ars,
     usd,
-    // positionArs,
-    // positionUsd,
-    // stringARS,
-    // stringUSD,
-    // stringPositionARS,
-    // stringPositionUSD,
-    // balanceData,
+    positionArs,
+    positionUsd,
+    stringARS: <FormattedArs ars={ars} />,
+    stringUSD: <FormattedUsd usd={usd} />,
+    stringPositionARS: <FormattedArs ars={positionArs} />,
+    stringPositionUSD: <FormattedUsd usd={positionUsd} />,
   };
   return (
     <BalanceContext.Provider value={value}>{children}</BalanceContext.Provider>

@@ -30,6 +30,7 @@ import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../utils/init-firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import { useBalance } from "../../contexts/BalanceContext";
+import { FormattedArs } from "./FormattedNumbers";
 
 export const LoggedSearchCoin = ({
   id,
@@ -49,12 +50,12 @@ export const LoggedSearchCoin = ({
       (quantity !== 0 &&
         quantity !== "0" &&
         quantity !== "" &&
-        ars[0] >= quantity &&
+        ars >= quantity &&
         !currencySwitch) ||
       (quantity !== 0 &&
         quantity !== "0" &&
         quantity !== "" &&
-        usd[0] >= quantity &&
+        usd >= quantity &&
         currencySwitch)
     );
   };
@@ -65,7 +66,8 @@ export const LoggedSearchCoin = ({
   const toast = useToast();
 
   // Balance
-  const { ars, usd, stringARS, stringUSD, balanceData, positionArs } = useBalance();
+  const { ars, usd, stringARS, stringUSD, positionArs, positionUsd } =
+    useBalance();
 
   // Firebase functions
   const portfolioRef = collection(db, "portfolio");
@@ -81,23 +83,26 @@ export const LoggedSearchCoin = ({
       email,
       currencySwitch,
     });
+    setQuantity("");
   };
   const { currentUser } = useAuth();
   const email = currentUser.email;
 
-  const balanceDataID = balanceData.map((a) => {
-    return a.id;
-  });
+  const updatePosition = !currencySwitch
+    ? {
+        ars: ars - quantity,
+        positionArs: positionArs + quantity,
+      }
+    : {
+        usd: usd - quantity,
+        positionUsd: positionUsd + quantity,
+      };
 
-  console.log(balanceDataID);
+  console.log(positionArs + quantity);
 
   const updateBalance = async () => {
-    const userDoc = doc(db, "balance", "HnkOuMC53Ew4V0ygbX4m");
-    const newFields = {
-      ars: ars - quantity,
-      positionArs: parseInt(positionArs) + parseInt(quantity),
-    };
-    console.log(positionArs);
+    const userDoc = doc(db, "balance", currentUser.email);
+    const newFields = updatePosition;
     await updateDoc(userDoc, newFields);
   };
 
@@ -236,26 +241,34 @@ export const LoggedSearchCoin = ({
                       clampValueOnBlur={false}
                       w={"50%"}
                     >
-                      <NumberInputField
-                        placeholder="Cantidad"
-                        onChange={(e) => setQuantity(e.target.value)}
-                      />
-                      <Text
-                        color={"red.700"}
-                        textAlign={"center"}
-                        fontSize={"sm"}
-                        my={1}
+                      <form
+                        onSubmit={(e) => {
+                          e.preventDefault();
+                          setIsSelected(!isSelected);
+                        }}
                       >
-                        {(quantity !== "0" &&
-                          ars[0] >= quantity &&
-                          !currencySwitch) ||
-                        (quantity !== "0" &&
-                          usd[0] >= quantity &&
-                          currencySwitch)
-                          ? ""
-                          : "No posee suficiente saldo 👎"}
-                      </Text>
+                        <NumberInputField
+                          placeholder="Cantidad"
+                          onChange={(e) => setQuantity(Number(e.target.value))}
+                        />
+                        <Text
+                          color={"red.700"}
+                          textAlign={"center"}
+                          fontSize={"sm"}
+                          my={1}
+                        >
+                          {(quantity !== "0" &&
+                            ars >= quantity &&
+                            !currencySwitch) ||
+                          (quantity !== "0" &&
+                            usd >= quantity &&
+                            currencySwitch)
+                            ? ""
+                            : "No posee suficiente saldo 👎"}
+                        </Text>
+                      </form>
                     </NumberInput>
+
                     <Flex flexDir={"row"} w={"50%"} justifyContent={"center"}>
                       <Button
                         mr={1}
@@ -303,7 +316,9 @@ export const LoggedSearchCoin = ({
                       <Text>Vas a pagar </Text>
                       <Text>
                         {!currencySwitch ? (
-                          <strong>{`ARS $${quantity}`}</strong>
+                          <strong>
+                            <FormattedArs ars={quantity} />
+                          </strong>
                         ) : (
                           <strong>{`USD $${quantity}`}</strong>
                         )}

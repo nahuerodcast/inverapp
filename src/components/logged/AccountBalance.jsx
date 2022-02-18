@@ -6,7 +6,7 @@ import { FaArrowAltCircleLeft } from "react-icons/fa";
 import { useBalance } from "../../contexts/BalanceContext";
 
 export const AccountBalance = () => {
-  const { ars, usd } = useBalance();
+  const { stringARS, stringUSD } = useBalance();
 
   const navigate = useNavigate();
 
@@ -36,14 +36,14 @@ export const AccountBalance = () => {
           <Divider />
           <Flex height="65px" w={"100%"} my={4}>
             <Flex justifyContent={"center"} w={"100%"} alignItems={"center"}>
-              <Heading w={"300px"} textAlign={"center"}>
-                <p>{ars}</p>
+              <Heading w={"400px"} textAlign={"center"}>
+                <p>{stringARS}</p>
               </Heading>
             </Flex>
             <Divider orientation="vertical" />
             <Flex justifyContent={"center"} w={"100%"} alignItems={"center"}>
-              <Heading w={"300px"} textAlign={"center"}>
-                <p>{usd}</p>
+              <Heading w={"400px"} textAlign={"center"}>
+                <p>{stringUSD}</p>
               </Heading>
             </Flex>
           </Flex>
