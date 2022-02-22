@@ -18,6 +18,8 @@ export const BankTransfersDetails = () => {
   const toast = useToast();
   const navigate = useNavigate();
 
+
+
   return (
     <>
       <Flex

@@ -18,7 +18,6 @@ import { useBalance } from "../../contexts/BalanceContext";
 
 export const Portfolio = ({ arrayPortfolio }) => {
   const [price, setPrice] = useState("");
-  const [dolar, setDolar] = useState([]);
 
   useEffect(() => {
     axios
@@ -30,17 +29,6 @@ export const Portfolio = ({ arrayPortfolio }) => {
       })
       .catch();
   }, []);
-
-  useEffect(() => {
-    axios
-      .get(`https://api-dolar-argentina.herokuapp.com/api/dolarblue`)
-      .then((res) => {
-        setDolar(res.data);
-      })
-      .catch();
-  }, []);
-
-  console.log(dolar);
 
   const { currentUser } = useAuth();
 

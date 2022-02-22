@@ -5,8 +5,9 @@ import { InverappDate } from "../global/InverappDate";
 import { FcInfo } from "react-icons/fc";
 
 export const HomeBalance = () => {
-  const { stringARS, stringUSD, stringPositionARS, stringPositionUSD } =
+  const { stringARS, stringUSD, stringPositionARS, stringPositionUSD, dolar } =
     useBalance();
+
   return (
     <Flex my={2} mb={6} flexDir={"column"}>
       <Flex justifyContent={"space-between"} alignItems={"center"}>
@@ -23,6 +24,7 @@ export const HomeBalance = () => {
         >
           Estado de cuenta al <InverappDate />
         </Heading>
+        Precio del dólar: ${dolar}
       </Flex>
 
       <Divider mb={4} />

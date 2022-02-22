@@ -7,7 +7,7 @@ import { Portfolio } from "./Portfolio";
 import { db } from "../../utils/init-firebase";
 import { useState } from "react";
 import { useEffect } from "react";
-import { collection, getDocs, doc, onSnapshot } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 import { HomeBalance } from "./HomeBalance";
 
 export const Home = () => {
@@ -85,11 +85,7 @@ export const Home = () => {
           >
             <Portfolio arrayPortfolio={portfolio} />{" "}
           </Box>
-          <Flex my={1} mt={4}>
-            <Heading fontSize={"2xl"}>
-              <p> Últimos movimientos</p>
-            </Heading>
-          </Flex>
+
           <Divider />
         </Flex>
       </Flex>

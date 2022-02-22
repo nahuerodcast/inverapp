@@ -10,6 +10,7 @@ import {
 } from "../components/logged/FormattedNumbers";
 import { db } from "../utils/init-firebase";
 import { useAuth } from "./AuthContext";
+import axios from "axios";
 
 const BalanceContext = createContext({
   isGenerated: null,
@@ -22,22 +23,12 @@ const BalanceContext = createContext({
   stringPositionARS: null,
   stringPositionUSD: null,
   balanceData: null,
+  dolar: null,
 });
 
 export const useBalance = () => useContext(BalanceContext);
 
 export default function BalanceContextProvider({ children }) {
-  // User info
-  // const { currentUser } = useAuth();
-
-  // console.log(currentUser.email);
-
-  // const data = () => {
-  //   return currentUser.email;
-  // };
-
-  // console.log(data());
-
   const [balanceData, setBalanceData] = useState("");
 
   useEffect(() => {
@@ -45,14 +36,6 @@ export default function BalanceContextProvider({ children }) {
       setBalanceData(doc.data());
     });
   }, []);
-
-  // const filteredEmail = balanceData.filter((a) =>
-  //   a.email.includes(currentUser.email)
-  // );
-
-  // const validatedEmail = filteredEmail.map((a) => {
-  //   return a.email === currentUser.email && a.isGenerated ? true : false;
-  // });
 
   const spinner = () => {
     return (
@@ -62,51 +45,16 @@ export default function BalanceContextProvider({ children }) {
     );
   };
 
-  // const usd = validatedEmail[0]
-  //   ? filteredEmail.map((a) => {
-  //       return a.email === currentUser.email ? Number(a.usd) : false;
-  //     })
-  //   : spinner();
+  const [dolar, setDolar] = useState({});
 
-  // const positionArs = validatedEmail[0]
-  //   ? filteredEmail.map((a) => {
-  //       return a.email === currentUser.email ? Number(a.positionArs) : false;
-  //     })
-  //   : spinner();
-
-  // const positionUsd = validatedEmail[0]
-  //   ? filteredEmail.map((a) => {
-  //       return a.email === currentUser.email ? Number(a.positionUsd) : false;
-  //     })
-  //   : spinner();
-
-  // const isGenerated = validatedEmail[0]
-  //   ? filteredEmail.map((a) => {
-  //       return a.email === currentUser.email ? Boolean(a.isGenerated) : false;
-  //     })
-  //   : spinner();
-
-  // const email = validatedEmail[0]
-  //   ? filteredEmail.map((a) => {
-  //       return a.email === currentUser.email ? String(a.email) : false;
-  //     })
-  //   : spinner();
-
-  // const stringPositionARS = validatedEmail[0]
-  //   ? `ARS: $${positionArs.toLocaleString(4)}`
-  //   : spinner();
-
-  // const stringPositionUSD = validatedEmail[0]
-  //   ? `USD: $${positionUsd.toLocaleString(4)}`
-  //   : spinner();
-
-  // const stringARS = validatedEmail[0]
-  //   ? `ARS: $${ars.toLocaleString(4)}`
-  //   : spinner();
-
-  // const stringUSD = validatedEmail[0]
-  //   ? `USD: $${usd.toLocaleString(4)}`
-  //   : spinner();
+  useEffect(() => {
+    axios
+      .get(`https://api-dolar-argentina.herokuapp.com/api/dolarblue`)
+      .then((res) => {
+        setDolar(Number(res.data.compra));
+      })
+      .catch();
+  }, []);
 
   const ars = balanceData ? balanceData.ars : "ARS: $500.000";
   const usd = balanceData ? balanceData.usd : "USD: $5000";
@@ -124,6 +72,7 @@ export default function BalanceContextProvider({ children }) {
     stringUSD: <FormattedUsd usd={usd} />,
     stringPositionARS: <FormattedArs ars={positionArs} />,
     stringPositionUSD: <FormattedUsd usd={positionUsd} />,
+    dolar,
   };
   return (
     <BalanceContext.Provider value={value}>{children}</BalanceContext.Provider>

@@ -1,6 +1,7 @@
 import React from "react";
 
 export const FormattedArs = ({ ars }) => {
+
   return (
     <p>
       ARS:{" "}

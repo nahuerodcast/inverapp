@@ -66,24 +66,39 @@ export const LoggedSearchCoin = ({
   const toast = useToast();
 
   // Balance
-  const { ars, usd, stringARS, stringUSD, positionArs, positionUsd } =
+  const { ars, usd, stringARS, stringUSD, positionArs, positionUsd, dolar } =
     useBalance();
 
   // Firebase functions
   const portfolioRef = collection(db, "portfolio");
   const createOrder = async () => {
-    await addDoc(portfolioRef, {
-      id,
-      image,
-      name,
-      price,
-      priceChange,
-      symbol,
-      quantity,
-      email,
-      currencySwitch,
-    });
-    setQuantity("");
+    if (currencySwitch) {
+      await addDoc(portfolioRef, {
+        id,
+        image,
+        name,
+        price,
+        priceChange,
+        symbol,
+        quantity,
+        email,
+        currencySwitch,
+      });
+      setQuantity("");
+    } else {
+      await addDoc(portfolioRef, {
+        id,
+        image,
+        name,
+        price: arsCalc,
+        priceChange,
+        symbol,
+        quantity,
+        email,
+        currencySwitch,
+      });
+      setQuantity("");
+    }
   };
   const { currentUser } = useAuth();
   const email = currentUser.email;
@@ -98,13 +113,13 @@ export const LoggedSearchCoin = ({
         positionUsd: positionUsd + quantity,
       };
 
-  console.log(positionArs + quantity);
-
   const updateBalance = async () => {
     const userDoc = doc(db, "balance", currentUser.email);
     const newFields = updatePosition;
     await updateDoc(userDoc, newFields);
   };
+
+  const arsCalc = quantity / dolar / price;
 
   return (
     <>
@@ -230,7 +245,12 @@ export const LoggedSearchCoin = ({
                     >
                       <Text>Total {symbol.toUpperCase()} a recibir: </Text>
                       <Text>
-                        {(quantity / price).toFixed(4)} {symbol.toUpperCase()}
+                        <strong>
+                          {!currencySwitch
+                            ? arsCalc.toFixed(4) + symbol.toUpperCase()
+                            : (quantity / price).toFixed(4) +
+                              symbol.toUpperCase()}
+                        </strong>
                       </Text>
                     </Flex>
 
@@ -329,11 +349,27 @@ export const LoggedSearchCoin = ({
                       justifyContent={"space-between"}
                       w={"50%"}
                       alignItems={"center"}
+                    >
+                      <Text>Precio del dólar</Text>
+                      <Text>
+                        <strong>${dolar}</strong>
+                      </Text>
+                    </Flex>
+                    <Flex
+                      flexDir={"row"}
+                      justifyContent={"space-between"}
+                      w={"50%"}
+                      alignItems={"center"}
                       my={2}
                     >
                       <Text>Total {symbol.toUpperCase()} a recibir: </Text>
                       <Text>
-                        {(quantity / price).toFixed(4)} {symbol.toUpperCase()}
+                        <strong>
+                          {!currencySwitch
+                            ? arsCalc.toFixed(4) + symbol.toUpperCase()
+                            : (quantity / price).toFixed(4) +
+                              symbol.toUpperCase()}
+                        </strong>
                       </Text>
                     </Flex>
 
