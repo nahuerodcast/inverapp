@@ -4,26 +4,17 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { FcBullish, FcMoneyTransfer, FcReading } from "react-icons/fc";
 import { Portfolio } from "./Portfolio";
-import { db } from "../../utils/init-firebase";
-import { useState } from "react";
-import { useEffect } from "react";
-import { collection, getDocs } from "firebase/firestore";
 import { HomeBalance } from "./HomeBalance";
+import { useBalance } from "../../contexts/BalanceContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 export const Home = () => {
   const navigate = useNavigate();
 
-  const [portfolio, setPortfolio] = useState([]);
+  const { portfolio } = useBalance();
 
-  useEffect(() => {
-    const portfolioRef = collection(db, "portfolio");
-    const getPortfolio = async () => {
-      const data = await getDocs(portfolioRef);
-      setPortfolio(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-
-    getPortfolio();
-  }, []);
+  const { currentUser } = useAuth();
+  console.log(currentUser);
 
   return (
     <>
@@ -83,9 +74,8 @@ export const Home = () => {
             boxShadow={"xl"}
             mb={12}
           >
-            <Portfolio arrayPortfolio={portfolio} />{" "}
+            <Portfolio arrayPortfolio={portfolio} />
           </Box>
-
           <Divider />
         </Flex>
       </Flex>

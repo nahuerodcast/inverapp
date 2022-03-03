@@ -1,6 +1,5 @@
 import {
   Button,
-  Center,
   Divider,
   Flex,
   Heading,
@@ -13,11 +12,12 @@ import {
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useAuth } from "../../contexts/AuthContext";
+import { FormattedArs, FormattedUsd } from "./FormattedNumbers";
 import { useBalance } from "../../contexts/BalanceContext";
 
 export const Portfolio = ({ arrayPortfolio }) => {
   const [price, setPrice] = useState("");
+  const { dolar } = useBalance();
 
   useEffect(() => {
     axios
@@ -30,13 +30,8 @@ export const Portfolio = ({ arrayPortfolio }) => {
       .catch();
   }, []);
 
-  const { currentUser } = useAuth();
-
-  const { email } = useBalance();
-
-  const currentUserEmail = currentUser.email;
-
   const navigate = useNavigate();
+
   return (
     <Flex my={1} flexDir={"column"}>
       <Heading fontSize={"2xl"}>
@@ -44,7 +39,7 @@ export const Portfolio = ({ arrayPortfolio }) => {
       </Heading>
       <Divider mb={2} />
 
-      {arrayPortfolio.length === 0 && email === currentUser.email ? (
+      {arrayPortfolio.length === 0 ? (
         <Flex
           justifyContent={"center"}
           flexDir={"column"}
@@ -70,7 +65,7 @@ export const Portfolio = ({ arrayPortfolio }) => {
             <Text w={28}>Precio actual</Text>
             <Text w={24}>Gan/Per $</Text>
             <Text w={36}>Gan/Per %</Text>
-            <Text w={24}>
+            <Text w={36}>
               <strong>Total</strong>
             </Text>
           </Flex>
@@ -78,70 +73,89 @@ export const Portfolio = ({ arrayPortfolio }) => {
         </>
       )}
 
-      {arrayPortfolio.map((portfolio) => {
-        const filteredPrice = price.filter((price) =>
-          price.name.includes(portfolio.name)
-        );
+      {arrayPortfolio.length !== 0
+        ? arrayPortfolio.map((portfolio) => {
+            const filteredPrice = price.filter((price) =>
+              price.name.includes(portfolio.name)
+            );
+            const currentPrice = filteredPrice[0].current_price;
+            const quantity = portfolio.quantity;
+            const total = quantity * currentPrice;
+            const profitLoss = quantity * portfolio.price - total;
+            const profitLossPercentage =
+              (currentPrice * 100) / portfolio.price - 100;
+            //
+            //
+            //
+            //
+            //
 
-        const profitLoss = filteredPrice[0].current_price - portfolio.price;
-        const profitLossPercentage =
-          (filteredPrice[0].current_price * 100) / portfolio.price - 100;
-        const quantity = portfolio.quantity / portfolio.price;
-
-        return (
-          <>
-            {portfolio.email === currentUserEmail ? (
+            return (
               <>
-                <Flex
-                  justifyContent={"space-between"}
-                  alignItems={"center"}
-                  my={2}
-                >
-                  <Img w={6} src={portfolio.image}></Img>
-                  <Text w={20}>{portfolio.name}</Text>
-                  <Text w={32}>{quantity.toFixed(4)}</Text>
-                  <Text w={36}>${portfolio.price}</Text>
-                  <Text w={28}>${filteredPrice[0].current_price}</Text>
-                  <Text color={profitLoss > 0 ? "green.600" : "red.600"} w={24}>
-                    ${profitLoss.toFixed(2)}
-                  </Text>
-                  <Text w={36}>
-                    {profitLossPercentage > 0 ? (
-                      <Stat>
-                        <StatHelpText>
-                          <StatArrow type="increase" />+
-                          {profitLossPercentage.toFixed(2)}%
-                        </StatHelpText>
-                      </Stat>
-                    ) : (
-                      <Stat>
-                        <StatHelpText>
-                          <StatArrow type="decrease" />
-                          {profitLossPercentage.toFixed(2)}%
-                        </StatHelpText>
-                      </Stat>
-                    )}
-                  </Text>
+                {portfolio.length !== 0 ? (
+                  <>
+                    <Flex
+                      justifyContent={"space-between"}
+                      alignItems={"center"}
+                      my={2}
+                    >
+                      <Img w={6} src={portfolio.image}></Img>
+                      <Text w={20}>{portfolio.name}</Text>
+                      <Text w={32}>{portfolio.quantity.toFixed(4)}</Text>
+                      <Text w={36}>${portfolio.price}</Text>
+                      <Text w={28}>${currentPrice}</Text>
+                      <Text
+                        color={
+                          profitLossPercentage > 0 ? "green.600" : "red.600"
+                        }
+                        w={24}
+                      >
+                        {portfolio.currencySwitch
+                          ? `$${profitLoss.toFixed(2)}`
+                          : `$${(profitLoss * dolar).toFixed(2)}`}
+                      </Text>
+                      <Text w={36}>
+                        {profitLossPercentage > 0 ? (
+                          <Stat>
+                            <StatHelpText>
+                              <StatArrow type="increase" />+
+                              {profitLossPercentage.toFixed(2)}%
+                            </StatHelpText>
+                          </Stat>
+                        ) : (
+                          <Stat>
+                            <StatHelpText>
+                              <StatArrow type="decrease" />
+                              {profitLossPercentage.toFixed(2)}%
+                            </StatHelpText>
+                          </Stat>
+                        )}
+                      </Text>
 
-                  <Text w={24}>
-                    ${(quantity * filteredPrice[0].current_price).toFixed(2)}
-                  </Text>
-                </Flex>
-                <Divider />
+                      <Text w={36}>
+                        {portfolio.currencySwitch ? (
+                          <FormattedUsd usd={total} />
+                        ) : (
+                          <FormattedArs ars={total * dolar} />
+                        )}
+                      </Text>
+                    </Flex>
+                    <Divider />
+                  </>
+                ) : (
+                  " "
+                )}
               </>
-            ) : (
-              " "
-            )}
-          </>
-        );
-      })}
+            );
+          })
+        : ""}
 
       {arrayPortfolio.length === 0 ? (
         ""
       ) : (
         <Flex flexDir={"column"} alignItems={"flex-end"}>
           <Text mt={1} w={36}>
-            <strong>Total: {}</strong>
+            <strong>Total: </strong>
           </Text>
         </Flex>
       )}

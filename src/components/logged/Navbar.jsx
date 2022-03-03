@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useColorMode } from "@chakra-ui/color-mode";
 import { Flex, Heading, Box } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
@@ -26,13 +26,33 @@ import { Link as ReactLink } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { Avatar } from "@chakra-ui/avatar";
 import { MdMenuBook } from "react-icons/md";
-import { RiExchangeDollarLine } from "react-icons/ri";
+import { Switch } from "@chakra-ui/react";
+import { useBalance } from "../../contexts/BalanceContext";
+import { doc, onSnapshot, setDoc } from "firebase/firestore";
+import { db } from "../../utils/init-firebase";
 
 export const Navbar = () => {
   //Colors
   const { toggleColorMode } = useColorMode();
+  const { currencySwitch } = useBalance();
 
   const { currentUser } = useAuth();
+  const [currencyFlag, setCurrencyFlag] = useState(false);
+  const [defaultCheck, setDefaultCheck] = useState(false);
+  const fbdoc = doc(db, "settings", currentUser.email);
+
+  useEffect(() => {
+    onSnapshot(fbdoc, (doc) => {
+      setDefaultCheck(doc.data().currencyFlag);
+    });
+  }, []);
+
+  const settings = () => {
+    setDoc(fbdoc, {
+      isActive: true,
+      currencyFlag: !currencyFlag,
+    });
+  };
 
   const { logout } = useAuth();
 
@@ -60,12 +80,19 @@ export const Navbar = () => {
         <Flex alignItems="center">
           <Button
             variant="ghost"
-            p={0}
             m={0}
             borderRadius={9999}
-            color="gray.500"
+            onClick={() => {
+              setCurrencyFlag(!currencyFlag);
+              settings();
+            }}
           >
-            <RiExchangeDollarLine size={20} />
+            {defaultCheck ? (
+              <strong>USD 🇺🇸 </strong>
+            ) : (
+              <strong> ARS 🇦🇷 </strong>
+            )}
+            {currencySwitch()}
           </Button>
           <Button
             onClick={toggleColorMode}

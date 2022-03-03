@@ -76,7 +76,10 @@ export const Trade = () => {
               mt={1}
             >
               <Flex>
-                Saldo disponible: {stringARS} y {stringUSD}
+                <Text mr={1}> Saldo disponible:</Text>
+                <Text mr={1}> {stringARS}</Text>
+                <Text mr={1}> y </Text>
+                <Text mr={1}> {stringUSD} </Text>
               </Flex>
             </Text>
           </Heading>

@@ -11,17 +11,9 @@ import React, { useState } from "react";
 
 import { FcIdea, FcCheckmark, FcBullish } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
-import {
-  addDoc,
-  setDoc,
-  doc,
-  getDocs,
-  onSnapshot,
-  collection,
-} from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 import { db } from "../../utils/init-firebase";
 import { useAuth } from "../../contexts/AuthContext";
-import { useEffect } from "react";
 import { BankTransfersDetails } from "./BankTransfersDetails";
 import { useBalance } from "../../contexts/BalanceContext";
 
@@ -31,7 +23,6 @@ export const BankTransfers = () => {
   const navigate = useNavigate();
 
   //useState
-  const [balanceData, setBalanceData] = useState([]);
   const [demoBalance, setDemoBalance] = useState(false);
 
   //Creating Firebase Data
@@ -49,28 +40,11 @@ export const BankTransfers = () => {
     });
   };
 
-  // useEffect(() => {
-  //   const getBalanceData = async () => {
-  //     const data = await getDocs(balanceRef);
-  //     setBalanceData(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-  //   };
-
-  //   getBalanceData();
-  // }, []);
-
-  // const filteredEmail = balanceData.filter((a) =>
-  //   a.email.includes(currentUser.email)
-  // );
-
-  // const validatedEmail = filteredEmail.map((a) => {
-  //   return a.email === currentUser.email && a.isGenerated ? true : false;
-  // });
-
-  const { ars, usd, isGenerated } = useBalance();
+  const { stringARS, stringUSD, isGenerated } = useBalance();
 
   return (
     <>
-    {console.log(currentUser.email)}
+      {console.log(currentUser.email)}
       <BankTransfersDetails />
       <Flex
         flexDir={"column"}
@@ -123,7 +97,7 @@ export const BankTransfers = () => {
                     w={"100%"}
                   >
                     <Heading textAlign={"center"}>
-                      <p>{ars}</p>
+                      <p>{stringARS}</p>
                     </Heading>
                   </Flex>
                   <Divider orientation="vertical" />
@@ -133,7 +107,7 @@ export const BankTransfers = () => {
                     alignItems={"center"}
                   >
                     <Heading textAlign={"center"}>
-                      <p>{usd}</p>
+                      <p>{stringUSD}</p>
                     </Heading>
                   </Flex>
                 </Flex>

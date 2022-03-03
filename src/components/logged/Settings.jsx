@@ -6,6 +6,7 @@ import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
 import React from "react";
 import { Progress, Button, Text } from "@chakra-ui/react";
 import { useAuth } from "../../contexts/AuthContext";
+import { useBalance } from "../../contexts/BalanceContext";
 import { Avatar } from "@chakra-ui/avatar";
 import { SmallCloseIcon } from "@chakra-ui/icons";
 import { ResetPasswordButton } from "./ResetPasswordButton";
@@ -14,9 +15,10 @@ import { BankAccounts } from "./BankAccounts";
 export const Settings = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const { currentUser } = useAuth();
+  const { defaultCheck, currencySwitch } = useBalance();
 
   return (
-    <Flex flexDir="row" mt={10} justifyContent="center" h="60vh">
+    <Flex flexDir="row" my={10} justifyContent="center" minH="60vh">
       <Tabs variant="enclosed" w="50%">
         <TabList>
           <Tab>Mi perfil</Tab>
@@ -64,29 +66,39 @@ export const Settings = () => {
             </Flex>
             <Flex justifyContent="space-between" mt={5}>
               <FormControl w="100%">
-                <FormLabel mb="0">Apalancamiento habilitado</FormLabel>
+                <FormLabel mb="0">
+                  Visualizar saldos en
+                  {defaultCheck ? (
+                    <strong> Dólares 🇺🇸 </strong>
+                  ) : (
+                    <strong> Pesos 🇦🇷 </strong>
+                  )}
+                </FormLabel>
                 <FormLabel mb="0">
                   Habilitar modo {colorMode === "light" ? "oscuro" : "claro"}
                 </FormLabel>
-                <FormLabel color={"GrayText"} fontWeight={"normal"}>
-                  Cuenta creada: {currentUser.createdAt}
-                </FormLabel>
               </FormControl>
               <Flex flexDir="column">
-                <Switch />
+                {currencySwitch()}
                 <Switch
                   onChange={toggleColorMode}
                   isChecked={colorMode === "dark" ? true : false}
                 />
               </Flex>
             </Flex>
-            <Text mt={10} mb={2}>
-              Estado del perfil:
-            </Text>
-            <Progress value={100} />
-            <Flex justifyContent="flex-end" mt={4}>
+            <Flex justifyContent={"space-between"}>
+              <Text mt={10} mb={2}>
+                Estado del perfil:
+              </Text>
+              <Text mt={10} mb={2} color="green.400">
+                ¡Completo!
+              </Text>
+            </Flex>
+
+            <Progress value={100} size="xs" />
+            <Flex mt={4}>
               <Button
-                colorScheme="red"
+                size={"sm"}
                 variant="outline"
                 leftIcon={<SmallCloseIcon />}
               >

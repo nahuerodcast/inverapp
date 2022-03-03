@@ -26,7 +26,7 @@ import { useState } from "react";
 import { HiCheckCircle } from "react-icons/hi";
 import { useToast } from "@chakra-ui/react";
 import { CgTrendingDown, CgTrending } from "react-icons/cg";
-import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
+import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../utils/init-firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import { useBalance } from "../../contexts/BalanceContext";
@@ -65,43 +65,63 @@ export const LoggedSearchCoin = ({
   const initRef = React.useRef();
   const toast = useToast();
 
-  // Balance
-  const { ars, usd, stringARS, stringUSD, positionArs, positionUsd, dolar } =
-    useBalance();
+  // Balance & current user
+  const { currentUser } = useAuth();
+  const {
+    ars,
+    usd,
+    stringARS,
+    stringUSD,
+    positionArs,
+    positionUsd,
+    dolar,
+    portfolio,
+  } = useBalance();
+
+  const arsCalc = Number(quantity / dolar / price);
+  const usdCalc = Number(quantity / price);
+
+  const newUsdOrder = [
+    {
+      id,
+      image,
+      name,
+      price,
+      priceChange,
+      symbol,
+      quantity: usdCalc,
+      currencySwitch,
+    },
+  ];
+
+  const newArsOrder = [
+    {
+      id,
+      image,
+      name,
+      price,
+      priceChange,
+      symbol,
+      quantity: arsCalc,
+      currencySwitch,
+    },
+  ];
 
   // Firebase functions
-  const portfolioRef = collection(db, "portfolio");
+  const portfolioRef = doc(db, "portfolio", currentUser.email);
   const createOrder = async () => {
     if (currencySwitch) {
-      await addDoc(portfolioRef, {
-        id,
-        image,
-        name,
-        price,
-        priceChange,
-        symbol,
-        quantity,
-        email,
-        currencySwitch,
+      await setDoc(portfolioRef, {
+        orders: [...portfolio, ...newUsdOrder],
       });
       setQuantity("");
     } else {
-      await addDoc(portfolioRef, {
-        id,
-        image,
-        name,
-        price: arsCalc,
-        priceChange,
-        symbol,
-        quantity,
-        email,
-        currencySwitch,
+      await setDoc(portfolioRef, {
+        orders: [...portfolio, ...newArsOrder],
       });
       setQuantity("");
     }
   };
-  const { currentUser } = useAuth();
-  const email = currentUser.email;
 
   const updatePosition = !currencySwitch
     ? {
@@ -118,8 +138,6 @@ export const LoggedSearchCoin = ({
     const newFields = updatePosition;
     await updateDoc(userDoc, newFields);
   };
-
-  const arsCalc = quantity / dolar / price;
 
   return (
     <>
@@ -207,7 +225,7 @@ export const LoggedSearchCoin = ({
                       w={"50%"}
                     >
                       <Text mr={4}>
-                        Operar en {!currencySwitch ? "pesos" : "dólares"}
+                        Operar en {!currencySwitch ? "pesos 🇦🇷" : "dólares 🇺🇸"}
                       </Text>
                       <Switch
                         colorScheme="teal"

@@ -13,6 +13,8 @@ import { MessageCenter } from "../components/logged/MessageCenter";
 import { AccountBalance } from "../components/logged/AccountBalance";
 import { Trade } from "../components/logged/Trade";
 import { Flex } from "@chakra-ui/react";
+import BalanceContextProvider from "../contexts/BalanceContext";
+
 const Acciones = () => {
   return <>acciones</>;
 };
@@ -34,7 +36,7 @@ const Usd = () => {
 
 export const LoggedContainer = () => {
   return (
-    <>
+    <BalanceContextProvider>
       <Router>
         <Flex
           maxW={"100vw"}
@@ -77,6 +79,6 @@ export const LoggedContainer = () => {
           <Footer />
         </Flex>
       </Router>
-    </>
+    </BalanceContextProvider>
   );
 };

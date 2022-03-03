@@ -2,26 +2,15 @@ import * as React from "react";
 import "./App.css";
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "./theme";
-import AuthContextProvider from "./contexts/AuthContext";
 import { LoginProvider } from "./components/global/LoginProvider";
 import "animate.css";
-import BalanceContextProvider from "./contexts/BalanceContext";
+import AuthContextProvider from "./contexts/AuthContext";
 
 function App() {
-  const value = {
-    email: null,
-    isGenerated: "nulo jaja",
-    ars: null,
-    usd: null,
-    positionArs: null,
-    positionUsd: null,
-  };
   return (
     <AuthContextProvider>
       <ChakraProvider theme={theme}>
-        <BalanceContextProvider>
-          <LoginProvider />
-        </BalanceContextProvider>
+        <LoginProvider />
       </ChakraProvider>
     </AuthContextProvider>
   );
