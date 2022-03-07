@@ -30,7 +30,7 @@ import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../utils/init-firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import { useBalance } from "../../contexts/BalanceContext";
-import { FormattedArs } from "./FormattedNumbers";
+import { FormattedArs, FormattedUsd } from "./FormattedNumbers";
 
 export const LoggedSearchCoin = ({
   id,
@@ -138,6 +138,11 @@ export const LoggedSearchCoin = ({
     const newFields = updatePosition;
     await updateDoc(userDoc, newFields);
   };
+
+  const currencyValidation = () =>
+    !currencySwitch
+      ? arsCalc.toFixed(4) + symbol.toUpperCase()
+      : (quantity / price).toFixed(4) + symbol.toUpperCase();
 
   return (
     <>
@@ -263,12 +268,7 @@ export const LoggedSearchCoin = ({
                     >
                       <Text>Total {symbol.toUpperCase()} a recibir: </Text>
                       <Text>
-                        <strong>
-                          {!currencySwitch
-                            ? arsCalc.toFixed(4) + symbol.toUpperCase()
-                            : (quantity / price).toFixed(4) +
-                              symbol.toUpperCase()}
-                        </strong>
+                        <strong>{currencyValidation()}</strong>
                       </Text>
                     </Flex>
 
@@ -358,7 +358,9 @@ export const LoggedSearchCoin = ({
                             <FormattedArs ars={quantity} />
                           </strong>
                         ) : (
-                          <strong>{`USD $${quantity}`}</strong>
+                          <strong>
+                            <FormattedUsd usd={quantity} />
+                          </strong>
                         )}
                       </Text>
                     </Flex>
@@ -382,12 +384,7 @@ export const LoggedSearchCoin = ({
                     >
                       <Text>Total {symbol.toUpperCase()} a recibir: </Text>
                       <Text>
-                        <strong>
-                          {!currencySwitch
-                            ? arsCalc.toFixed(4) + symbol.toUpperCase()
-                            : (quantity / price).toFixed(4) +
-                              symbol.toUpperCase()}
-                        </strong>
+                        <strong>{currencyValidation()}</strong>
                       </Text>
                     </Flex>
 
@@ -401,9 +398,7 @@ export const LoggedSearchCoin = ({
                           onClose();
                           toast({
                             title: `¡Bravo! Compra de ${name} exitosa`,
-                            description: `Compraste ${(
-                              quantity / price
-                            ).toFixed(4)} ${symbol.toUpperCase()}`,
+                            description: `Compraste ${currencyValidation()} ${symbol.toUpperCase()}`,
                             status: "success",
                             duration: 4000,
                             isClosable: true,

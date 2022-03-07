@@ -23,6 +23,7 @@ const BalanceContext = createContext({
   balanceData: null,
   dolar: null,
   portfolio: null,
+  bankAccounts: null,
 });
 
 export const useBalance = () => useContext(BalanceContext);
@@ -106,9 +107,40 @@ export default function BalanceContextProvider({ children }) {
     });
   }, []);
 
-  const currencySwitch = () => {
-    return <Switch isChecked={defaultCheck} />;
+  const fbdoc = doc(db, "settings", currentUser.email);
+  const updateSettings = () => {
+    setDoc(fbdoc, {
+      isActive: true,
+      currencyFlag: !defaultCheck,
+    });
   };
+
+  const currencySwitch = () => {
+    return (
+      <Switch
+        isChecked={defaultCheck}
+        onChange={() => {
+          setDefaultCheck(!defaultCheck);
+          updateSettings();
+        }}
+      />
+    );
+  };
+
+  const [bankAccounts, setBankAccounts] = useState([]);
+  const bankAccountsDoc = doc(db, "bankAccounts", currentUser.email);
+
+  useEffect(() => {
+    onSnapshot(bankAccountsDoc, (doc) => {
+      if (doc.data() === undefined) {
+        setDoc(bankAccountsDoc, {
+          accounts: [],
+        });
+      } else {
+        setBankAccounts(doc.data().accounts);
+      }
+    });
+  }, []);
 
   // Exporting values with "value" Object to provider
   const value = {
@@ -124,6 +156,7 @@ export default function BalanceContextProvider({ children }) {
     portfolio: orderArray,
     defaultCheck,
     currencySwitch,
+    bankAccounts,
   };
   return (
     <BalanceContext.Provider value={value}>{children}</BalanceContext.Provider>

@@ -11,6 +11,8 @@ import { Avatar } from "@chakra-ui/avatar";
 import { SmallCloseIcon } from "@chakra-ui/icons";
 import { ResetPasswordButton } from "./ResetPasswordButton";
 import { BankAccounts } from "./BankAccounts";
+import { CgUser } from "react-icons/cg";
+import { BsBank } from "react-icons/bs";
 
 export const Settings = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -21,8 +23,14 @@ export const Settings = () => {
     <Flex flexDir="row" my={10} justifyContent="center" minH="60vh">
       <Tabs variant="enclosed" w="50%">
         <TabList>
-          <Tab>Mi perfil</Tab>
-          <Tab>Cuentas bancarias</Tab>
+          <Tab>
+            {" "}
+            <CgUser /> <Text ml={1}>Mi perfil</Text>
+          </Tab>
+          <Tab>
+            {" "}
+            <BsBank /> <Text ml={1}>Cuentas bancarias</Text>
+          </Tab>
         </TabList>
         <TabPanels>
           <TabPanel>

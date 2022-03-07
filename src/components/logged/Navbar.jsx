@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useColorMode } from "@chakra-ui/color-mode";
-import { Flex, Heading, Box } from "@chakra-ui/layout";
+import { Flex, Heading, Box, Text } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
 import { WiMoonAltWaningCrescent2 } from "react-icons/wi";
 import { IoMdLogOut } from "react-icons/io";
@@ -26,7 +26,6 @@ import { Link as ReactLink } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { Avatar } from "@chakra-ui/avatar";
 import { MdMenuBook } from "react-icons/md";
-import { Switch } from "@chakra-ui/react";
 import { useBalance } from "../../contexts/BalanceContext";
 import { doc, onSnapshot, setDoc } from "firebase/firestore";
 import { db } from "../../utils/init-firebase";
@@ -87,11 +86,13 @@ export const Navbar = () => {
               settings();
             }}
           >
-            {defaultCheck ? (
-              <strong>USD 🇺🇸 </strong>
-            ) : (
-              <strong> ARS 🇦🇷 </strong>
-            )}
+            <Text mr={2}>
+              {defaultCheck ? (
+                <strong>USD 🇺🇸 </strong>
+              ) : (
+                <strong> ARS 🇦🇷 </strong>
+              )}
+            </Text>
             {currencySwitch()}
           </Button>
           <Button

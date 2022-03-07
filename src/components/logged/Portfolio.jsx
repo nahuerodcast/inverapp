@@ -17,7 +17,7 @@ import { useBalance } from "../../contexts/BalanceContext";
 
 export const Portfolio = ({ arrayPortfolio }) => {
   const [price, setPrice] = useState("");
-  const { dolar } = useBalance();
+  const { dolar, defaultCheck } = useBalance();
 
   useEffect(() => {
     axios
@@ -61,12 +61,12 @@ export const Portfolio = ({ arrayPortfolio }) => {
             <Text w={6}></Text>
             <Text w={20}>Nombre</Text>
             <Text w={32}>Cantidad </Text>
-            <Text w={36}>Precio de compra</Text>
-            <Text w={28}>Precio actual</Text>
-            <Text w={24}>Gan/Per $</Text>
+            <Text w={48}>Precio compra (usd)</Text>
+            <Text w={36}>Precio actual (usd)</Text>
+            <Text w={28}>Gan/Per {!defaultCheck ? "ARS" : "USD"}</Text>
             <Text w={36}>Gan/Per %</Text>
             <Text w={36}>
-              <strong>Total</strong>
+              <strong>Total en {!defaultCheck ? "ARS" : "USD"}</strong>
             </Text>
           </Flex>
           <Divider />
@@ -81,14 +81,9 @@ export const Portfolio = ({ arrayPortfolio }) => {
             const currentPrice = filteredPrice[0].current_price;
             const quantity = portfolio.quantity;
             const total = quantity * currentPrice;
-            const profitLoss = quantity * portfolio.price - total;
+            const profitLoss = total - quantity * portfolio.price;
             const profitLossPercentage =
               (currentPrice * 100) / portfolio.price - 100;
-            //
-            //
-            //
-            //
-            //
 
             return (
               <>
@@ -102,30 +97,46 @@ export const Portfolio = ({ arrayPortfolio }) => {
                       <Img w={6} src={portfolio.image}></Img>
                       <Text w={20}>{portfolio.name}</Text>
                       <Text w={32}>{portfolio.quantity.toFixed(4)}</Text>
-                      <Text w={36}>${portfolio.price}</Text>
-                      <Text w={28}>${currentPrice}</Text>
+                      <Text w={48}>${portfolio.price}</Text>
+                      <Text w={36}>${currentPrice}</Text>
                       <Text
                         color={
-                          profitLossPercentage > 0 ? "green.600" : "red.600"
+                          profitLossPercentage !== 0
+                            ? profitLossPercentage > 0
+                              ? "green.600"
+                              : "red.600"
+                            : "GrayText"
                         }
-                        w={24}
+                        w={28}
                       >
-                        {portfolio.currencySwitch
+                        {!defaultCheck
+                          ? portfolio.currencySwitch
+                            ? `$${profitLoss.toFixed(2) * dolar}`
+                            : `$${(profitLoss * dolar).toFixed(2)}`
+                          : portfolio.currencySwitch
                           ? `$${profitLoss.toFixed(2)}`
-                          : `$${(profitLoss * dolar).toFixed(2)}`}
+                          : `$${profitLoss.toFixed(2)}`}
                       </Text>
                       <Text w={36}>
-                        {profitLossPercentage > 0 ? (
-                          <Stat>
-                            <StatHelpText>
-                              <StatArrow type="increase" />+
-                              {profitLossPercentage.toFixed(2)}%
-                            </StatHelpText>
-                          </Stat>
+                        {profitLossPercentage !== 0 ? (
+                          profitLossPercentage > 0 ? (
+                            <Stat>
+                              <StatHelpText>
+                                <StatArrow type="increase" /> +
+                                {profitLossPercentage.toFixed(2)}%
+                              </StatHelpText>
+                            </Stat>
+                          ) : (
+                            <Stat>
+                              <StatHelpText>
+                                <StatArrow type="decrease" />
+                                {profitLossPercentage.toFixed(2)}%
+                              </StatHelpText>
+                            </Stat>
+                          )
                         ) : (
                           <Stat>
                             <StatHelpText>
-                              <StatArrow type="decrease" />
                               {profitLossPercentage.toFixed(2)}%
                             </StatHelpText>
                           </Stat>
@@ -133,11 +144,18 @@ export const Portfolio = ({ arrayPortfolio }) => {
                       </Text>
 
                       <Text w={36}>
-                        {portfolio.currencySwitch ? (
+                        {!defaultCheck ? (
+                          portfolio.currencySwitch ? (
+                            <FormattedArs ars={total * dolar} />
+                          ) : (
+                            <FormattedArs ars={total * dolar} />
+                          )
+                        ) : portfolio.currencySwitch ? (
                           <FormattedUsd usd={total} />
                         ) : (
-                          <FormattedArs ars={total * dolar} />
+                          <FormattedUsd usd={total} />
                         )}
+                        {}
                       </Text>
                     </Flex>
                     <Divider />

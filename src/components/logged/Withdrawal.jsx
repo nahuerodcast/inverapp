@@ -6,17 +6,23 @@ import {
   Heading,
   Input,
   InputGroup,
+  NumberInput,
+  NumberInputField,
   Select,
   Text,
 } from "@chakra-ui/react";
 import React from "react";
+import { useState } from "react";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
 import { FcInternal } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
+import { useBalance } from "../../contexts/BalanceContext";
 
 export const Withdrawal = () => {
-  const saldo = `Saldo disponible: ARS${100}`;
-  const saldoUSD = `Saldo disponible: USD${100}`;
+  const { stringARS, stringUSD, bankAccounts, ars, usd } = useBalance();
+
+  const [arsWithdrawal, setArsWithdrawal] = useState("");
+  const [usdWithdrawal, setUsdWithdrawal] = useState("");
 
   const navigate = useNavigate();
 
@@ -73,25 +79,36 @@ export const Withdrawal = () => {
               <p> Retirá pesos </p>
             </Heading>
             <Text color={"GrayText"} textAlign={"center"} mb={4}>
-              {saldo}
+              {stringARS}
             </Text>
             <Flex
               justifyContent={"center"}
               alignItems={"center"}
               flexDir={"column"}
             >
-              <InputGroup w={"80%"} isRequired={true}>
-                <Input variant="flushed" placeholder={"Ingresar monto"} />
-              </InputGroup>
+              <NumberInput w={"80%"} isRequired={true} max={ars}>
+                <NumberInputField
+                  placeholder={"Ingresar monto"}
+                  onChange={(e) => setArsWithdrawal(e.target.value)}
+                />
+              </NumberInput>
+
               <Select
                 placeholder="Seleccionar cuenta"
                 w={"80%"}
                 color={"gray"}
                 mt={1}
               >
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
+                {bankAccounts.map((data) => {
+                  if (data.currency === "Pesos 🇦🇷") {
+                    return (
+                      <option value={`${data.account}`}>
+                        {data.bank} - {data.currency} - {data.account}
+                      </option>
+                    );
+                  }
+                  return <></>;
+                })}
               </Select>
               <Divider w={"80%"} mt={1} />
               <Button
@@ -119,7 +136,7 @@ export const Withdrawal = () => {
             </Heading>
 
             <Text color={"GrayText"} textAlign={"center"} mb={4}>
-              {saldoUSD}
+              {stringUSD}
             </Text>
 
             <Flex
@@ -127,18 +144,28 @@ export const Withdrawal = () => {
               alignItems={"center"}
               flexDir={"column"}
             >
-              <InputGroup w={"80%"}>
-                <Input variant="flushed" placeholder={"Ingresar monto"} />
-              </InputGroup>
+              <NumberInput w={"80%"} isRequired={true} max={usd}>
+                <NumberInputField
+                  placeholder={"Ingresar monto"}
+                  onChange={(e) => setUsdWithdrawal(e.target.value)}
+                />
+              </NumberInput>
               <Select
                 placeholder="Seleccionar cuenta"
                 w={"80%"}
                 color={"gray"}
                 mt={1}
               >
-                <option value="option1">Option 1</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
+                {bankAccounts.map((data) => {
+                  if (data.currency === "Dólares 🇺🇸") {
+                    return (
+                      <option value={`${data.account}`}>
+                        {data.bank} - {data.currency} - {data.account}
+                      </option>
+                    );
+                  }
+                  return <></>;
+                })}
               </Select>
               <Divider w={"80%"} mt={1} />
               <Button w={"80%"} size="sm" colorScheme={"teal"} mt={1}>
@@ -159,6 +186,42 @@ export const Withdrawal = () => {
             realizaste.
           </p>
         </Heading>
+        <Box
+          borderRadius="xl"
+          overflow="hidden"
+          p={6}
+          boxShadow={"xl"}
+          mb={12}
+          w={"4xl"}
+        >
+          <Flex flexDir={"column"} alignItems={"center"}>
+            <Heading fontSize={"4xl"} mb={4}>
+              <p>Egresos realizados</p>
+            </Heading>
+            <Divider />
+            <Flex
+              color={"GrayText"}
+              justifyContent={"space-between"}
+              w={"100%"}
+              my={1}
+            >
+              <Text>#</Text>
+              <Text>Cantidad</Text>
+              <Text>Fecha</Text>
+              <Text>Moneda</Text>
+              <Text>CBU/CVU</Text>
+              <Text>Banco/Billetera virtual</Text>
+            </Flex>
+            <Divider />
+            {false ? (
+              ""
+            ) : (
+              <Text my={6} color={"red.700"}>
+                No tenes movimientos realizados
+              </Text>
+            )}
+          </Flex>
+        </Box>
       </Flex>
     </Flex>
   );

@@ -6,15 +6,10 @@ import { FcBullish, FcMoneyTransfer, FcReading } from "react-icons/fc";
 import { Portfolio } from "./Portfolio";
 import { HomeBalance } from "./HomeBalance";
 import { useBalance } from "../../contexts/BalanceContext";
-import { useAuth } from "../../contexts/AuthContext";
 
 export const Home = () => {
   const navigate = useNavigate();
-
   const { portfolio } = useBalance();
-
-  const { currentUser } = useAuth();
-  console.log(currentUser);
 
   return (
     <>
