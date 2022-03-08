@@ -9,11 +9,7 @@ import {
   ModalCloseButton,
   Button,
   Input,
-  Textarea,
-  FormControl,
-  FormLabel,
   Select,
-  Text,
   NumberInputField,
   NumberInput,
 } from "@chakra-ui/react";

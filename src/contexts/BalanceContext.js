@@ -142,6 +142,8 @@ export default function BalanceContextProvider({ children }) {
     });
   }, []);
 
+  
+
   // Exporting values with "value" Object to provider
   const value = {
     ars,

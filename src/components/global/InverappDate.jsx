@@ -8,5 +8,6 @@ export const InverappDate = () => {
   let da = n.getHours();
   let dan = n.getMinutes();
   let inverappDate = `${d}/${m}/${y} - ${da}:${dan}hs`;
+  
   return <>{inverappDate}</>;
 };
