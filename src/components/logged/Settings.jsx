@@ -14,14 +14,14 @@ import { BankAccounts } from "./BankAccounts";
 import { CgUser } from "react-icons/cg";
 import { BsBank } from "react-icons/bs";
 
-export const Settings = () => {
+export const Settings = ({ defaultIndex }) => {
   const { colorMode, toggleColorMode } = useColorMode();
   const { currentUser } = useAuth();
   const { defaultCheck, currencySwitch } = useBalance();
 
   return (
     <Flex flexDir="row" my={10} justifyContent="center" minH="60vh">
-      <Tabs variant="enclosed" w="50%">
+      <Tabs variant="enclosed" w="50%" defaultIndex={defaultIndex} isManual>
         <TabList>
           <Tab>
             {" "}

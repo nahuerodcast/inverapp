@@ -111,7 +111,7 @@ export const Portfolio = ({ arrayPortfolio }) => {
                       >
                         {!defaultCheck
                           ? portfolio.currencySwitch
-                            ? `$${profitLoss.toFixed(2) * dolar}`
+                            ? `$${(profitLoss * dolar).toFixed(2)}`
                             : `$${(profitLoss * dolar).toFixed(2)}`
                           : portfolio.currencySwitch
                           ? `$${profitLoss.toFixed(2)}`

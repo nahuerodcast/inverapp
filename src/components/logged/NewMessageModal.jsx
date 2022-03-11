@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -10,33 +10,31 @@ import {
   Button,
   Input,
   Textarea,
+  Select,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa";
 import { useState } from "react";
-import { collection, addDoc } from "firebase/firestore";
+import { onSnapshot, doc, setDoc } from "firebase/firestore";
 import { db } from "../../utils/init-firebase";
 import { useToast } from "@chakra-ui/react";
 import { useAuth } from "../../contexts/AuthContext";
 
-export const NewMessageModal = () => {
+export const NewMessageModal = ({ messageArray, newMessageDoc }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { currentUser } = useAuth();
-
   const toast = useToast();
   const sendData = () => {
     setIsSubmitting(true);
     async function sendForm() {
       try {
-        const docRef = await addDoc(collection(db, "messages"), {
-          subject: subject,
-          message: message,
-          currentUser: currentUser.email,
+        const newMessage = [{ subject, message, inverappDate }];
+        setDoc(newMessageDoc, {
+          messages: [...messageArray, ...newMessage],
         });
         onClose();
         toast({
@@ -47,13 +45,17 @@ export const NewMessageModal = () => {
           isClosable: true,
         });
         setIsSubmitting(false);
-        return docRef;
       } catch (e) {
         console.error("Error adding document: ", e);
       }
     }
     sendForm();
   };
+
+  const date = new Date();
+  const inverappDate = `${date.toLocaleDateString(
+    "es-AR"
+  )} -  ${date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
 
   return (
     <>
@@ -71,13 +73,20 @@ export const NewMessageModal = () => {
           <ModalHeader>Nuevo mensaje</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Input
+            <Input isDisabled placeholder={`Fecha: ${inverappDate}`} mb={2} />
+            <Select
               placeholder="Asunto"
               mb={2}
               onChange={(e) => {
                 setSubject(e.target.value);
               }}
-            />
+            >
+              <option value="operaciones">Operaciones</option>
+              <option value="administrativo">Administrativo</option>
+              <option value="transferencias">Transferencias</option>
+              <option value="asesoramiento">Asesoramiento</option>
+              <option value="otros">Otros</option>
+            </Select>
             <Textarea
               h="200px"
               placeholder="Escriba su mensaje acá"

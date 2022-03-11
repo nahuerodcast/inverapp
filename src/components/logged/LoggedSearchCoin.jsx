@@ -31,6 +31,7 @@ import { db } from "../../utils/init-firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import { useBalance } from "../../contexts/BalanceContext";
 import { FormattedArs, FormattedUsd } from "./FormattedNumbers";
+import { useNavigate } from "react-router-dom";
 
 export const LoggedSearchCoin = ({
   id,
@@ -60,10 +61,11 @@ export const LoggedSearchCoin = ({
     );
   };
 
-  // Chakra UI hooks & stuff
+  // Chakra UI hooks, Router DOM & stuff
   const { isOpen, onOpen, onClose } = useDisclosure();
   const initRef = React.useRef();
   const toast = useToast();
+  const navigate = useNavigate();
 
   // Balance & current user
   const { currentUser } = useAuth();
@@ -289,20 +291,29 @@ export const LoggedSearchCoin = ({
                           placeholder="Cantidad"
                           onChange={(e) => setQuantity(Number(e.target.value))}
                         />
-                        <Text
-                          color={"red.700"}
-                          textAlign={"center"}
-                          fontSize={"sm"}
-                          my={1}
-                        >
+                        <Text textAlign={"center"} fontSize={"sm"} my={1}>
                           {(quantity !== "0" &&
                             ars >= quantity &&
                             !currencySwitch) ||
                           (quantity !== "0" &&
                             usd >= quantity &&
-                            currencySwitch)
-                            ? ""
-                            : "No posee suficiente saldo 👎"}
+                            currencySwitch) ? (
+                            ""
+                          ) : (
+                            <Flex flexDir={"column"} alignItems="center">
+                              <Text color={"red.700"}>
+                                No posee suficiente saldo 👎
+                              </Text>
+                              <Button
+                                variant={"link"}
+                                fontSize="sm"
+                                w={"fit-content"}
+                                onClick={() => navigate("/saldo-app/cargar")}
+                              >
+                                Cargar saldo
+                              </Button>
+                            </Flex>
+                          )}
                         </Text>
                       </form>
                     </NumberInput>

@@ -1,25 +1,26 @@
+import { Text } from "@chakra-ui/react";
 import React from "react";
 
-export const FormattedArs = ({ ars }) => {
+export const FormattedArs = ({ ars, color }) => {
   return (
-    <p>
+    <Text color={color}>
       ARS:{" "}
       {new Intl.NumberFormat("es-AR", {
         style: "currency",
         currency: "ARS",
       }).format(ars)}
-    </p>
+    </Text>
   );
 };
 
-export const FormattedUsd = ({ usd }) => {
+export const FormattedUsd = ({ usd, color }) => {
   return (
-    <p>
+    <Text color={color}>
       USD:{" "}
       {new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
       }).format(usd)}
-    </p>
+    </Text>
   );
 };

@@ -44,7 +44,6 @@ export const BankTransfers = () => {
 
   return (
     <>
-      {console.log(currentUser.email)}
       <BankTransfersDetails />
       <Flex
         flexDir={"column"}
@@ -128,7 +127,7 @@ export const BankTransfers = () => {
                   </Button>
                 ) : (
                   <>
-                    {demoBalance ? (
+                    {isGenerated ? (
                       <Button
                         mt={2}
                         onClick={() => {

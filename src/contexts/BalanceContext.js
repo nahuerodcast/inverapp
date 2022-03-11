@@ -12,6 +12,7 @@ import { useAuth } from "./AuthContext";
 import { Switch } from "@chakra-ui/react";
 
 const BalanceContext = createContext({
+  isGenerated: null,
   ars: null,
   usd: null,
   positionArs: null,
@@ -51,28 +52,42 @@ export default function BalanceContextProvider({ children }) {
     }
     return ars;
   }
-  const stringARS = validateNumber(ars) ? <FormattedArs ars={ars} /> : "";
-  const stringUSD = validateNumber(usd) ? <FormattedUsd usd={usd} /> : "";
+  const stringARS = validateNumber(ars) ? (
+    <FormattedArs ars={ars} />
+  ) : (
+    <FormattedArs ars={0} color={"GrayText"} />
+  );
+  const stringUSD = validateNumber(usd) ? (
+    <FormattedUsd usd={usd} />
+  ) : (
+    <FormattedUsd usd={0} color={"GrayText"} />
+  );
   const stringPositionARS = validateNumber(ars) ? (
     <FormattedArs ars={positionArs} />
   ) : (
-    ""
+    <FormattedArs ars={0} color={"GrayText"} />
   );
   const stringPositionUSD = validateNumber(usd) ? (
     <FormattedUsd usd={positionUsd} />
   ) : (
-    ""
+    <FormattedUsd usd={0} color={"GrayText"} />
   );
 
   // Setting the value for the currency conversion
   const [dolar, setDolar] = useState("");
   useEffect(() => {
-    axios
-      .get(`https://api-dolar-argentina.herokuapp.com/api/dolarblue`)
-      .then((res) => {
-        setDolar(Number(res.data.compra));
-      })
-      .catch();
+    const requestOptions = {
+      method: "GET",
+      mode: "cors",
+      redirect: "follow",
+    };
+
+    fetch(
+      "https://api-dolar-argentina.herokuapp.com/api/dolarblue",
+      requestOptions
+    )
+      .then((response) => response.text())
+      .then((result) => setDolar(JSON.parse(result).compra));
   }, []);
 
   // getting portfolio values from Firebase
@@ -142,10 +157,11 @@ export default function BalanceContextProvider({ children }) {
     });
   }, []);
 
-  
+  const isGenerated = balanceData ? balanceData.isGenerated : false;
 
   // Exporting values with "value" Object to provider
   const value = {
+    isGenerated,
     ars,
     usd,
     positionArs,

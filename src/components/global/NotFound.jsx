@@ -11,7 +11,7 @@ export const NotFound = () => {
     <Flex flexDir="column" justifyContent="center" alignItems="center" mt={150}>
       <WarningIcon h={16} w={16} color="blue.700" />
       <Heading fontWeight="extrabold" fontSize="xx-large" mt={2}>
-        Sitio en desarrollo
+        Sección en desarrollo
       </Heading>
       <Heading as="p" fontWeight="medium" fontSize="x-large">
         Disculpe las molestias

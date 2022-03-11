@@ -27,6 +27,7 @@ import { useBalance } from "../../contexts/BalanceContext";
 import { db } from "../../utils/init-firebase";
 import { useToast } from "@chakra-ui/react";
 import { useEffect } from "react";
+import { WithdrawalHistory } from "./WithdrawalHistory";
 
 export const Withdrawal = () => {
   // Own hooks
@@ -36,9 +37,7 @@ export const Withdrawal = () => {
   const [arsWithdrawal, setArsWithdrawal] = useState("");
   const [usdWithdrawal, setUsdWithdrawal] = useState("");
   const [withdrawal, setWithdrawal] = useState([]);
-  const [selectedArsAccount, setSelectedArsAccount] = useState("");
-  const [selectedUsdAccount, setSelectedUsdAccount] = useState("");
-  const [bank, setBank] = useState("");
+  const [dataBank, setDataBank] = useState("");
 
   //ChakraUI + navigate hooks
   const navigate = useNavigate();
@@ -61,18 +60,18 @@ export const Withdrawal = () => {
   // Updating data to firebase and showing user succesful withdrawal
   const userDoc = doc(db, "balance", currentUser.email);
 
-  let n = new Date();
-  let y = n.getFullYear();
-  let m = n.getMonth() + 1;
-  let d = n.getDate();
-  let da = n.getHours();
-  let dan = n.getMinutes();
-  let inverappDate = `${d}/${m}/${y} - ${da}:${dan}hs`;
+  let inverappDate = new Date().toLocaleDateString();
 
   const updateArsBalance = async () => {
     await updateDoc(userDoc, { ars: ars - arsWithdrawal });
     const newWithdrawal = [
-      { arsWithdrawal, selectedArsAccount, inverappDate, bank },
+      {
+        arsWithdrawal,
+        inverappDate,
+        currency: dataBank.currency,
+        account: dataBank.account,
+        bankName: dataBank.bank,
+      },
     ];
     await setDoc(withdrawalDoc, {
       history: [...withdrawal, ...newWithdrawal],
@@ -88,7 +87,15 @@ export const Withdrawal = () => {
 
   const updateUsdBalance = async () => {
     await updateDoc(userDoc, { usd: usd - usdWithdrawal });
-    const newWithdrawal = [{ usdWithdrawal, selectedUsdAccount, inverappDate }];
+    const newWithdrawal = [
+      {
+        usdWithdrawal,
+        inverappDate,
+        currency: dataBank.currency,
+        account: dataBank.account,
+        bankName: dataBank.bank,
+      },
+    ];
     await setDoc(withdrawalDoc, {
       history: [...withdrawal, ...newWithdrawal],
     });
@@ -178,13 +185,15 @@ export const Withdrawal = () => {
                 color={"gray"}
                 mt={1}
                 onChange={(e) => {
-                  setSelectedArsAccount(e.target.value);
+                  e.preventDefault();
+                  e.target.value !== "" &&
+                    setDataBank(JSON.parse(e.target.value));
                 }}
               >
                 {bankAccounts.map((data) => {
                   if (data.currency === "Pesos 🇦🇷") {
                     return (
-                      <option value={data.account}>
+                      <option value={JSON.stringify(data)}>
                         {data.bank} - {data.currency} - {data.account}
                       </option>
                     );
@@ -214,7 +223,10 @@ export const Withdrawal = () => {
                         <Button
                           w="100%"
                           ml={1}
-                          onClick={() => updateArsBalance()}
+                          onClick={() => {
+                            updateArsBalance();
+                            setArsWithdrawal("");
+                          }}
                         >
                           Confirmar
                         </Button>
@@ -247,7 +259,12 @@ export const Withdrawal = () => {
               alignItems={"center"}
               flexDir={"column"}
             >
-              <NumberInput w={"80%"} isRequired={true} max={usd}>
+              <NumberInput
+                w={"80%"}
+                isRequired={true}
+                max={usd}
+                isInvalid={usdWithdrawal > usd}
+              >
                 <NumberInputField
                   value={usdWithdrawal}
                   placeholder={"Ingresar monto"}
@@ -260,13 +277,15 @@ export const Withdrawal = () => {
                 color={"gray"}
                 mt={1}
                 onChange={(e) => {
-                  setSelectedUsdAccount(e.target.value);
+                  e.preventDefault();
+                  e.target.value !== "" &&
+                    setDataBank(JSON.parse(e.target.value));
                 }}
               >
                 {bankAccounts.map((data) => {
                   if (data.currency === "Dólares 🇺🇸") {
                     return (
-                      <option value={`${data.account}`}>
+                      <option value={JSON.stringify(data)}>
                         {data.bank} - {data.currency} - {data.account}
                       </option>
                     );
@@ -281,7 +300,7 @@ export const Withdrawal = () => {
                     Retirar
                   </Button>
                 </PopoverTrigger>
-                {usdWithdrawal !== "" && (
+                {usdWithdrawal !== ""  && (
                   <PopoverContent>
                     <PopoverArrow />
                     <PopoverCloseButton />
@@ -320,64 +339,7 @@ export const Withdrawal = () => {
             realizaste.
           </p>
         </Heading>
-        <Box
-          borderRadius="xl"
-          overflow="hidden"
-          p={6}
-          boxShadow={"xl"}
-          mb={12}
-          w={"4xl"}
-        >
-          <Flex flexDir={"column"} alignItems={"center"}>
-            <Heading fontSize={"4xl"} mb={4}>
-              <p>Egresos realizados</p>
-            </Heading>
-            <Divider />
-            <Flex
-              color={"GrayText"}
-              justifyContent={"space-between"}
-              w={"100%"}
-              my={1}
-            >
-              <Text>Fecha</Text>
-              <Text>Cantidad</Text>
-              <Text>Moneda</Text>
-              <Text>CBU/CVU</Text>
-              <Text>Banco/Billetera virtual</Text>
-            </Flex>
-            <Divider />
-            {withdrawal.length !== 0 ? (
-              withdrawal.map((w) => {
-                if (w.usdWithdrawal === undefined) {
-                  return (
-                    <Flex
-                      color={"GrayText"}
-                      justifyContent={"space-between"}
-                      w={"100%"}
-                      my={1}
-                    >
-                      <Text>{w.inverappDate}</Text>
-                      <Text>{w.arsWithdrawal}</Text>
-                      <Text>{w.selectedArsAccount}</Text>
-                    </Flex>
-                  );
-                }
-                if (w.arsWithdrawal === undefined) {
-                  return (
-                    <>
-                      <Text>{w.usdWithdrawal}</Text>
-                    </>
-                  );
-                }
-                return <></>;
-              })
-            ) : (
-              <Text my={6} color={"red.700"}>
-                No tenes movimientos realizados
-              </Text>
-            )}
-          </Flex>
-        </Box>
+        <WithdrawalHistory withdrawal={withdrawal} />
       </Flex>
     </Flex>
   );

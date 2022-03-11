@@ -10,8 +10,6 @@ import {
   Button,
   Input,
   Select,
-  NumberInputField,
-  NumberInput,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa";
@@ -96,15 +94,17 @@ export const NewBankAccount = () => {
                 setBank(e.target.value);
               }}
             />
-            <NumberInput>
-              <NumberInputField
-                placeholder="CBU/CVU"
-                mb={2}
-                onChange={(e) => {
-                  setAccount(e.target.value);
-                }}
-              />
-            </NumberInput>
+            <Input
+              type={"number"}
+              placeholder="CBU/CVU"
+              mb={2}
+              maxLength={22}
+              onChange={(e) => {
+                setAccount(e.target.value);
+                console.log(account);
+              }}
+            />
+
             <Select
               id="country"
               placeholder="Seleccione moneda"

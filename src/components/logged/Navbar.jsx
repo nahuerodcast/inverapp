@@ -29,6 +29,7 @@ import { MdMenuBook } from "react-icons/md";
 import { useBalance } from "../../contexts/BalanceContext";
 import { doc, onSnapshot, setDoc } from "firebase/firestore";
 import { db } from "../../utils/init-firebase";
+import { BsBank } from "react-icons/bs";
 
 export const Navbar = () => {
   //Colors
@@ -133,8 +134,11 @@ export const Navbar = () => {
                 <ReactLink to="/mi-cuenta">
                   <MenuItem icon={<FaUserAlt />}>Mi cuenta</MenuItem>
                 </ReactLink>
-                <ReactLink to="/estado-de-cuenta">
+                <ReactLink to="/">
                   <MenuItem icon={<FaFileAlt />}>Estado de cuenta </MenuItem>
+                </ReactLink>
+                <ReactLink to="/cuentas-bancarias">
+                  <MenuItem icon={<BsBank />}>Cuentas bancarias</MenuItem>
                 </ReactLink>
                 <ReactLink to="/saldo-app">
                   <MenuItem icon={<FaMoneyBill />}>
