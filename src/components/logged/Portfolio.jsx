@@ -16,7 +16,7 @@ import { FormattedArs, FormattedUsd } from "./FormattedNumbers";
 import { useBalance } from "../../contexts/BalanceContext";
 
 export const Portfolio = ({ arrayPortfolio }) => {
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState([]);
   const { dolar, defaultCheck } = useBalance();
 
   useEffect(() => {
@@ -75,12 +75,13 @@ export const Portfolio = ({ arrayPortfolio }) => {
 
       {arrayPortfolio.length !== 0
         ? arrayPortfolio.map((portfolio) => {
-            const filteredPrice = price.filter((price) =>
-              price.name.includes(portfolio.name)
+            const filteredPrice = price.filter((p) =>
+              p.name.includes(portfolio.name)
             );
             const currentPrice = filteredPrice[0].current_price;
             const quantity = portfolio.quantity;
             const total = quantity * currentPrice;
+
             const profitLoss = total - quantity * portfolio.price;
             const profitLossPercentage =
               (currentPrice * 100) / portfolio.price - 100;

@@ -21,7 +21,13 @@ export const Settings = ({ defaultIndex }) => {
 
   return (
     <Flex flexDir="row" my={10} justifyContent="center" minH="60vh">
-      <Tabs variant="enclosed" w="50%" defaultIndex={defaultIndex} isManual>
+      <Tabs
+        variant="enclosed"
+        w="100%"
+        px={"15vw"}
+        defaultIndex={defaultIndex}
+        isManual
+      >
         <TabList>
           <Tab>
             {" "}

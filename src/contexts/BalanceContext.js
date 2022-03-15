@@ -82,10 +82,7 @@ export default function BalanceContextProvider({ children }) {
       redirect: "follow",
     };
 
-    fetch(
-      "https://api-dolar-argentina.herokuapp.com/api/dolarblue",
-      requestOptions
-    )
+    fetch("https://apiarg.herokuapp.com/api/contadoliqui", requestOptions)
       .then((response) => response.text())
       .then((result) => setDolar(JSON.parse(result).compra));
   }, []);

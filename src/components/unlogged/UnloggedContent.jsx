@@ -36,7 +36,7 @@ export const UnloggedContent = () => {
             letterSpacing="tight"
             fontSize={30}
           >
-            Invertí desde tu celular en todos los activos que quieras.
+            Simulá tu próxima inversión en criptomonedas.
           </Heading>
           <Flex w="fit-content" p={0}>
             <OpenAccount />
@@ -48,33 +48,16 @@ export const UnloggedContent = () => {
       </Flex>
 
       <Flex flexDir="row" justifyContent="center" alignItems="center">
-        <Box boxShadow="2xl" rounded="xl" mx={12} w="250px">
+        <Box boxShadow="2xl" rounded="xl" mx={12}>
           <Heading
+            fontSize={"2xl"}
             fontWeight="extrabold"
             fontFamily="Inter,sans-serif"
             letterSpacing="tight"
             textAlign="center"
-            w="100%"
             p={8}
           >
-            <Flex flexDir="column" alignItems="center">
-              Acciones <AiOutlineStock color="#3584B3" />
-            </Flex>
-          </Heading>
-        </Box>
-        <Box boxShadow="2xl" rounded="xl" mx={12} w="250px">
-          <Heading
-            fontWeight="extrabold"
-            fontFamily="Inter,sans-serif"
-            letterSpacing="tight"
-            textAlign="center"
-            w="100%"
-            p={8}
-          >
-            <Flex flexDir="column" alignItems="center">
-              Cedears
-              <FaFlagUsa />
-            </Flex>
+            ¿Que es inverapp?
           </Heading>
         </Box>
         <Box boxShadow="2xl" rounded="xl" mx={12} w="250px">
