@@ -74,7 +74,7 @@ export const NewBankAccount = () => {
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} size="lg" isCentered>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent mx={["10vw", "10vw", "15vw", "15vw"]}>
           <ModalHeader>Agregar CBU/CVU</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

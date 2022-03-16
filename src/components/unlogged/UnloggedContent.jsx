@@ -1,7 +1,6 @@
 import React from "react";
 import { Flex, Heading, Image, Box } from "@chakra-ui/react";
-import { FaBitcoin, FaFlagUsa, FaMoneyBillWave } from "react-icons/fa";
-import { AiOutlineStock } from "react-icons/ai";
+import { FaBitcoin, FaMoneyBillWave } from "react-icons/fa";
 import { OpenAccount } from "./OpenAccount";
 
 export const UnloggedContent = () => {
@@ -9,10 +8,10 @@ export const UnloggedContent = () => {
     <>
       <Flex
         w="100%"
-        height="70vh"
+        minH="70vh"
         justifyContent="center"
         alignItems="center"
-        px="200px"
+        px={["10vw", "10vw", "15vw", "15vw"]}
       >
         <Flex
           flexDir="column"

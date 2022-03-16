@@ -14,10 +14,13 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FormattedArs, FormattedUsd } from "./FormattedNumbers";
 import { useBalance } from "../../contexts/BalanceContext";
+import { doc, onSnapshot, setDoc } from "firebase/firestore";
+import { db } from "../../utils/init-firebase";
+import { useAuth } from "../../contexts/AuthContext";
 
 export const Portfolio = ({ arrayPortfolio }) => {
   const [price, setPrice] = useState([]);
-  const { dolar, defaultCheck } = useBalance();
+  const { dolar, defaultCheck, currencySwitch } = useBalance();
 
   useEffect(() => {
     axios
@@ -32,11 +35,56 @@ export const Portfolio = ({ arrayPortfolio }) => {
 
   const navigate = useNavigate();
 
+  const displayPreset = ["none", "none", "none", "inherit"];
+
+  const { currentUser } = useAuth();
+  const [currencyFlag, setCurrencyFlag] = useState(false);
+  const [defaultCheckk, setDefaultCheckk] = useState(false);
+  const fbdoc = doc(db, "settings", currentUser.email);
+
+  useEffect(() => {
+    onSnapshot(fbdoc, (doc) => {
+      setDefaultCheckk(doc.data().currencyFlag);
+    });
+  }, []);
+
+  const settings = () => {
+    setDoc(fbdoc, {
+      isActive: true,
+      currencyFlag: !currencyFlag,
+    });
+  };
+
   return (
     <Flex my={1} flexDir={"column"}>
-      <Heading fontSize={"2xl"}>
-        <p> Mis inversiones</p>
-      </Heading>
+      <Flex
+        flexDir={["column", "column", "row", "row"]}
+        justifyContent={"space-between"}
+        alignItems="center"
+        mb={1}
+      >
+        <Heading fontSize={"2xl"}>
+          <p> Mis inversiones</p>
+        </Heading>
+        <Button
+          variant="ghost"
+          m={0}
+          borderRadius={9999}
+          onClick={() => {
+            setCurrencyFlag(!currencyFlag);
+            settings();
+          }}
+        >
+          <Text mr={2}>
+            {defaultCheck ? (
+              <strong>USD 🇺🇸 </strong>
+            ) : (
+              <strong> ARS 🇦🇷 </strong>
+            )}
+          </Text>
+          {currencySwitch()}
+        </Button>
+      </Flex>
       <Divider mb={2} />
 
       {arrayPortfolio.length === 0 ? (
@@ -57,13 +105,26 @@ export const Portfolio = ({ arrayPortfolio }) => {
         </Flex>
       ) : (
         <>
-          <Flex justifyContent={"space-between"} mt={1} mb={2}>
-            <Text w={6}></Text>
-            <Text w={20}>Nombre</Text>
+          <Flex
+            flexDir={["column", "column", "row", "row"]}
+            justifyContent={["center", "center", "center", "space-between"]}
+            alignItems={["center", "center", "center", "space-between"]}
+            textAlign={["center", "center", "inherit", "inherit"]}
+            mt={1}
+            mb={2}
+          >
+            <Text w={8}></Text>
+            <Text w={24}>Nombre</Text>
             <Text w={32}>Cantidad </Text>
-            <Text w={48}>Precio compra (usd)</Text>
-            <Text w={36}>Precio actual (usd)</Text>
-            <Text w={28}>Gan/Per {!defaultCheck ? "ARS" : "USD"}</Text>
+            <Text w={48} display={displayPreset}>
+              Precio compra (usd)
+            </Text>
+            <Text w={36} display={displayPreset}>
+              Precio actual (usd)
+            </Text>
+            <Text w={28} display={displayPreset}>
+              Gan/Per {!defaultCheck ? "ARS" : "USD"}
+            </Text>
             <Text w={36}>Gan/Per %</Text>
             <Text w={36}>
               <strong>Total en {!defaultCheck ? "ARS" : "USD"}</strong>
@@ -91,15 +152,24 @@ export const Portfolio = ({ arrayPortfolio }) => {
                 {portfolio.length !== 0 ? (
                   <>
                     <Flex
+                      flexDir={["column", "column", "row", "row"]}
                       justifyContent={"space-between"}
                       alignItems={"center"}
+                      textAlign={["center", "center", "inherit", "inherit"]}
                       my={2}
                     >
-                      <Img w={6} src={portfolio.image}></Img>
-                      <Text w={20}>{portfolio.name}</Text>
+                      <Img w={[12, 12, 8, 8]} src={portfolio.image}></Img>
+
+                      <Text w={24} fontSize={"lg"}>
+                        {portfolio.name}
+                      </Text>
                       <Text w={32}>{portfolio.quantity.toFixed(4)}</Text>
-                      <Text w={48}>${portfolio.price}</Text>
-                      <Text w={36}>${currentPrice}</Text>
+                      <Text w={48} display={displayPreset}>
+                        ${portfolio.price}
+                      </Text>
+                      <Text w={36} display={displayPreset}>
+                        ${currentPrice}
+                      </Text>
                       <Text
                         color={
                           profitLossPercentage !== 0
@@ -109,6 +179,7 @@ export const Portfolio = ({ arrayPortfolio }) => {
                             : "GrayText"
                         }
                         w={28}
+                        display={displayPreset}
                       >
                         {!defaultCheck
                           ? portfolio.currencySwitch
@@ -172,8 +243,11 @@ export const Portfolio = ({ arrayPortfolio }) => {
       {arrayPortfolio.length === 0 ? (
         ""
       ) : (
-        <Flex flexDir={"column"} alignItems={"flex-end"}>
-          <Text mt={1} w={36}>
+        <Flex
+          flexDir={"column"}
+          alignItems={["center", "center", "flex-end", "flex-end"]}
+        >
+          <Text mt={1} w={36} fontSize="lg">
             <strong>Total: </strong>
           </Text>
         </Flex>

@@ -24,7 +24,7 @@ export const Settings = ({ defaultIndex }) => {
       <Tabs
         variant="enclosed"
         w="100%"
-        px={"15vw"}
+        px={["10vw", "10vw", "15vw", "15vw"]}
         defaultIndex={defaultIndex}
         isManual
       >

@@ -8,7 +8,7 @@ export const Message = ({ messageArray }) => {
       p={6}
       boxShadow={"xl"}
       mb={12}
-      maxW={"50%"}
+      maxW={["100%", "100%", "75%", "50%"]}
       h="fit-content"
     >
       <Flex justifyContent={"space-between"} alignItems="center">

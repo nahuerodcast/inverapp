@@ -38,7 +38,12 @@ export const MessageCenter = () => {
 
   return (
     <Flex justifyContent="center" minH="60vh">
-      <Flex w="70%" flexDir="column" mt={10}>
+      <Flex
+        w="100%"
+        flexDir="column"
+        mt={10}
+        px={["10vw", "10vw", "15vw", "15vw"]}
+      >
         <Heading>Mensajes</Heading>
         <Heading fontSize="sm" fontWeight="normal" color="grayText" mt={1}>
           {currentUser.displayName
@@ -46,12 +51,17 @@ export const MessageCenter = () => {
             : currentUser.email}
         </Heading>
         <Divider mt={2} />
-        <Flex mt={4} w="100%" justifyContent="space-between">
+        <Flex
+          mt={4}
+          w="100%"
+          justifyContent="space-between"
+          flexDir={["column", "column", "row", "row"]}
+        >
           <NewMessageModal
             messageArray={messageArray}
             newMessageDoc={newMessageDoc}
           />
-          <InputGroup mr={2} w="xl" ml={10}>
+          <InputGroup mr={2} w="100%" mx={[0, 0, 20, 32]}>
             <Input
               variant="outline"
               placeholder="Buscar mensajes"
@@ -71,6 +81,7 @@ export const MessageCenter = () => {
                   onChange={(e) => {
                     setSelect(e.target.value);
                   }}
+                  w={["100%", "100%", "150px", "150px"]}
                 >
                   <option value="operaciones">Operaciones</option>
                   <option value="administrativo">Administrativo</option>
@@ -88,17 +99,23 @@ export const MessageCenter = () => {
           messageSearch={messageSearch}
           filteredSearch={filteredSearch}
         />
-        <Flex h="100%" alignItems="flex-end" mb={4}>
-          <Stack direction="row">
-            <Heading fontSize="small" fontWeight="normal">
-              Asuntos:
-            </Heading>
-            <Badge colorScheme="green">Operaciones</Badge>
-            <Badge colorScheme="blue">Administrativo</Badge>
-            <Badge colorScheme={"orange"}>Transferencias</Badge>
-            <Badge colorScheme="red">Asesoramiento</Badge>
-            <Badge>Otros</Badge>
-          </Stack>
+        <Flex h="100%" mb={4} flexWrap="wrap" alignItems="center">
+          <Heading fontSize="small" fontWeight="normal">
+            Asuntos:
+          </Heading>
+          <Badge colorScheme="green" m={1}>
+            Operaciones
+          </Badge>
+          <Badge colorScheme="blue" m={1}>
+            Administrativo
+          </Badge>
+          <Badge colorScheme={"orange"} m={1}>
+            Transferencias
+          </Badge>
+          <Badge colorScheme="red" m={1}>
+            Asesoramiento
+          </Badge>
+          <Badge m={1}>Otros</Badge>
         </Flex>
       </Flex>
     </Flex>

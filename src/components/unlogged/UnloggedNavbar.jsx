@@ -5,7 +5,6 @@ import { Button } from "@chakra-ui/button";
 import { WiMoonAltWaningCrescent2 } from "react-icons/wi";
 import { IoIosArrowDown } from "react-icons/io";
 import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu";
-import { OpenAccount } from "./OpenAccount";
 import { Login } from "./Login";
 
 export const UnloggedNavbar = () => {
@@ -18,8 +17,8 @@ export const UnloggedNavbar = () => {
         flexDir="row"
         alignItems="center"
         justifyContent="space-between"
-        px="200px"
-        py={2}
+        px={["10vw", "10vw", "15vw", "15vw"]}
+        py={4}
         boxShadow="lg"
       >
         <Flex flexDir="row" alignItems="center" justifyContent="center">
@@ -32,56 +31,6 @@ export const UnloggedNavbar = () => {
           >
             Inverapp
           </Heading>
-          <Menu>
-            <MenuButton
-              as={Button}
-              variant="ghost"
-              rightIcon={<IoIosArrowDown />}
-              color="gray.400"
-            >
-              Invertí
-            </MenuButton>
-            <MenuList>
-              <MenuItem>Acciones</MenuItem>
-              <MenuItem>Cedears</MenuItem>
-              <MenuItem>Cripto</MenuItem>
-              <MenuItem>Fondos comunes</MenuItem>
-              <MenuItem>Comprá dólares</MenuItem>
-            </MenuList>
-          </Menu>
-
-          <Menu>
-            <MenuButton
-              as={Button}
-              variant="ghost"
-              rightIcon={<IoIosArrowDown />}
-              color="gray.400"
-            >
-              Aprendé
-            </MenuButton>
-            <MenuList>
-              <MenuItem>Guía de ayuda</MenuItem>
-              <MenuItem>Tutoriales</MenuItem>
-              <MenuItem>Cursos gratis</MenuItem>
-            </MenuList>
-          </Menu>
-          <Menu>
-            <MenuButton
-              as={Button}
-              variant="ghost"
-              rightIcon={<IoIosArrowDown />}
-              color="gray.400"
-            >
-              FAQ
-            </MenuButton>
-            <MenuList>
-              <MenuItem>¿Quienes somos?</MenuItem>
-              <MenuItem>Comisiones</MenuItem>
-              <MenuItem>Cargar y extraer saldo</MenuItem>
-              <MenuItem>Asesoramiento</MenuItem>
-              <MenuItem>Otras consultas</MenuItem>
-            </MenuList>
-          </Menu>
         </Flex>
         <Flex alignItems="center">
           <Button
@@ -94,7 +43,7 @@ export const UnloggedNavbar = () => {
           >
             <WiMoonAltWaningCrescent2 size={20} />
           </Button>
-          <OpenAccount />
+
           <Login />
         </Flex>
       </Flex>

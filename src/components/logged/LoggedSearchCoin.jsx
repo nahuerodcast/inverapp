@@ -150,17 +150,33 @@ export const LoggedSearchCoin = ({
     <>
       <Flex justifyContent={"space-between"}>
         <Flex alignItems={"center"}>
-          <Heading mr={4} ml={1} fontSize={"lg"} fontWeight={"thin"} w={8}>
+          <Heading
+            mr={4}
+            ml={1}
+            fontSize={"lg"}
+            fontWeight={"thin"}
+            w={8}
+            display={["none", "none", "inherit", "inherit"]}
+          >
             <p>{id}</p>
           </Heading>
           <Img src={image} alt={name} w="40px" mr={4} />
           <Heading fontSize={"lg"} w={160} fontWeight={"normal"}>
             <p>{name}</p>
           </Heading>
-          <Heading fontSize={"lg"} w={120} fontWeight={"normal"}>
+          <Heading
+            fontSize={"lg"}
+            w={120}
+            fontWeight={"normal"}
+            display={["none", "none", "inherit", "inherit"]}
+          >
             <p>${price.toLocaleString()}</p>
           </Heading>
-          <Text fontSize={"lg"} w={120}>
+          <Text
+            fontSize={"lg"}
+            w={120}
+            display={["none", "none", "inherit", "inherit"]}
+          >
             <p>
               {priceChange > 0 ? (
                 <Stat>
@@ -178,7 +194,11 @@ export const LoggedSearchCoin = ({
               )}
             </p>
           </Text>
-          <Text fontSize={"lg"} w={"60px"}>
+          <Text
+            fontSize={"lg"}
+            w={"60px"}
+            display={["none", "none", "inherit", "inherit"]}
+          >
             <p>{symbol.toUpperCase()}</p>
           </Text>
         </Flex>
@@ -200,7 +220,11 @@ export const LoggedSearchCoin = ({
             size={"2xl"}
           >
             <ModalOverlay />
-            <ModalContent ref={initRef} minH={"50vh"}>
+            <ModalContent
+              ref={initRef}
+              minH={"50vh"}
+              mx={["10vw", "10vw", "15vw", "15vw"]}
+            >
               <ModalHeader mb={0} mt={4} fontSize={35} fontWeight={"bold"}>
                 <Center>
                   <Img src={image} alt={name} w="40px" mr={2} />
@@ -224,12 +248,13 @@ export const LoggedSearchCoin = ({
                     alignItems={"center"}
                     justifyContent={"center"}
                     w={"100%"}
+                    px="5vw"
                   >
                     <Flex
                       alignItems={"center"}
                       justifyContent={"space-between"}
                       h={"fit-content"}
-                      w={"50%"}
+                      w={"100%"}
                     >
                       <Text mr={4}>
                         Operar en {!currencySwitch ? "pesos 🇦🇷" : "dólares 🇺🇸"}
@@ -242,7 +267,7 @@ export const LoggedSearchCoin = ({
                     <Flex
                       flexDir={"row"}
                       justifyContent={"space-between"}
-                      w={"50%"}
+                      w={"100%"}
                     >
                       <Text
                         fontSize={"md"}
@@ -266,7 +291,7 @@ export const LoggedSearchCoin = ({
                     <Flex
                       flexDir={"row"}
                       justifyContent={"space-between"}
-                      w={"50%"}
+                      w={"100%"}
                     >
                       <Text>Total {symbol.toUpperCase()} a recibir: </Text>
                       <Text>
@@ -279,7 +304,7 @@ export const LoggedSearchCoin = ({
                       mt={4}
                       keepWithinRange={false}
                       clampValueOnBlur={false}
-                      w={"50%"}
+                      w={"100%"}
                     >
                       <form
                         onSubmit={(e) => {
@@ -318,7 +343,7 @@ export const LoggedSearchCoin = ({
                       </form>
                     </NumberInput>
 
-                    <Flex flexDir={"row"} w={"50%"} justifyContent={"center"}>
+                    <Flex flexDir={"row"} justifyContent={"center"} w={"100%"}>
                       <Button
                         mr={1}
                         colorScheme={"green"}

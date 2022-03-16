@@ -7,6 +7,7 @@ import {
   List,
   ListItem,
   Divider,
+  Text,
 } from "@chakra-ui/layout";
 import React from "react";
 import { IoLogoInstagram, IoLogoTwitter } from "react-icons/io";
@@ -14,15 +15,16 @@ import { MdOutlineFacebook } from "react-icons/md";
 
 export const Footer = () => {
   return (
-    <Flex maxH={"30vh"} flexDir={"column"} overflow={"hidden"}>
+    <Flex minH={"30vh"} flexDir={"column"}>
       <Divider />
-      <Flex w="100vw" h="150px" mt="20px">
-        <Flex
-          flexDir="row"
-          justifyContent="center"
-          alignItems="center"
-          w="50vw"
-        >
+
+      <Flex
+        flexDir={["column", "column", "row", "row"]}
+        justifyContent="center"
+        w="100vw"
+        mt="20px"
+      >
+        <Flex flexDir="row" justifyContent="center" alignItems="center">
           <Heading
             as="h1"
             fontWeight="extrabold"
@@ -56,8 +58,9 @@ export const Footer = () => {
             </Button>
           </Flex>
         </Flex>
+        <Text w={4}></Text>
         <Flex>
-          <Flex>
+          <Flex px={["10vw", "10vw", "0", "0"]}>
             <List m={4}>
               <ListItem>Acciones</ListItem>
               <ListItem>Cedears</ListItem>

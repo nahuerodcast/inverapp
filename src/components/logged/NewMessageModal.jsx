@@ -69,7 +69,7 @@ export const NewMessageModal = ({ messageArray, newMessageDoc }) => {
       </Button>
       <Modal isOpen={isOpen} onClose={onClose} size="lg">
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent mx={["10vw", "10vw", "15vw", "15vw"]}>
           <ModalHeader>Nuevo mensaje</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

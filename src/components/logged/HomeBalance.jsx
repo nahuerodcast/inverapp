@@ -9,8 +9,12 @@ export const HomeBalance = () => {
     useBalance();
 
   return (
-    <Flex my={2} mb={6} flexDir={"column"}>
-      <Flex justifyContent={"space-between"} alignItems={"center"}>
+    <Flex my={2} mb={4} flexDir={"column"}>
+      <Flex
+        flexDir={["column", "column", "row", "row"]}
+        justifyContent={"space-between"}
+        alignItems={"center"}
+      >
         <Heading fontSize={"2xl"}>
           <p> Saldo actual</p>
         </Heading>
@@ -21,6 +25,7 @@ export const HomeBalance = () => {
           textAlign={"end"}
           color={"GrayText"}
           mb={1}
+          display={["none", "none", "none", "inherit"]}
         >
           Estado de cuenta al <InverappDate />
         </Heading>
@@ -28,10 +33,16 @@ export const HomeBalance = () => {
       </Flex>
 
       <Divider mb={4} />
-      <Flex justifyContent={"space-between"}>
+      <Flex
+        flexDir={["column", "column", "row", "row"]}
+        justifyContent="space-around"
+        alignItems={"center"}
+      >
         <Flex flexDir={"column"}>
           <Flex alignItems={"center"}>
-            <Text mr={1}>Total disponible</Text>
+            <Text mr={1} fontSize="lg">
+              Total disponible
+            </Text>
             <Tooltip label="Total disponible en tu cuenta">
               <Flex>
                 <FcInfo />
@@ -41,9 +52,11 @@ export const HomeBalance = () => {
           <Text>{stringARS}</Text>
           <Text>{stringUSD}</Text>
         </Flex>
-        <Flex flexDir={"column"} alignItems={"flex-end"}>
+        <Flex flexDir={"column"} mt={[4, 4, 0, 0]}>
           <Flex alignItems={"center"}>
-            <Text mr={1}>Total invertido</Text>
+            <Text mr={1} fontSize="lg">
+              Total invertido
+            </Text>
             <Tooltip label="Total ya invertido">
               <Flex>
                 <FcInfo />

@@ -119,7 +119,7 @@ export const Withdrawal = () => {
         mt={4}
         onClick={() => navigate("/saldo-app")}
         leftIcon={<FaArrowAltCircleLeft />}
-        ml={"200px"}
+        ml={["10vw", "10vw", "15vw", "15vw"]}
         w={"150px"}
       >
         Volver atrás
@@ -130,6 +130,7 @@ export const Withdrawal = () => {
         flexDir="column"
         justifyContent={"center"}
         alignItems={"center"}
+        px={["10vw", "10vw", "15vw", "15vw"]}
       >
         <Heading fontWeight={"semibold"} mt={10}>
           <Flex alignItems={"center"} justifyContent={"center"}>
@@ -149,9 +150,9 @@ export const Withdrawal = () => {
             inversiones, hacia tu cuenta de banco o billetera virtual.
           </p>
         </Heading>
-        <Flex>
+        <Flex flexWrap={"wrap"} w="100%" justifyContent={"center"}>
           <Box
-            w="md"
+            w={["inherit", "inherit", "md", "md"]}
             borderWidth="1px"
             borderRadius="lg"
             overflow="hidden"
@@ -239,7 +240,7 @@ export const Withdrawal = () => {
           </Box>
 
           <Box
-            w="md"
+            w={["inherit", "inherit", "md", "md"]}
             borderWidth="1px"
             borderRadius="lg"
             overflow="hidden"
@@ -300,7 +301,7 @@ export const Withdrawal = () => {
                     Retirar
                   </Button>
                 </PopoverTrigger>
-                {usdWithdrawal !== ""  && (
+                {usdWithdrawal !== "" && (
                   <PopoverContent>
                     <PopoverArrow />
                     <PopoverCloseButton />

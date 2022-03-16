@@ -51,7 +51,7 @@ export const Trade = () => {
         mt={4}
         onClick={() => navigate("/")}
         leftIcon={<FaArrowAltCircleLeft />}
-        ml={"200px"}
+        ml={["10vw", "10vw", "15vw", "15vw"]}
         w={"150px"}
       >
         Volver atrás
@@ -75,11 +75,13 @@ export const Trade = () => {
               fontWeight={"normal"}
               mt={1}
             >
-              <Flex>
+              <Flex flexDir={["column", "column", "row", "row"]}>
                 <Text mr={1}> Saldo disponible:</Text>
-                <Text mr={1}> {stringARS}</Text>
-                <Text mr={1}> y </Text>
-                <Text mr={1}> {stringUSD} </Text>
+                <Flex>
+                  <Text mr={1}> {stringARS}</Text>
+                  <Text mr={1}> y </Text>
+                  <Text mr={1}> {stringUSD} </Text>
+                </Flex>
               </Flex>
             </Text>
           </Heading>

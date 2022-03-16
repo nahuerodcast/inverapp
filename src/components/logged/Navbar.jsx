@@ -26,33 +26,14 @@ import { Link as ReactLink } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { Avatar } from "@chakra-ui/avatar";
 import { MdMenuBook } from "react-icons/md";
-import { useBalance } from "../../contexts/BalanceContext";
-import { doc, onSnapshot, setDoc } from "firebase/firestore";
-import { db } from "../../utils/init-firebase";
+
 import { BsBank } from "react-icons/bs";
 
 export const Navbar = () => {
   //Colors
   const { toggleColorMode } = useColorMode();
-  const { currencySwitch } = useBalance();
 
   const { currentUser } = useAuth();
-  const [currencyFlag, setCurrencyFlag] = useState(false);
-  const [defaultCheck, setDefaultCheck] = useState(false);
-  const fbdoc = doc(db, "settings", currentUser.email);
-
-  useEffect(() => {
-    onSnapshot(fbdoc, (doc) => {
-      setDefaultCheck(doc.data().currencyFlag);
-    });
-  }, []);
-
-  const settings = () => {
-    setDoc(fbdoc, {
-      isActive: true,
-      currencyFlag: !currencyFlag,
-    });
-  };
 
   const { logout } = useAuth();
 
@@ -62,7 +43,7 @@ export const Navbar = () => {
         flexDir="row"
         alignItems="center"
         justifyContent="space-between"
-        px="15vw"
+        px={["10vw", "10vw", "15vw", "15vw"]}
         py={4}
         boxShadow="lg"
       >
@@ -79,24 +60,6 @@ export const Navbar = () => {
         </Flex>
         <Flex alignItems="center">
           <Button
-            variant="ghost"
-            m={0}
-            borderRadius={9999}
-            onClick={() => {
-              setCurrencyFlag(!currencyFlag);
-              settings();
-            }}
-          >
-            <Text mr={2}>
-              {defaultCheck ? (
-                <strong>USD 🇺🇸 </strong>
-              ) : (
-                <strong> ARS 🇦🇷 </strong>
-              )}
-            </Text>
-            {currencySwitch()}
-          </Button>
-          <Button
             onClick={toggleColorMode}
             variant="ghost"
             p={0}
@@ -104,6 +67,7 @@ export const Navbar = () => {
             mr={2}
             borderRadius={9999}
             color="gray.500"
+            display={["none", "none", "inherit", "inherit"]}
           >
             <WiMoonAltWaningCrescent2 size={20} />
           </Button>
@@ -120,13 +84,18 @@ export const Navbar = () => {
             />
             <Box boxShadow={"md"} borderRadius={4}>
               <MenuButton as={Button} rightIcon={<ChevronDownIcon />} pl={4}>
-                ¡Hola,{" "}
-                <strong>
-                  {currentUser.displayName
-                    ? currentUser.displayName
-                    : currentUser.email}
-                  !
-                </strong>
+                <Text display={["none", "none", "unset", "unset"]}>
+                  ¡Hola,{" "}
+                  <strong>
+                    {currentUser.displayName
+                      ? currentUser.displayName
+                      : currentUser.email}
+                    !
+                  </strong>
+                </Text>
+                <Text display={["unset", "unset", "none", "none"]}>
+                  Mi cuenta
+                </Text>
               </MenuButton>
             </Box>
             <MenuList>

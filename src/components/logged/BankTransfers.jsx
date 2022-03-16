@@ -16,6 +16,7 @@ import { db } from "../../utils/init-firebase";
 import { useAuth } from "../../contexts/AuthContext";
 import { BankTransfersDetails } from "./BankTransfersDetails";
 import { useBalance } from "../../contexts/BalanceContext";
+import { FaArrowAltCircleLeft } from "react-icons/fa";
 
 export const BankTransfers = () => {
   // Hooks
@@ -44,7 +45,15 @@ export const BankTransfers = () => {
 
   return (
     <>
-      <BankTransfersDetails />
+      <Button
+        mt={4}
+        onClick={() => navigate("/saldo-app")}
+        leftIcon={<FaArrowAltCircleLeft />}
+        ml={["10vw", "10vw", "15vw", "15vw"]}
+        w={"150px"}
+      >
+        Volver atrás
+      </Button>
       <Flex
         flexDir={"column"}
         minH={"100%"}
@@ -65,11 +74,15 @@ export const BankTransfers = () => {
               alignItems={"center"}
               flexDir={"column"}
               mt={4}
+              px={["10vw", "10vw", "15vw", "15vw"]}
             >
-              <Text my={1}>o</Text>
-              <Divider />
               <Heading fontWeight={"semibold"} mt={10}>
-                <Flex alignItems={"center"} justifyContent={"center"}>
+                <Flex
+                  flexDir={["column", "column", "row", "row"]}
+                  alignItems={"center"}
+                  justifyContent={"center"}
+                  textAlign="center"
+                >
                   <p>Simulá tu transferencia </p>
                   <FcIdea style={{ marginLeft: "10px" }} />
                 </Flex>
@@ -89,7 +102,12 @@ export const BankTransfers = () => {
 
               <Flex flexDir={"column"} alignItems={"center"} w={"100%"}>
                 <Divider />
-                <Flex height="65px" my={4} w={"100%"}>
+                <Flex
+                  height="65px"
+                  my={4}
+                  w={"100%"}
+                  flexDir={["column", "column", "row", "row"]}
+                >
                   <Flex
                     justifyContent={"center"}
                     alignItems={"center"}
@@ -161,9 +179,12 @@ export const BankTransfers = () => {
                 )}
               </Box>
             </Flex>
+            <Text mt={16}></Text>
+            <Divider />
           </Flex>
         </Flex>
       </Flex>
+      <BankTransfersDetails />
     </>
   );
 };

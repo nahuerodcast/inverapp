@@ -10,7 +10,7 @@ export const WithdrawalHistory = ({ withdrawal }) => {
       p={6}
       boxShadow={"xl"}
       mb={12}
-      w={"4xl"}
+      w={["100%", "100%", "4xl", "4xl"]}
     >
       <Flex flexDir={"column"} alignItems={"center"}>
         <Heading fontSize={"4xl"} mb={4}>
@@ -18,6 +18,7 @@ export const WithdrawalHistory = ({ withdrawal }) => {
         </Heading>
         <Divider />
         <Flex
+          flexDir={["column", "column", "row", "row"]}
           color={"GrayText"}
           justifyContent={"space-between"}
           w={"100%"}
@@ -33,28 +34,32 @@ export const WithdrawalHistory = ({ withdrawal }) => {
         {withdrawal.length !== 0 ? (
           withdrawal.map((w) => {
             return (
-              <Flex
-                color={"GrayText"}
-                justifyContent={"space-between"}
-                w={"100%"}
-                my={1}
-              >
-                <Text w={20}>{w.inverappDate}</Text>
-                {w.currency === "Pesos 🇦🇷" ? (
-                  <Text w={40}>
-                    <FormattedArs ars={w.arsWithdrawal} />
+              <>
+                <Flex
+                  flexDir={["column", "column", "row", "row"]}
+                  color={"GrayText"}
+                  justifyContent={"space-between"}
+                  w={"100%"}
+                  my={2}
+                >
+                  <Text w={20}>{w.inverappDate}</Text>
+                  {w.currency === "Pesos 🇦🇷" ? (
+                    <Text w={40}>
+                      <FormattedArs ars={w.arsWithdrawal} />
+                    </Text>
+                  ) : (
+                    <Text w={40}>
+                      <FormattedUsd usd={w.usdWithdrawal} />
+                    </Text>
+                  )}
+                  <Text w={20}>
+                    {w.currency === "Pesos 🇦🇷" ? w.currency : w.currency}
                   </Text>
-                ) : (
-                  <Text w={40}>
-                    <FormattedUsd usd={w.usdWithdrawal} />
-                  </Text>
-                )}
-                <Text w={20}>
-                  {w.currency === "Pesos 🇦🇷" ? w.currency : w.currency}
-                </Text>
-                <Text w={56}>{w.account}</Text>
-                <Text w={44}>{w.bankName}</Text>
-              </Flex>
+                  <Text w={56}>{w.account}</Text>
+                  <Text w={44}>{w.bankName}</Text>
+                </Flex>
+                <Divider />
+              </>
             );
           })
         ) : (

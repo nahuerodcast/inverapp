@@ -8,7 +8,7 @@ export const NotFound = () => {
   const navigate = useNavigate();
 
   return (
-    <Flex flexDir="column" justifyContent="center" alignItems="center" mt={150}>
+    <Flex flexDir="column" justifyContent="center" alignItems="center" my={150}>
       <WarningIcon h={16} w={16} color="blue.700" />
       <Heading fontWeight="extrabold" fontSize="xx-large" mt={2}>
         Sección en desarrollo

@@ -16,7 +16,7 @@ export const AccountBalance = () => {
         mt={4}
         onClick={() => navigate("/")}
         leftIcon={<FaArrowAltCircleLeft />}
-        ml={"200px"}
+        ml={["10vw", "10vw", "15vw", "15vw"]}
         w={"150px"}
       >
         Volver atrás
@@ -34,7 +34,12 @@ export const AccountBalance = () => {
         </Flex>
         <Flex flexDir={"column"} alignItems={"center"}>
           <Divider />
-          <Flex height="65px" w={"100%"} my={4}>
+          <Flex
+            flexDir={["column", "column", "row", "row"]}
+            height="65px"
+            w={"100%"}
+            my={4}
+          >
             <Flex justifyContent={"center"} w={"100%"} alignItems={"center"}>
               <Heading w={"400px"} textAlign={"center"}>
                 <p>{stringARS}</p>
@@ -66,7 +71,12 @@ export const AccountBalance = () => {
           Retirar saldo
         </Button>
       </Flex>
-      <Flex justifyContent={"center"} flexDir={"column"} alignItems={"center"}>
+      <Flex
+        justifyContent={"center"}
+        flexDir={"column"}
+        alignItems={"center"}
+        px={["10vw", "10vw", "15vw", "15vw"]}
+      >
         <Heading fontWeight={"semibold"} mt={4}>
           <p>ATENCIÓN</p>
         </Heading>
