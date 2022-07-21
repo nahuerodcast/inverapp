@@ -11,12 +11,17 @@ export const UnloggedNavbar = () => {
 
   return (
     <Box
-      boxShadow="10px 10px 40px 6px rgba(0,0,0,0.06)"
+      boxShadow={
+        colorMode === "light"
+          ? "10px 10px 40px 6px rgba(0,0,0,0.06)"
+          : "10px 10px 40px 6px rgba(0,0,0,0.4)"
+      }
       width={"100%"}
-      bg={colorMode === "light" ? "#fffefc" : "shades.90"}
+      bg={colorMode === "light" ? "#fffefc" : "#161614"}
       px={["10vw", "10vw", "16vw", "16vw"]}
       py={4}
       mb={16}
+      zIndex={10}
     >
       <Flex flexDir="row" alignItems="center" justifyContent="space-between">
         <Heading

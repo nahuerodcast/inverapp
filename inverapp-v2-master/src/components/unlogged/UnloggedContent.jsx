@@ -12,33 +12,23 @@ import "animate.css";
 import { Parallax } from "react-scroll-parallax";
 
 export const UnloggedContent = () => {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode } = useColorMode();
 
   return (
-    <div
-      style={{
-        background: colorMode === "light" ? "tints.10" : "shades.80",
-      }}
-    >
-      <div
-        style={{
-          position: "absolute",
-          bottom: "0",
-          zIndex: "-1",
-          width: "100%",
-          height: "100%",
-          paddingTop: "50px",
-        }}
+    <div>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1440 320"
+        style={{ position: "absolute", top: "0" }}
         className={"animate__animated animate__fadeInDown"}
       >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-          <path
-            fill={colorMode === "light" ? "#fafbf2" : "#787f49"}
-            fill-opacity="1"
-            d="M0,32L80,37.3C160,43,320,53,480,96C640,139,800,213,960,224C1120,235,1280,181,1360,154.7L1440,128L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"
-          ></path>
-        </svg>
-      </div>
+        <path
+          fill={colorMode === "light" ? "#fafbf2" : "#787f49"}
+          fill-opacity="1"
+          d="M0,32L80,37.3C160,43,320,53,480,96C640,139,800,213,960,224C1120,235,1280,181,1360,154.7L1440,128L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"
+        ></path>
+      </svg>
+
       <Flex flexDir={"column"} px={["10vw", "10vw", "16vw", "16vw"]}>
         <Flex
           flexDir={"column"}
@@ -53,7 +43,7 @@ export const UnloggedContent = () => {
                 fontFamily="Playfair Display, serif"
                 letterSpacing="tight"
                 fontSize={60}
-                color={"blackAlpha.800"}
+                color={colorMode === "light" ? "blackAlpha.800" : "#ebf0ca"}
                 style={{
                   textDecoration: "underline",
                   textDecorationStyle: "solid",
@@ -94,14 +84,14 @@ export const UnloggedContent = () => {
               flexDir="row"
               justifyContent="space-between"
               alignItems="center"
-              mb={"130px"}
-              color="shades.80"
+              mb={"60px"}
+              color={colorMode === "light" ? "shades.80" : "tints.50"}
             >
               <Box
                 boxShadow="xl"
                 rounded="xl"
                 mr={12}
-                bg={"RGBA(255, 255, 255, 10)"}
+                bg={colorMode === "light" ? "#fffefc" : "shades.100"}
               >
                 <Flex flexDir="column" alignItems="center" w={"380px"} p={8}>
                   <Heading
@@ -110,7 +100,7 @@ export const UnloggedContent = () => {
                     letterSpacing="tight"
                     textAlign="center"
                   >
-                    ¿Qué es?
+                    ¿Qué es Inverapp?
                     {/* <FaMoneyBillWave color="#8dd070" /> */}
                   </Heading>
                   <Text
@@ -131,7 +121,7 @@ export const UnloggedContent = () => {
                 boxShadow="xl"
                 rounded="xl"
                 mr={12}
-                bg={"RGBA(255, 255, 255, 10)"}
+                bg={colorMode === "light" ? "#fffefc" : "shades.100"}
               >
                 <Flex flexDir="column" alignItems="center" w={"380px"} p={8}>
                   <Heading
@@ -162,7 +152,7 @@ export const UnloggedContent = () => {
                 boxShadow="xl"
                 rounded="xl"
                 mr={12}
-                bg={"RGBA(255, 255, 255, 10)"}
+                bg={colorMode === "light" ? "#fffefc" : "shades.100"}
               >
                 <Flex flexDir="column" alignItems="center" w={"380px"} p={8}>
                   <Heading
@@ -191,11 +181,21 @@ export const UnloggedContent = () => {
           </Parallax>
           <Parallax translateY={[50, -50]} speed={10}>
             <Flex>
+              {" "}
               <Image
                 src="../crypto-portfolio-animate.svg"
                 w="450px"
                 draggable={"false"}
               />
+              <Heading
+                fontWeight="extrabold"
+                fontFamily="Open Sans , sans-serif"
+                letterSpacing="tight"
+                textAlign="center"
+              >
+                Nuestro objetivo es claro: <strong>Educación financiera</strong>
+                {/* <FaMoneyBillWave color="#8dd070" /> */}
+              </Heading>
             </Flex>
           </Parallax>
         </Flex>

@@ -1,16 +1,19 @@
 import { Button } from "@chakra-ui/button";
 import { Box, Flex, Heading, Kbd } from "@chakra-ui/layout";
+import { useColorMode } from "@chakra-ui/react";
 import React from "react";
 import { IoLogoInstagram, IoLogoTwitter } from "react-icons/io";
 import { MdOutlineFacebook } from "react-icons/md";
 
 export const Footer = () => {
+  const { colorMode } = useColorMode();
+
   return (
     <Flex
       h={"30vh"}
       flexDir={"column"}
       px={["10vw", "10vw", "16vw", "16vw"]}
-      bg="#fffefc"
+      color={colorMode === "light" ? "shades.80" : "tints.50"}
     >
       {/* <Divider /> */}
       <Flex
