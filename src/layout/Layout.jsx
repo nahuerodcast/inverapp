@@ -12,7 +12,6 @@ export const Layout = ({ children }) => {
       flexDir={"column"}
       maxW={"100vw"}
       justifyContent={"space-between"}
-      // bg={colorMode ? "#fafbf2" : "#282a18"}
       background={colorMode === "light" ? "white" : "#1b1b1b"}
     >
       <UnloggedNavbar toggleColorMode={toggleColorMode} />
