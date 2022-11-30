@@ -97,13 +97,13 @@ export const InfoCharts = () => {
           </Center>
 
           <Scrollbars autoHide>
-            {filteredCoins.map((coin) => {
+            {filteredCoins?.map((coin) => {
               return (
                 <LoggedSearchCoin
                   key={coin.id}
                   id={`${coin.market_cap_rank}.`}
                   name={coin.name}
-                  price={coin.current_price}
+                  price={coin?.current_price}
                   symbol={coin.symbol}
                   image={coin.image}
                   priceChange={coin.price_change_percentage_24h}

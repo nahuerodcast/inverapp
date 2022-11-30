@@ -139,7 +139,7 @@ export const Portfolio = ({ arrayPortfolio }) => {
             const filteredPrice = price.filter((p) =>
               p.name.includes(portfolio.name)
             );
-            const currentPrice = filteredPrice[0].current_price;
+            const currentPrice = filteredPrice[0]?.current_price;
             const quantity = portfolio.quantity;
             const total = quantity * currentPrice;
 
