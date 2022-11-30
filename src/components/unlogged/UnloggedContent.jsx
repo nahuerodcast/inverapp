@@ -18,7 +18,7 @@ export const UnloggedContent = () => {
     {
       id: 1,
       title: "¿Qué es Inverapp?",
-      desc: "Inverapp es un simulador de inversiones en cripto, con un saldo demo.",
+      desc: "Somos un simulador de inversiones en cripto con un saldo demo.",
     },
     {
       id: 2,
@@ -123,7 +123,7 @@ export const UnloggedContent = () => {
                       {box.title}
                     </Heading>
                     <Text
-                      fontWeight="light"
+                      fontWeight="normal"
                       fontFamily="Open Sans , sans-serif"
                       letterSpacing="tight"
                       fontSize={"18px"}
@@ -140,22 +140,54 @@ export const UnloggedContent = () => {
           </Parallax>
           <Parallax translateY={[50, -50]} speed={10}>
             <Flex justifyContent={"space-between"} alignItems="center">
-              {" "}
               <Image
                 src="../crypto-portfolio-animate.svg"
                 w="450px"
                 draggable={"false"}
               />
-              <Heading
-                fontWeight="bold"
-                fontFamily="Playfair Display, serif"
-                letterSpacing="tight"
-                textAlign="center"
-                fontSize={60}
-                width={"800px"}
-              >
-                Nuestro objetivo es claro: Educación financiera
-              </Heading>
+              <Flex flexDir={"column"} alignItems="center" width={"800px"}>
+                <Heading
+                  fontWeight="bold"
+                  fontFamily="Playfair Display, serif"
+                  letterSpacing="tight"
+                  textAlign="center"
+                  fontSize={50}
+                >
+                  Nuestro objetivo es claro:
+                </Heading>
+                <Heading
+                  fontWeight="bold"
+                  fontFamily="Playfair Display, serif"
+                  letterSpacing="tight"
+                  textAlign="center"
+                  fontSize={50}
+                  style={{
+                    textDecoration: "underline",
+                    textDecorationStyle: "solid",
+                    textDecorationThickness: "1.3rem",
+                    textUnderlineOffset: "-0.3em ",
+                    textDecorationColor:
+                      colorMode === "light" ? "#f8ecd4" : "black",
+                    textDecorationSkipInk: "none",
+                    textDecorationSkip: "none",
+                  }}
+                >
+                  Educación financiera
+                </Heading>
+                <Heading
+                  as="h1"
+                  fontWeight="light"
+                  fontFamily="Open Sans , sans-serif"
+                  letterSpacing="tight"
+                  fontSize={"24px"}
+                  mt={"10px"}
+                  textAlign={"center"}
+                >
+                  Previo a invertir en el mercado cripto real, podes invertir
+                  con nosotros con un saldo demo y "practicar" tus futuras
+                  inversiones.
+                </Heading>
+              </Flex>
             </Flex>
           </Parallax>
         </Flex>
@@ -163,8 +195,7 @@ export const UnloggedContent = () => {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 1440 320"
-        style={{ marginTop: "-50px" }}
-        className={"animate__animated animate__fadeInDown"}
+        style={{ marginTop: "-200px" }}
       >
         <path
           fill={colorMode === "light" ? "#faf7ee" : "#293345"}

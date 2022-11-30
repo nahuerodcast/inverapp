@@ -63,9 +63,7 @@ export const Portfolio = ({ arrayPortfolio }) => {
         alignItems="center"
         mb={1}
       >
-        <Heading fontSize={"2xl"}>
-          <p> Mis inversiones</p>
-        </Heading>
+        <Heading fontSize={"2xl"}>Mis inversiones</Heading>
         <Button
           variant="ghost"
           m={0}

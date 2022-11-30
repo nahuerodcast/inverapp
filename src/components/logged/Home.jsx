@@ -27,13 +27,8 @@ export const Home = () => {
           my={20}
           mb={6}
         >
-          <Heading as="h1">
-            <p> Bienvenido,</p>
-          </Heading>
-          <Heading as="h1">
-            {" "}
-            <p>¿Que deseas hacer?</p>{" "}
-          </Heading>
+          <Heading as="h1">Bienvenido,</Heading>
+          <Heading as="h1">¿Que deseas hacer?</Heading>
 
           <Flex
             flexDir="row"

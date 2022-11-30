@@ -205,6 +205,7 @@ export const LoggedSearchCoin = ({
         <Flex>
           <Button
             mr={4}
+            borderRadius={"lg"}
             onClick={() => {
               onOpen();
             }}

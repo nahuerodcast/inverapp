@@ -28,7 +28,7 @@ export const AccountBalance = () => {
         alignItems={"center"}
       >
         <Flex mt={10} flexDir={"column"}>
-          <Heading my={1}>
+          <Heading mb={1}>
             <h1> Saldo actual:</h1>
           </Heading>
         </Flex>
