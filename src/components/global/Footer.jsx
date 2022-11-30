@@ -21,7 +21,7 @@ export const Footer = () => {
         fontWeight="700"
         fontFamily="Playfair Display, serif"
         letterSpacing="tight"
-        className={"animate__animated animate__fadeInLeft"}
+        className={"animate__animated animate__fadeIn"}
       >
         Inverapp
       </Heading>

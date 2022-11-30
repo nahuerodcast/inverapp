@@ -48,15 +48,17 @@ export const Navbar = () => {
         boxShadow="lg"
       >
         <Flex flexDir="row" alignItems="center" w="100%">
-          <Heading
-            as="h1"
-            fontWeight="extrabold"
-            fontFamily="Open Sans , sans-serif"
-            letterSpacing="tight"
-            mr={10}
-          >
-            <ReactLink to="/">Inverapp</ReactLink>
-          </Heading>
+          <ReactLink to="/">
+            <Heading
+              as="h1"
+              fontWeight="700"
+              fontFamily="Playfair Display, serif"
+              letterSpacing="tight"
+              className={"animate__animated animate__fadeIn"}
+            >
+              Inverapp
+            </Heading>
+          </ReactLink>
         </Flex>
         <Flex alignItems="center">
           <Button
@@ -82,16 +84,23 @@ export const Navbar = () => {
               size="xs"
               mr={2}
             />
-            <Box boxShadow={"md"} borderRadius={4}>
-              <MenuButton as={Button} rightIcon={<ChevronDownIcon />} pl={4}>
-                <Text display={["none", "none", "unset", "unset"]}>
+            <Box boxShadow={"md"} borderRadius={"lg"}>
+              <MenuButton
+                as={Button}
+                rightIcon={<ChevronDownIcon />}
+                pl={4}
+                p={"20px"}
+                borderRadius={"lg"}
+              >
+                <Text
+                  display={["none", "none", "unset", "unset"]}
+                  fontFamily="Open Sans , sans-serif"
+                >
                   ¡Hola,{" "}
-                  <strong>
-                    {currentUser.displayName
-                      ? currentUser.displayName
-                      : currentUser.email}
-                    !
-                  </strong>
+                  {currentUser.displayName
+                    ? currentUser.displayName
+                    : currentUser.email}
+                  !
                 </Text>
                 <Text display={["unset", "unset", "none", "none"]}>
                   Mi cuenta

@@ -23,10 +23,12 @@ export const useAuth = () => useContext(AuthContext);
 
 export default function AuthContextProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
+  const [homeLoading, setHomeLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
+      setHomeLoading(false);
     });
     return () => {
       unsubscribe();
@@ -61,6 +63,7 @@ export default function AuthContextProvider({ children }) {
     logout,
     signInWithGoogle,
     forgotPassword,
+    homeLoading,
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

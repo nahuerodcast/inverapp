@@ -5,6 +5,7 @@ import {
   Flex,
   Heading,
   Input,
+  Progress,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -19,6 +20,7 @@ import { useBalance } from "../../contexts/BalanceContext";
 export const Trade = () => {
   const [coins, setCoins] = useState([]);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
@@ -27,8 +29,9 @@ export const Trade = () => {
       )
       .then((res) => {
         setCoins(res.data);
+        setLoading(false);
       })
-      .catch();
+      .catch(() => setLoading(false));
   }, []);
 
   const handleChange = (e) => {
@@ -59,9 +62,8 @@ export const Trade = () => {
       <Flex justifyContent={"center"} mt={4} mb={16}>
         <Box
           w="4xl"
-          h={"xl"}
+          h={"2xl"}
           borderRadius="xl"
-          overflow="hidden"
           p={8}
           m={2}
           boxShadow={"xl"}
@@ -91,12 +93,12 @@ export const Trade = () => {
             mb={4}
           />
           <Center color={"red.700"}>
+            {loading && <Progress size="xs" isIndeterminate />}
             {filteredCoins.length === 0
               ? "No se encontraron resultados 😕"
               : ""}
           </Center>
-
-          <Scrollbars autoHide>
+          <Flex flexDir={"column"} overflowY="scroll" h={"75%"}>
             {filteredCoins.map((coin) => {
               return (
                 <LoggedSearchCoin
@@ -110,7 +112,7 @@ export const Trade = () => {
                 />
               );
             })}
-          </Scrollbars>
+          </Flex>
         </Box>
       </Flex>
     </Stack>
