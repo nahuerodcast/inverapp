@@ -21,14 +21,18 @@ export const Home = () => {
       <Flex flexDir={"column"} className="animate__animated animate__fadeIn">
         <Flex
           flexDir="column"
-          w="100vw"
+          w="100%"
           justifyContent="center"
           alignItems="center"
           my={20}
           mb={6}
         >
-          <Heading as="h1">Bienvenido,</Heading>
-          <Heading as="h1">¿Que deseas hacer?</Heading>
+          <Heading as="h1" letterSpacing="tight">
+            Bienvenido,
+          </Heading>
+          <Heading as="h1" letterSpacing="tight">
+            ¿Que deseas hacer?
+          </Heading>
 
           <Flex
             flexDir="row"
@@ -43,15 +47,7 @@ export const Home = () => {
               onClick={() => navigate("/operar")}
               m={1}
             >
-              Operar
-            </Button>
-
-            <Button
-              leftIcon={<FcMoneyTransfer size={22} />}
-              onClick={() => navigate("/saldo-app")}
-              m={1}
-            >
-              Cargar/retirar saldo
+              Comprar/vender
             </Button>
             <Button
               leftIcon={<FcReading size={22} />}
@@ -66,6 +62,14 @@ export const Home = () => {
               m={1}
             >
               Conversar
+            </Button>{" "}
+            <Button
+              leftIcon={<FcMoneyTransfer size={22} />}
+              onClick={() => navigate("/saldo-app")}
+              m={1}
+              mr={0}
+            >
+              Administrar saldo
             </Button>
           </Flex>
         </Flex>

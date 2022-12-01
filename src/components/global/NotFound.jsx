@@ -21,6 +21,9 @@ export const NotFound = () => {
         mt={4}
         onClick={() => navigate("/")}
         leftIcon={<FaArrowAltCircleLeft />}
+        p={"20px"}
+        borderRadius={"lg"}
+        _focus={{ boxShadow: "rgba(0,0,0,0)" }}
       >
         Volver a inicio
       </Button>

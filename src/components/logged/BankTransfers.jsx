@@ -51,6 +51,9 @@ export const BankTransfers = () => {
         leftIcon={<FaArrowAltCircleLeft />}
         ml={["10vw", "10vw", "15vw", "15vw"]}
         w={"150px"}
+        p={"20px"}
+        borderRadius={"lg"}
+        _focus={{ boxShadow: "rgba(0,0,0,0)" }}
       >
         Volver atrás
       </Button>

@@ -70,6 +70,7 @@ export const Navbar = () => {
             borderRadius={9999}
             color="gray.500"
             display={["none", "none", "inherit", "inherit"]}
+            _focus={{ boxShadow: "rgb(248,236,212)" }}
           >
             <WiMoonAltWaningCrescent2 size={20} />
           </Button>

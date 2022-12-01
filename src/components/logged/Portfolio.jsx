@@ -63,7 +63,9 @@ export const Portfolio = ({ arrayPortfolio }) => {
         alignItems="center"
         mb={1}
       >
-        <Heading fontSize={"2xl"}>Mis inversiones</Heading>
+        <Heading fontSize={"2xl"} letterSpacing="tight">
+          Mis inversiones
+        </Heading>
         <Button
           variant="ghost"
           m={0}
@@ -74,11 +76,7 @@ export const Portfolio = ({ arrayPortfolio }) => {
           }}
         >
           <Text mr={2}>
-            {defaultCheck ? (
-              <strong>USD 🇺🇸 </strong>
-            ) : (
-              <strong> ARS 🇦🇷 </strong>
-            )}
+            {defaultCheck ? <strong>USD</strong> : <strong>ARS</strong>}
           </Text>
           {currencySwitch()}
         </Button>
@@ -115,10 +113,10 @@ export const Portfolio = ({ arrayPortfolio }) => {
             <Text w={24}>Nombre</Text>
             <Text w={32}>Cantidad </Text>
             <Text w={48} display={displayPreset}>
-              Precio compra (usd)
+              Precio compra {!defaultCheck ? "ARS" : "USD"}
             </Text>
             <Text w={36} display={displayPreset}>
-              Precio actual (usd)
+              Precio actual {!defaultCheck ? "ARS" : "USD"}
             </Text>
             <Text w={28} display={displayPreset}>
               Gan/Per {!defaultCheck ? "ARS" : "USD"}
