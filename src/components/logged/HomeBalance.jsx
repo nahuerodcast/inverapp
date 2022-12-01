@@ -15,7 +15,9 @@ export const HomeBalance = () => {
         justifyContent={"space-between"}
         alignItems={"center"}
       >
-        <Heading fontSize={"2xl"}>Saldo actual</Heading>
+        <Heading fontSize={"2xl"} letterSpacing="tight">
+          Saldo actual
+        </Heading>
         <Heading
           as="h4"
           fontWeight={"normal"}

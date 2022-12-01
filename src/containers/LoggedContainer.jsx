@@ -18,7 +18,6 @@ export const LoggedContainer = () => {
     <BalanceContextProvider>
       <Router>
         <Flex
-          maxW={"100vw"}
           flexDir={"column"}
           justifyContent={"space-between"}
           minH={"100vh"}
