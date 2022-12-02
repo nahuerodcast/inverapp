@@ -84,7 +84,8 @@ export default function BalanceContextProvider({ children }) {
 
     fetch("https://apiarg.herokuapp.com/api/contadoliqui", requestOptions)
       .then((response) => response.text())
-      .then((result) => setDolar(JSON.parse(result).compra));
+      .then((result) => setDolar(JSON.parse(result).compra))
+      .catch((e) => console.log(e));
   }, []);
 
   // getting portfolio values from Firebase

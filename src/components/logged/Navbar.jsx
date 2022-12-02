@@ -26,7 +26,6 @@ import { Link as ReactLink } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { Avatar } from "@chakra-ui/avatar";
 import { MdMenuBook } from "react-icons/md";
-
 import { BsBank } from "react-icons/bs";
 
 export const Navbar = () => {

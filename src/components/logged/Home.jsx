@@ -50,13 +50,6 @@ export const Home = () => {
               Comprar/vender
             </Button>
             <Button
-              leftIcon={<FcReading size={22} />}
-              onClick={() => navigate("/aprender")}
-              m={1}
-            >
-              Aprender
-            </Button>
-            <Button
               leftIcon={<FcCustomerSupport size={22} />}
               onClick={() => navigate("/mensajeria")}
               m={1}
