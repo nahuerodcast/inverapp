@@ -26,18 +26,21 @@ export const NewMessageModal = ({ messageArray, newMessageDoc }) => {
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [buttonValidation, setButtonValidation] = useState(false);
+  
 
   const toast = useToast();
   const sendData = () => {
     setIsSubmitting(true);
     async function sendForm() {
+        setIsSubmitting(true);
       try {
         const newMessage = [{ subject, message, inverappDate }];
         setDoc(newMessageDoc, {
           messages: [...messageArray, ...newMessage],
-        });
+        }).then(()=>{
         onClose();
-        toast({
+          toast({
           title: "Mensaje enviado con éxito.",
           description: "Recibiras una respuesta a la brevedad",
           status: "success",
@@ -45,6 +48,7 @@ export const NewMessageModal = ({ messageArray, newMessageDoc }) => {
           isClosable: true,
         });
         setIsSubmitting(false);
+        });
       } catch (e) {
         console.error("Error adding document: ", e);
       }
@@ -56,6 +60,16 @@ export const NewMessageModal = ({ messageArray, newMessageDoc }) => {
   const inverappDate = `${date.toLocaleDateString(
     "es-AR"
   )} -  ${date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
+  
+  const handleEsc = () => { 
+    setSubject("");
+    setMessage("");
+  }
+  
+  useEffect(()=>{
+     setButtonValidation(subject && message);
+  },[subject, message])
+  
 
   return (
     <>
@@ -67,7 +81,16 @@ export const NewMessageModal = ({ messageArray, newMessageDoc }) => {
       >
         Nuevo mensaje
       </Button>
-      <Modal isOpen={isOpen} onClose={onClose} size="lg">
+      <Modal
+       isOpen={isOpen} 
+       onClose={() => {
+          onClose();
+          handleEsc()
+        }} 
+        size="lg" 
+        isCentered 
+        onEsc={handleEsc}
+        onOverlayClick={handleEsc}>
         <ModalOverlay />
         <ModalContent mx={["10vw", "10vw", "15vw", "15vw"]}>
           <ModalHeader>Nuevo mensaje</ModalHeader>
@@ -102,8 +125,12 @@ export const NewMessageModal = ({ messageArray, newMessageDoc }) => {
             </Button>
             <Button
               colorScheme="blue"
-              onClick={sendData}
+                 onClick={()=>{
+                sendData();
+              handleEsc()
+                }}
               isLoading={isSubmitting}
+              isDisabled={!buttonValidation}
             >
               Enviar
             </Button>
