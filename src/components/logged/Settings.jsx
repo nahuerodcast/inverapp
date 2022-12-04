@@ -3,7 +3,7 @@ import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import { Flex, Heading } from "@chakra-ui/layout";
 import { Switch } from "@chakra-ui/switch";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
-import React from "react";
+import React,{useState} from "react";
 import { Progress, Button, Text } from "@chakra-ui/react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useBalance } from "../../contexts/BalanceContext";
@@ -13,17 +13,22 @@ import { ResetPasswordButton } from "./ResetPasswordButton";
 import { BankAccounts } from "./BankAccounts";
 import { CgUser } from "react-icons/cg";
 import { BsBank } from "react-icons/bs";
+import { IoMdLogOut } from "react-icons/io";
+import { Link as ReactLink } from "react-router-dom";
+
+
 
 export const Settings = ({ defaultIndex }) => {
   const { colorMode, toggleColorMode } = useColorMode();
-  const { currentUser } = useAuth();
+  const { currentUser, logout } = useAuth();
   const { defaultCheck, currencySwitch } = useBalance();
+  const [loading, setLoading] = useState();
 
   return (
-    <Flex flexDir="row" my={10} justifyContent="center" minH="60vh">
+    <Flex flexDir="row" my={10} justifyContent="center" minH="60vh" >
       <Tabs
         variant="enclosed"
-        w="100%"
+        w={["100%", "100%", "80%", "70%"]}
         px={["10vw", "10vw", "15vw", "15vw"]}
         defaultIndex={defaultIndex}
         isManual
@@ -31,7 +36,7 @@ export const Settings = ({ defaultIndex }) => {
         <TabList>
           <Tab>
             {" "}
-            <CgUser /> <Text ml={1}>Mi perfil</Text>
+            <CgUser /> <Text ml={1} color="">Mi perfil</Text>
           </Tab>
           <Tab>
             {" "}
@@ -83,9 +88,9 @@ export const Settings = ({ defaultIndex }) => {
                 <FormLabel mb="0">
                   Visualizar saldos en
                   {defaultCheck ? (
-                    <strong> Dólares 🇺🇸 </strong>
+                    <strong> Dólares</strong>
                   ) : (
-                    <strong> Pesos 🇦🇷 </strong>
+                    <strong> Pesos </strong>
                   )}
                 </FormLabel>
                 <FormLabel mb="0">
@@ -109,15 +114,31 @@ export const Settings = ({ defaultIndex }) => {
               </Text>
             </Flex>
 
-            <Progress value={100} size="xs" />
-            <Flex mt={4}>
+            <Progress value={100} size="xs" colorScheme="blackAlpha"/>
+            <Flex mt={6} w="100%" justifyContent="center">
+                <ReactLink to="/">
+              
               <Button
-                size={"sm"}
-                variant="outline"
-                leftIcon={<SmallCloseIcon />}
-              >
-                Dar de baja
+                leftIcon={<IoMdLogOut />}
+                onClick={async (e) => {
+                  setLoading(true)
+                   e.preventDefault();
+                   setTimeout(() => {
+                      logout().then(()=>{
+                      setLoading(false)
+                   });
+                    }, 1000);
+                    }}
+                   
+                size="sm"
+                p={"20px"}
+                borderRadius={"lg"}
+                isLoading={loading}
+                  >
+                    Cerrar sesión
               </Button>
+                </ReactLink>
+              
             </Flex>
           </TabPanel>
           <TabPanel>
