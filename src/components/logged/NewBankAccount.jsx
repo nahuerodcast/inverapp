@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import {
   Modal,
   ModalOverlay,
@@ -33,20 +33,21 @@ export const NewBankAccount = () => {
   const [account, setAccount] = useState("");
   const [currency, setCurrency] = useState("");
   const { bankAccounts } = useBalance();
+  const [buttonValidation, setButtonValidation] = useState(false);
 
   const toast = useToast();
   const sendData = () => {
     setIsSubmitting(true);
     async function sendForm() {
+      setIsSubmitting(true)
       try {
         const bankAccountsDoc = doc(db, "bankAccounts", currentUser.email);
         const newAccount = [{ name, bank, account, currency }];
         setDoc(bankAccountsDoc, {
           accounts: [...bankAccounts, ...newAccount],
-        });
-
+        }).then(()=>{
         onClose();
-        toast({
+             toast({
           title: "CBU/CVU agregada con éxito!",
           description: "Ya podes realizar tu egreso de saldo",
           status: "success",
@@ -54,13 +55,25 @@ export const NewBankAccount = () => {
           isClosable: true,
         });
         setIsSubmitting(false);
+        });
       } catch (e) {
         console.error("Error adding document: ", e);
       }
     }
     sendForm();
   };
-
+  
+  const handleEsc = () => { 
+    setAccount("");
+    setCurrency("");
+    setBank("");
+  }
+  
+   useEffect(()=>{
+     setButtonValidation(bank && account && currency);
+  },[bank, account, currency])
+  
+console.log(buttonValidation)
   return (
     <>
       <Button
@@ -72,9 +85,18 @@ export const NewBankAccount = () => {
       >
         Agregar CBU/CVU
       </Button>
-      <Modal isOpen={isOpen} onClose={onClose} size="lg" isCentered>
+      <Modal
+       isOpen={isOpen} 
+       onClose={() => {
+          onClose();
+          handleEsc()
+        }} 
+        size="lg" 
+        isCentered 
+        onEsc={handleEsc}
+        onOverlayClick={handleEsc}>
         <ModalOverlay />
-        <ModalContent mx={["10vw", "10vw", "15vw", "15vw"]}>
+        <ModalContent  mx={["10vw", "10vw", "15vw", "15vw"]}>
           <ModalHeader>Agregar CBU/CVU</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -90,6 +112,7 @@ export const NewBankAccount = () => {
             <Input
               placeholder="Banco/Billetera virtual"
               mb={2}
+              value={bank}
               onChange={(e) => {
                 setBank(e.target.value);
               }}
@@ -97,11 +120,11 @@ export const NewBankAccount = () => {
             <Input
               type={"number"}
               placeholder="CBU/CVU"
+              value={account}
               mb={2}
               maxLength={22}
               onChange={(e) => {
                 setAccount(e.target.value);
-                console.log(account);
               }}
             />
 
@@ -109,6 +132,7 @@ export const NewBankAccount = () => {
               id="country"
               placeholder="Seleccione moneda"
               mb={2}
+              value={currency}
               onChange={(e) => {
                 setCurrency(e.target.value);
               }}
@@ -119,13 +143,22 @@ export const NewBankAccount = () => {
           </ModalBody>
 
           <ModalFooter>
-            <Button variant="ghost " mr={3} onClick={onClose}>
+            <Button variant="ghost " mr={3} 
+            onClick={() => {
+               onClose();
+              handleEsc()
+              }
+            }>
               Cerrar
             </Button>
             <Button
               colorScheme="blue"
-              onClick={sendData}
+              onClick={()=>{
+                sendData();
+              handleEsc()
+                }}
               isLoading={isSubmitting}
+              isDisabled={!buttonValidation}
             >
               Agregar
             </Button>
