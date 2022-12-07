@@ -82,9 +82,12 @@ export default function BalanceContextProvider({ children }) {
       redirect: "follow",
     };
 
-    fetch("https://apiarg.herokuapp.com/api/contadoliqui", requestOptions)
+    fetch(
+      "https://www.dolarsi.com/api/api.php?type=valoresprincipales",
+      requestOptions
+    )
       .then((response) => response.text())
-      .then((result) => setDolar(JSON.parse(result).compra))
+      .then((result) => result && setDolar(JSON.parse(result)[3]?.casa?.compra))
       .catch((e) => console.log(e));
   }, []);
 
@@ -168,7 +171,7 @@ export default function BalanceContextProvider({ children }) {
     stringUSD,
     stringPositionARS,
     stringPositionUSD,
-    dolar,
+    dolar: parseInt(dolar),
     portfolio: orderArray,
     defaultCheck,
     currencySwitch,
