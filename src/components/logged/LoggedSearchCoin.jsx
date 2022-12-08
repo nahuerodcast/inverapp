@@ -93,6 +93,7 @@ export const LoggedSearchCoin = ({
       symbol,
       quantity: usdCalc,
       currencySwitch,
+      dolar,
     },
   ];
 
@@ -106,6 +107,7 @@ export const LoggedSearchCoin = ({
       symbol,
       quantity: arsCalc,
       currencySwitch,
+      dolar,
     },
   ];
 
