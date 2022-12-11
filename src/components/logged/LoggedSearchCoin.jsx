@@ -93,6 +93,7 @@ export const LoggedSearchCoin = ({
       symbol,
       quantity: usdCalc,
       currencySwitch,
+      dolar,
     },
   ];
 
@@ -106,6 +107,7 @@ export const LoggedSearchCoin = ({
       symbol,
       quantity: arsCalc,
       currencySwitch,
+      dolar,
     },
   ];
 
@@ -220,13 +222,16 @@ export const LoggedSearchCoin = ({
             isOpen={isOpen}
             isCentered
             initialFocusRef={initRef}
-            size={"2xl"}
+            size={"xl"}
           >
             <ModalOverlay />
             <ModalContent
               ref={initRef}
-              minH={"50vh"}
               mx={["10vw", "10vw", "15vw", "15vw"]}
+              display="flex"
+              flexDir="column"
+              justifyContent={"center"}
+              pb="50px"
             >
               <ModalHeader mb={0} mt={4} fontSize={35} fontWeight={"bold"}>
                 <Center>
@@ -252,6 +257,7 @@ export const LoggedSearchCoin = ({
                     justifyContent={"center"}
                     w={"100%"}
                     px="5vw"
+                    pt="10px"
                   >
                     <Flex
                       alignItems={"center"}
@@ -308,6 +314,7 @@ export const LoggedSearchCoin = ({
                       keepWithinRange={false}
                       clampValueOnBlur={false}
                       w={"100%"}
+                      pt="10px"
                     >
                       <form
                         onSubmit={(e) => {
@@ -356,6 +363,8 @@ export const LoggedSearchCoin = ({
                         }}
                         isDisabled={validation() ? false : true}
                         leftIcon={<CgTrending />}
+                        p={"20px"}
+                        borderRadius={"lg"}
                       >
                         Comprar
                       </Button>
@@ -369,6 +378,8 @@ export const LoggedSearchCoin = ({
                           )
                         }
                         leftIcon={<CgTrendingDown />}
+                        p={"20px"}
+                        borderRadius={"lg"}
                       >
                         Vender
                       </Button>
@@ -453,10 +464,6 @@ export const LoggedSearchCoin = ({
                   </Flex>
                 </ModalBody>
               )}
-
-              <ModalFooter>
-                <Button onClick={onClose}>Cerrar</Button>
-              </ModalFooter>
             </ModalContent>
           </Modal>
         </Flex>
