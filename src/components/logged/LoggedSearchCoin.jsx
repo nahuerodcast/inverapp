@@ -45,6 +45,7 @@ export const LoggedSearchCoin = ({
   const [quantity, setQuantity] = useState(0);
   const [currencySwitch, setCurrencySwitch] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const validation = () => {
     return (
@@ -443,18 +444,22 @@ export const LoggedSearchCoin = ({
                         mr={1}
                         colorScheme={"blue"}
                         w={"100%"}
+                        isLoading={loading}
                         onClick={() => {
-                          setIsSelected(!isSelected);
-                          onClose();
-                          toast({
-                            title: `¡Bravo! Compra de ${name} exitosa`,
-                            description: `Compraste ${currencyValidation()} ${symbol.toUpperCase()}`,
-                            status: "success",
-                            duration: 4000,
-                            isClosable: true,
+                          setLoading(true);
+                          createOrder().then(() => {
+                            setIsSelected(!isSelected);
+                            onClose();
+                            toast({
+                              title: `¡Bravo! Compra de ${name} exitosa`,
+                              description: `Compraste ${currencyValidation()} ${symbol.toUpperCase()}`,
+                              status: "success",
+                              duration: 4000,
+                              isClosable: true,
+                            });
+                            updateBalance();
+                            setLoading(false);
                           });
-                          createOrder();
-                          updateBalance();
                         }}
                         rightIcon={<HiCheckCircle />}
                       >

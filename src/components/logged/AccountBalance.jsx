@@ -80,21 +80,26 @@ export const AccountBalance = () => {
         alignItems={"center"}
         px={["10vw", "10vw", "15vw", "15vw"]}
       >
-        <Heading fontWeight={"semibold"} mt={4}>
+        <Heading fontWeight={"semibold"} mt={12}>
           <p>ATENCIÓN</p>
         </Heading>
         <Heading
-          maxW={"lg"}
+          maxW={"4xl"}
           textAlign={"center"}
           fontSize={"sm"}
           fontWeight={"normal"}
           color={"GrayText"}
-          mb={4}
+          my={4}
         >
           <p>
-            Las cuentas bancarias mencionadas no representan cuentas en
-            entidades financieras ni reguladas, son meramente a modo de ejemplo
-            para el proyecto final del curso de React en Coderhouse.
+            Las cuentas bancarias mencionadas no son cuentas reales en entidades
+            financieras ni están sujetas a regulaciones bancarias. Son
+            utilizadas únicamente en el simulador de inversiones "Inverapp" como
+            un ejemplo para mostrar cómo se llevarían a cabo las operaciones
+            financieras dentro de la plataforma. No se pueden utilizar para
+            realizar transacciones bancarias reales ni están asociadas a ninguna
+            institución financiera. Si necesitás abrir una cuenta bancaria
+            legal, deberás hacerlo a través de una entidad financiera.
           </p>
         </Heading>
       </Flex>
