@@ -146,11 +146,18 @@ export const Withdrawal = () => {
           fontSize={"sm"}
           fontWeight={"normal"}
           color={"GrayText"}
-          mb={4}
+          maxW="4xl"
+          my={4}
         >
           <p>
-            Podes egresar los fondos líquidos que tengas en tu cuenta de
-            inversiones, hacia tu cuenta de banco o billetera virtual.
+            Podés egresar los fondos líquidos que tengas en tu cuenta de
+            inversiones de manera ficticia, hacia tu cuenta de banco o billetera
+            virtual. Esta operación es una emulación que se lleva a cabo dentro
+            del simulador de inversiones "Inverapp", y no implica una
+            transferencia real de dinero. Se utiliza únicamente como un ejemplo
+            para mostrar cómo se llevarían a cabo las operaciones financieras
+            dentro de la plataforma. Si necesitás realizar una transferencia de
+            dinero real, deberás hacerlo a través de una entidad financiera.
           </p>
         </Heading>
         <Flex flexWrap={"wrap"} w="100%" justifyContent={"center"}>
@@ -331,18 +338,7 @@ export const Withdrawal = () => {
             </Flex>
           </Box>
         </Flex>
-        <Heading
-          textAlign={"center"}
-          fontSize={"sm"}
-          fontWeight={"normal"}
-          color={"GrayText"}
-          mb={20}
-        >
-          <p>
-            La acreditación puede demorar como máximo 24 hs hábiles desde que la
-            realizaste.
-          </p>
-        </Heading>
+
         <WithdrawalHistory withdrawal={withdrawal} />
       </Flex>
     </Flex>

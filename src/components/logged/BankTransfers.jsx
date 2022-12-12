@@ -59,7 +59,7 @@ export const BankTransfers = () => {
       </Button>
       <Flex
         flexDir={"column"}
-        minH={"100%"}
+        h={"60vh"}
         className="animate__animated animate__fadeIn"
       >
         <Flex
@@ -68,9 +68,13 @@ export const BankTransfers = () => {
           flexDir="column"
           justifyContent={"center"}
           alignItems={"center"}
-          mb={"10vh"}
         >
-          <Flex flexDir={"column"} alignItems={"center"}>
+          <Flex
+            flexDir={"column"}
+            alignItems={"center"}
+            justifyContent={"center"}
+            h={"100%"}
+          >
             <Flex
               w={"100%"}
               justifyContent={"center"}
@@ -78,6 +82,7 @@ export const BankTransfers = () => {
               flexDir={"column"}
               mt={4}
               px={["10vw", "10vw", "15vw", "15vw"]}
+              h={"100%"}
             >
               <Heading fontWeight={"semibold"} mt={10}>
                 <Flex
@@ -183,11 +188,9 @@ export const BankTransfers = () => {
               </Box>
             </Flex>
             <Text mt={16}></Text>
-            <Divider />
           </Flex>
         </Flex>
       </Flex>
-      <BankTransfersDetails />
     </>
   );
 };
