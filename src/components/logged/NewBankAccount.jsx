@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -10,6 +10,7 @@ import {
   Button,
   Input,
   Select,
+  Text,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa";
@@ -39,22 +40,22 @@ export const NewBankAccount = () => {
   const sendData = () => {
     setIsSubmitting(true);
     async function sendForm() {
-      setIsSubmitting(true)
+      setIsSubmitting(true);
       try {
         const bankAccountsDoc = doc(db, "bankAccounts", currentUser.email);
         const newAccount = [{ name, bank, account, currency }];
         setDoc(bankAccountsDoc, {
           accounts: [...bankAccounts, ...newAccount],
-        }).then(()=>{
-        onClose();
-             toast({
-          title: "CBU/CVU agregada con éxito!",
-          description: "Ya podes realizar tu egreso de saldo",
-          status: "success",
-          duration: 2000,
-          isClosable: true,
-        });
-        setIsSubmitting(false);
+        }).then(() => {
+          onClose();
+          toast({
+            title: "CBU/CVU agregada con éxito!",
+            description: "Ya podes realizar tu egreso de saldo",
+            status: "success",
+            duration: 2000,
+            isClosable: true,
+          });
+          setIsSubmitting(false);
         });
       } catch (e) {
         console.error("Error adding document: ", e);
@@ -62,18 +63,18 @@ export const NewBankAccount = () => {
     }
     sendForm();
   };
-  
-  const handleEsc = () => { 
+
+  const handleEsc = () => {
     setAccount("");
     setCurrency("");
     setBank("");
-  }
-  
-   useEffect(()=>{
-     setButtonValidation(bank && account && currency);
-  },[bank, account, currency])
-  
-console.log(buttonValidation)
+  };
+
+  useEffect(() => {
+    setButtonValidation(bank && account && currency);
+  }, [bank, account, currency]);
+
+  console.log(buttonValidation);
   return (
     <>
       <Button
@@ -85,18 +86,26 @@ console.log(buttonValidation)
       >
         Agregar CBU/CVU
       </Button>
+      <Text fontSize={"sm"} mt="2">
+        Las cuentas bancarias registradas en Inverapp son utilizadas únicamente
+        en la aplicación como una simulación de operaciones financieras. No se
+        pueden utilizar para realizar transacciones bancarias reales ni están
+        sujetas a las regulaciones bancarias. Si necesita abrir una cuenta
+        bancaria legal, deberá hacerlo a través de una institución financiera.
+      </Text>
       <Modal
-       isOpen={isOpen} 
-       onClose={() => {
+        isOpen={isOpen}
+        onClose={() => {
           onClose();
-          handleEsc()
-        }} 
-        size="lg" 
-        isCentered 
+          handleEsc();
+        }}
+        size="lg"
+        isCentered
         onEsc={handleEsc}
-        onOverlayClick={handleEsc}>
+        onOverlayClick={handleEsc}
+      >
         <ModalOverlay />
-        <ModalContent  mx={["10vw", "10vw", "15vw", "15vw"]}>
+        <ModalContent mx={["10vw", "10vw", "15vw", "15vw"]}>
           <ModalHeader>Agregar CBU/CVU</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -143,20 +152,22 @@ console.log(buttonValidation)
           </ModalBody>
 
           <ModalFooter>
-            <Button variant="ghost " mr={3} 
-            onClick={() => {
-               onClose();
-              handleEsc()
-              }
-            }>
+            <Button
+              variant="ghost "
+              mr={3}
+              onClick={() => {
+                onClose();
+                handleEsc();
+              }}
+            >
               Cerrar
             </Button>
             <Button
               colorScheme="blue"
-              onClick={()=>{
+              onClick={() => {
                 sendData();
-              handleEsc()
-                }}
+                handleEsc();
+              }}
               isLoading={isSubmitting}
               isDisabled={!buttonValidation}
             >

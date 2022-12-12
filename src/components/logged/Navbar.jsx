@@ -132,9 +132,9 @@ export const Navbar = () => {
                 <ReactLink to="/faq">
                   <MenuItem icon={<FaQuestionCircle />}>FAQ</MenuItem>
                 </ReactLink>
-                <ReactLink to="/aprender">
+                {/* <ReactLink to="/aprender">
                   <MenuItem icon={<MdMenuBook />}>Aprender</MenuItem>
-                </ReactLink>
+                </ReactLink> */}
                 <ReactLink to="/mensajeria">
                   <MenuItem icon={<FaEnvelope />}>Mensajería</MenuItem>
                 </ReactLink>
