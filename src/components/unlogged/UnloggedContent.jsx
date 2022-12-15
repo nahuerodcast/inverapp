@@ -60,7 +60,7 @@ export const UnloggedContent = () => {
                 letterSpacing="tight"
                 fontSize={60}
                 lineHeight="64px"
-                color={colorMode === "light" ? "blackAlpha.800" : "#ebf0ca"}
+                color={colorMode === "light" ? "blackAlpha.800" : "tints.80"}
                 style={{
                   textDecoration: "underline",
                   textDecorationStyle: "solid",
@@ -103,7 +103,7 @@ export const UnloggedContent = () => {
               justifyContent="space-between"
               alignItems="center"
               mb={"60px"}
-              color={colorMode === "light" ? "shades.80" : "tints.50"}
+              color={colorMode === "light" ? "shades.80" : "tints.80"}
             >
               {boxesArray.map((box) => (
                 <Box
@@ -145,7 +145,12 @@ export const UnloggedContent = () => {
                 w="450px"
                 draggable={"false"}
               />
-              <Flex flexDir={"column"} alignItems="center" width={"800px"}>
+              <Flex
+                flexDir={"column"}
+                alignItems="center"
+                width={"800px"}
+                color={colorMode === "light" ? "shades.80" : "tints.80"}
+              >
                 <Heading
                   fontWeight="bold"
                   fontFamily="Playfair Display, serif"

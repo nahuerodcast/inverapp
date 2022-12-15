@@ -29,7 +29,7 @@ export const HomeBalance = () => {
         >
           Estado de cuenta al <InverappDate />
         </Heading>
-        Precio del dólar: ${dolar}
+        Precio del dólar: {!isNaN(dolar) && `$${dolar}`}
       </Flex>
 
       <Divider mb={4} />

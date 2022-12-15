@@ -4,6 +4,7 @@ import {
   Flex,
   Heading,
   Img,
+  Spinner,
   Stat,
   StatArrow,
   StatHelpText,
@@ -20,7 +21,7 @@ import { useAuth } from "../../contexts/AuthContext";
 
 export const Portfolio = ({ arrayPortfolio }) => {
   const [price, setPrice] = useState([]);
-  const { dolar, defaultCheck, currencySwitch } = useBalance();
+  const { dolar, defaultCheck, currencySwitch, homeLoading } = useBalance();
 
   useEffect(() => {
     axios
@@ -82,8 +83,17 @@ export const Portfolio = ({ arrayPortfolio }) => {
         </Button>
       </Flex>
       <Divider mb={2} />
-
-      {arrayPortfolio.length === 0 ? (
+      {homeLoading && (
+        <Flex
+          justifyContent={"center"}
+          flexDir={"column"}
+          alignItems={"center"}
+          my={4}
+        >
+          <Spinner />
+        </Flex>
+      )}
+      {arrayPortfolio.length === 0 && !homeLoading ? (
         <Flex
           justifyContent={"center"}
           flexDir={"column"}
@@ -100,34 +110,36 @@ export const Portfolio = ({ arrayPortfolio }) => {
           </Button>
         </Flex>
       ) : (
-        <>
-          <Flex
-            flexDir={["column", "column", "row", "row"]}
-            justifyContent={["center", "center", "center", "space-between"]}
-            alignItems={["center", "center", "center", "space-between"]}
-            textAlign={["center", "center", "inherit", "inherit"]}
-            mt={1}
-            mb={2}
-          >
-            <Text w={8}></Text>
-            <Text w={24}>Nombre</Text>
-            <Text w={32}>Cantidad </Text>
-            <Text w={48} display={displayPreset}>
-              Precio compra {!defaultCheck ? "ARS" : "USD"}
-            </Text>
-            <Text w={36} display={displayPreset}>
-              Precio actual {!defaultCheck ? "ARS" : "USD"}
-            </Text>
-            <Text w={28} display={displayPreset}>
-              Gan/Per {!defaultCheck ? "ARS" : "USD"}
-            </Text>
-            <Text w={36}>Gan/Per %</Text>
-            <Text w={36}>
-              <strong>Total en {!defaultCheck ? "ARS" : "USD"}</strong>
-            </Text>
-          </Flex>
-          <Divider />
-        </>
+        !homeLoading && (
+          <>
+            <Flex
+              flexDir={["column", "column", "row", "row"]}
+              justifyContent={["center", "center", "center", "space-between"]}
+              alignItems={["center", "center", "center", "space-between"]}
+              textAlign={["center", "center", "inherit", "inherit"]}
+              mt={1}
+              mb={2}
+            >
+              <Text w={8}></Text>
+              <Text w={24}>Nombre</Text>
+              <Text w={32}>Cantidad </Text>
+              <Text w={48} display={displayPreset}>
+                Precio compra {!defaultCheck ? "ARS" : "USD"}
+              </Text>
+              <Text w={36} display={displayPreset}>
+                Precio actual {!defaultCheck ? "ARS" : "USD"}
+              </Text>
+              <Text w={28} display={displayPreset}>
+                Gan/Per {!defaultCheck ? "ARS" : "USD"}
+              </Text>
+              <Text w={36}>Gan/Per %</Text>
+              <Text w={36}>
+                <strong>Total en {!defaultCheck ? "ARS" : "USD"}</strong>
+              </Text>
+            </Flex>
+            <Divider />
+          </>
+        )
       )}
 
       {arrayPortfolio.length !== 0
