@@ -56,6 +56,34 @@ export const Portfolio = ({ arrayPortfolio }) => {
     });
   };
 
+  let totalPortfolio = arrayPortfolio.reduce(
+    (a, b) => a + b.price * b.quantity,
+    0
+  );
+
+  const [newArray, setNewArray] = useState(arrayPortfolio);
+
+  useEffect(() => {
+    const newPortfolio = arrayPortfolio.reduce((acc, currentVal) => {
+      const elementAlreadyExists = acc.find(
+        (element) => element.symbol === currentVal.symbol
+      );
+      if (elementAlreadyExists) {
+        return acc.map((element) => {
+          if (element.symbol === currentVal.symbol) {
+            return {
+              ...element,
+              quantity: element.quantity + currentVal.quantity,
+            };
+          }
+          return element;
+        });
+      }
+      return [...acc, currentVal];
+    }, []);
+    setNewArray(newPortfolio);
+  }, [arrayPortfolio]);
+
   return (
     <Flex my={1} flexDir={"column"}>
       <Flex
@@ -93,7 +121,7 @@ export const Portfolio = ({ arrayPortfolio }) => {
           <Spinner />
         </Flex>
       )}
-      {arrayPortfolio.length === 0 && !homeLoading ? (
+      {arrayPortfolio.length === 0 && !isNaN(dolar) && !homeLoading ? (
         <Flex
           justifyContent={"center"}
           flexDir={"column"}
@@ -142,8 +170,8 @@ export const Portfolio = ({ arrayPortfolio }) => {
         )
       )}
 
-      {arrayPortfolio.length !== 0
-        ? arrayPortfolio.map((portfolio) => {
+      {newArray.length !== 0
+        ? newArray.map((portfolio) => {
             const filteredPrice = price.filter((p) =>
               p.name.includes(portfolio.name)
             );
@@ -171,28 +199,28 @@ export const Portfolio = ({ arrayPortfolio }) => {
                       <Text w={24} fontSize={"lg"}>
                         {portfolio.name}
                       </Text>
-                      <Text w={32}>{portfolio.quantity.toLocaleString()}</Text>
+                      <Text w={32}>{portfolio.quantity?.toLocaleString()}</Text>
                       <Text w={48} display={displayPreset}>
                         {!defaultCheck
                           ? portfolio.currencySwitch
                             ? `$${(
                                 portfolio.price * portfolio?.dolar
-                              ).toLocaleString()}`
+                              )?.toLocaleString()}`
                             : `$${(
                                 portfolio.price * portfolio?.dolar
-                              ).toLocaleString()}`
+                              )?.toLocaleString()}`
                           : portfolio.currencySwitch
-                          ? `$${portfolio.price.toLocaleString()}`
-                          : `$${portfolio.price.toLocaleString()}`}
+                          ? `$${portfolio.price?.toLocaleString()}`
+                          : `$${portfolio.price?.toLocaleString()}`}
                       </Text>
                       <Text w={36} display={displayPreset}>
                         {!defaultCheck
                           ? portfolio.currencySwitch
-                            ? `$${(currentPrice * dolar).toLocaleString()}`
-                            : `$${(currentPrice * dolar).toLocaleString()}`
+                            ? `$${(currentPrice * dolar)?.toLocaleString()}`
+                            : `$${(currentPrice * dolar)?.toLocaleString()}`
                           : portfolio.currencySwitch
-                          ? `$${currentPrice.toLocaleString()}`
-                          : `$${currentPrice.toLocaleString()}`}
+                          ? `$${currentPrice?.toLocaleString()}`
+                          : `$${currentPrice?.toLocaleString()}`}
                       </Text>
                       <Text
                         color={
@@ -207,11 +235,11 @@ export const Portfolio = ({ arrayPortfolio }) => {
                       >
                         {!defaultCheck
                           ? portfolio.currencySwitch
-                            ? `$${(profitLoss * dolar).toLocaleString()}`
-                            : `$${(profitLoss * dolar).toLocaleString()}`
+                            ? `$${(profitLoss * dolar)?.toLocaleString()}`
+                            : `$${(profitLoss * dolar)?.toLocaleString()}`
                           : portfolio.currencySwitch
-                          ? `$${profitLoss.toLocaleString()}`
-                          : `$${profitLoss.toLocaleString()}`}
+                          ? `$${profitLoss?.toLocaleString()}`
+                          : `$${profitLoss?.toLocaleString()}`}
                       </Text>
                       <Text w={36}>
                         {profitLossPercentage !== 0 ? (
@@ -233,7 +261,7 @@ export const Portfolio = ({ arrayPortfolio }) => {
                         ) : (
                           <Stat>
                             <StatHelpText>
-                              {profitLossPercentage.toLocaleString()}%
+                              {profitLossPercentage?.toLocaleString()}%
                             </StatHelpText>
                           </Stat>
                         )}
@@ -272,7 +300,7 @@ export const Portfolio = ({ arrayPortfolio }) => {
           alignItems={["center", "center", "flex-end", "flex-end"]}
         >
           <Text mt={1} w={36} fontSize="lg">
-            <strong>Total: </strong>
+            <strong>Total: {totalPortfolio.toFixed(2)} </strong>
           </Text>
         </Flex>
       )}
