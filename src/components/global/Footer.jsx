@@ -12,7 +12,7 @@ export const Footer = () => {
       h={60}
       flexDir={"column"}
       px={["10vw", "10vw", "16vw", "16vw"]}
-      color={colorMode === "light" ? "shades.80" : "tints.50"}
+      color={colorMode === "light" ? "shades.80" : "tints.80"}
       alignItems="center"
       justifyContent="center"
     >

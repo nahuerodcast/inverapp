@@ -7,7 +7,6 @@ import {
   FormattedUsd,
 } from "../components/logged/FormattedNumbers";
 import { db } from "../utils/init-firebase";
-import axios from "axios";
 import { useAuth } from "./AuthContext";
 import { Switch } from "@chakra-ui/react";
 
@@ -25,6 +24,7 @@ const BalanceContext = createContext({
   dolar: null,
   portfolio: null,
   bankAccounts: null,
+  homeLoading: true,
 });
 
 export const useBalance = () => useContext(BalanceContext);
@@ -93,14 +93,17 @@ export default function BalanceContextProvider({ children }) {
 
   // getting portfolio values from Firebase
   const [orderArray, setOrderArray] = useState([]);
+  const [homeLoading, setHomeLoading] = useState(true);
 
   useEffect(() => {
     const portfolioRef = doc(db, "portfolio", currentUser.email);
     onSnapshot(portfolioRef, (doc) => {
       if (doc.data() === undefined) {
         setOrderArray([]);
+        setHomeLoading(false);
       } else {
         setOrderArray(doc.data().orders);
+        setHomeLoading(false);
       }
     });
   }, []);
@@ -176,6 +179,7 @@ export default function BalanceContextProvider({ children }) {
     defaultCheck,
     currencySwitch,
     bankAccounts,
+    homeLoading,
   };
   return (
     <BalanceContext.Provider value={value}>{children}</BalanceContext.Provider>
