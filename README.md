@@ -12,3 +12,19 @@
 - Empieza a invertir en criptomonedas y practica tus habilidades.
 
 ¿Qué estás esperando? Si querés mejorar tus habilidades de inversión en criptomonedas, ¡visitá Inverapp hoy mismo!🚀
+
+ENG:
+
+## Inverapp is a crypto investment simulation website. With Inverapp, you can practice your crypto investment skills without risking your own money.
+
+### Features
+- 💸 Demo balance: Inverapp offers you a demo balance with which you can invest in crypto without risk.
+- 💻 Realistic simulation: Inverapp imitates the real crypto market, so you can experience what it would be like to invest in the real world.
+- 🙌 Easy to use: Inverapp is easy to use, so you can start investing in crypto in minutes.
+
+### How to get started
+- Access Inverapp in your web browser.
+- Sign in with Google and start with your demo balance.
+- Begin investing in crypto and practice your skills.
+
+What are you waiting for? If you want to improve your crypto investment skills, visit Inverapp today! 🚀
