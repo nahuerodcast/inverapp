@@ -63,16 +63,28 @@ export const Portfolio = ({ arrayPortfolio }) => {
 
   const [newArray, setNewArray] = useState(arrayPortfolio);
 
+  const basado = newArray;
+
+  const arey = [
+    { id: 1, price: 10 },
+    { id: 2, price: 20 },
+    { id: 3, price: 30 },
+  ];
+  let sum = arey.reduce((a, b) => a + b.price, 0);
+  let avg = sum / arey.length;
+  // console.log(avg);
+
   useEffect(() => {
     const newPortfolio = arrayPortfolio.reduce((acc, currentVal) => {
       const elementAlreadyExists = acc.find(
         (element) => element.symbol === currentVal.symbol
       );
       if (elementAlreadyExists) {
-        return acc.map((element) => {
+        return acc.map((element, i, arr) => {
           if (element.symbol === currentVal.symbol) {
             return {
               ...element,
+              price: arr.reduce((a, b) => a + b.price, 0),
               quantity: element.quantity + currentVal.quantity,
             };
           }
