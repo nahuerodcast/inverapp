@@ -80,6 +80,7 @@ export const Portfolio = ({ arrayPortfolio }) => {
             (element) => element.symbol === currentVal.symbol
           );
           if (element.symbol === currentVal.symbol) {
+            console.log( filteredPrice )
             return {
               ...element,
               price:
@@ -95,7 +96,7 @@ export const Portfolio = ({ arrayPortfolio }) => {
       return [...acc, currentVal];
     }, []);
     setNewArray(newPortfolio);
-  }, [arrayPortfolio]);
+  }, [arrayPortfolio,price]);
   
   return (
     <Flex my={1} flexDir={"column"}>
