@@ -2,7 +2,7 @@ import { Button } from "@chakra-ui/button";
 import { FormControl } from "@chakra-ui/form-control";
 import { Search2Icon } from "@chakra-ui/icons";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
-import { Badge, Divider, Flex, Heading, Stack } from "@chakra-ui/layout";
+import { Badge, Divider, Flex, Heading, Stack,Text } from "@chakra-ui/layout";
 import { Select } from "@chakra-ui/select";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
@@ -60,21 +60,15 @@ export const MessageCenter = () => {
           <NewMessageModal
             messageArray={messageArray}
             newMessageDoc={newMessageDoc}
+            mr={5}
           />
-          <InputGroup mr={2} w="100%" mx={[0, 0, 20, 32]}>
-            <Input
-              variant="outline"
-              placeholder="Buscar mensajes"
-              onChange={(e) => setMessageSearch(e.target.value)}
+           <Input
+             variant="outline"
+             placeholder="Buscar mensajes"
+             onChange={(e) => setMessageSearch(e.target.value)}
+             w="80%" 
             />
-            <InputRightElement p={2}>
-              <Button>
-                <Search2Icon />
-              </Button>
-            </InputRightElement>
-          </InputGroup>
-          <Flex>
-            <Flex>
+            <Flex ml={[0, 0, 5, 5]}>
               <FormControl>
                 <Select
                   placeholder="Filtrar por:"
@@ -91,8 +85,8 @@ export const MessageCenter = () => {
                 </Select>
               </FormControl>
             </Flex>
-          </Flex>
         </Flex>
+        <Text fontSize="sm" mt={2}>Este es un simulador de mensajería de Inverapp que solo se proporciona con fines de demostración. No se proporcionarán respuestas a ningún mensaje enviado a través de Inverapp. No utilice Inverapp para enviar mensajes importantes o confidenciales ya que no se garantiza la seguridad o la privacidad de los mensajes enviados. </Text>
         <Divider mt={4} mb={2} />
         <Messages
           messageArray={messageArray}

@@ -80,7 +80,6 @@ export const Portfolio = ({ arrayPortfolio }) => {
             (element) => element.symbol === currentVal.symbol
           );
           if (element.symbol === currentVal.symbol) {
-            console.log( filteredPrice )
             return {
               ...element,
               price:
@@ -125,7 +124,8 @@ export const Portfolio = ({ arrayPortfolio }) => {
         </Button>
       </Flex>
       <Divider mb={2} />
-      {homeLoading && (
+      {console.log(price.length ===0)}
+      {homeLoading &&  (
         <Flex
           justifyContent={"center"}
           flexDir={"column"}
@@ -308,7 +308,7 @@ export const Portfolio = ({ arrayPortfolio }) => {
           flexDir={"column"}
           alignItems={["center", "center", "flex-end", "flex-end"]}
         >
-          <Text mt={1} w={44} isTruncated fontSize="lg"  fontWeight="bold">
+          <Text mt={2} w={44} isTruncated fontSize="lg"  fontWeight="bold">
             <Flex>
                {defaultCheck ? 
            <FormattedUsd usd={totalPortfolio.toFixed(2)} /> : 

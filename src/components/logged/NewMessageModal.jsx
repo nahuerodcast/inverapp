@@ -20,7 +20,7 @@ import { db } from "../../utils/init-firebase";
 import { useToast } from "@chakra-ui/react";
 import { useAuth } from "../../contexts/AuthContext";
 
-export const NewMessageModal = ({ messageArray, newMessageDoc }) => {
+export const NewMessageModal = ({ messageArray, newMessageDoc,...props }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [subject, setSubject] = useState("");
@@ -75,9 +75,11 @@ export const NewMessageModal = ({ messageArray, newMessageDoc }) => {
     <>
       <Button
         leftIcon={<FaPlus />}
-        px={10}
         colorScheme="green"
         onClick={onOpen}
+        w="fit-content"
+        px={8}
+        {...props}
       >
         Nuevo mensaje
       </Button>
