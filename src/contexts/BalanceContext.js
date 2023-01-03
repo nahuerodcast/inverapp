@@ -106,7 +106,7 @@ export default function BalanceContextProvider({ children }) {
         setHomeLoading(false);
       }
     });
-  }, []);
+  }, [currentUser.email]);
 
   const [currencyFlag, setCurrencyFlag] = useState(false);
   const [defaultCheck, setDefaultCheck] = useState(false);

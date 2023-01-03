@@ -1,8 +1,6 @@
-import { Button } from "@chakra-ui/button";
 import { FormControl } from "@chakra-ui/form-control";
-import { Search2Icon } from "@chakra-ui/icons";
-import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
-import { Badge, Divider, Flex, Heading, Stack,Text } from "@chakra-ui/layout";
+import { Input } from "@chakra-ui/input";
+import { Badge, Divider, Flex, Heading, Text } from "@chakra-ui/layout";
 import { Select } from "@chakra-ui/select";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
@@ -28,7 +26,7 @@ export const MessageCenter = () => {
         setMessageArray(doc.data().messages);
       }
     });
-  }, []);
+  }, [newMessageDoc]);
 
   const filteredSearch = messageArray.filter(
     (message) =>
@@ -62,31 +60,37 @@ export const MessageCenter = () => {
             newMessageDoc={newMessageDoc}
             mr={5}
           />
-           <Input
-             variant="outline"
-             placeholder="Buscar mensajes"
-             onChange={(e) => setMessageSearch(e.target.value)}
-             w="80%" 
-            />
-            <Flex ml={[0, 0, 5, 5]}>
-              <FormControl>
-                <Select
-                  placeholder="Filtrar por:"
-                  onChange={(e) => {
-                    setSelect(e.target.value);
-                  }}
-                  w={["100%", "100%", "150px", "150px"]}
-                >
-                  <option value="operaciones">Operaciones</option>
-                  <option value="administrativo">Administrativo</option>
-                  <option value="transferencias">Transferencias</option>
-                  <option value="asesoramiento">Asesoramiento</option>
-                  <option value="otros">Otros</option>
-                </Select>
-              </FormControl>
-            </Flex>
+          <Input
+            variant="outline"
+            placeholder="Buscar mensajes"
+            onChange={(e) => setMessageSearch(e.target.value)}
+            w="80%"
+          />
+          <Flex ml={[0, 0, 5, 5]}>
+            <FormControl>
+              <Select
+                placeholder="Filtrar por:"
+                onChange={(e) => {
+                  setSelect(e.target.value);
+                }}
+                w={["100%", "100%", "150px", "150px"]}
+              >
+                <option value="operaciones">Operaciones</option>
+                <option value="administrativo">Administrativo</option>
+                <option value="transferencias">Transferencias</option>
+                <option value="asesoramiento">Asesoramiento</option>
+                <option value="otros">Otros</option>
+              </Select>
+            </FormControl>
+          </Flex>
         </Flex>
-        <Text fontSize="sm" mt={2}>Este es un simulador de mensajería de Inverapp que solo se proporciona con fines de demostración. No se proporcionarán respuestas a ningún mensaje enviado a través de Inverapp. No utilice Inverapp para enviar mensajes importantes o confidenciales ya que no se garantiza la seguridad o la privacidad de los mensajes enviados. </Text>
+        <Text fontSize="sm" mt={2}>
+          Este es un simulador de mensajería de Inverapp que solo se proporciona
+          con fines de demostración. No se proporcionarán respuestas a ningún
+          mensaje enviado a través de Inverapp. No utilice Inverapp para enviar
+          mensajes importantes o confidenciales ya que no se garantiza la
+          seguridad o la privacidad de los mensajes enviados.{" "}
+        </Text>
         <Divider mt={4} mb={2} />
         <Messages
           messageArray={messageArray}

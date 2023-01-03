@@ -14,7 +14,7 @@ export const WithdrawalHistory = ({ withdrawal }) => {
     >
       <Flex flexDir={"column"} alignItems={"center"}>
         <Heading fontSize={"4xl"} mb={4}>
-          <p>Egresos realizados</p>
+          Egresos realizados
         </Heading>
         <Divider />
         <Flex
@@ -42,7 +42,7 @@ export const WithdrawalHistory = ({ withdrawal }) => {
                   w={"100%"}
                   my={2}
                 >
-                  <Text w={20}>{w.inverappDate}</Text>
+                  <Text w={20} isTruncated>{w.inverappDate}</Text>
                   {w.currency === "Pesos 🇦🇷" ? (
                     <Text w={40}>
                       <FormattedArs ars={w.arsWithdrawal} />

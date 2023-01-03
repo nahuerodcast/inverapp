@@ -55,7 +55,7 @@ export const Withdrawal = () => {
         setWithdrawal(doc.data().history);
       }
     });
-  }, []);
+  }, [withdrawalDoc]);
 
   // Updating data to firebase and showing user succesful withdrawal
   const userDoc = doc(db, "balance", currentUser.email);
@@ -137,7 +137,7 @@ export const Withdrawal = () => {
       >
         <Heading fontWeight={"semibold"} mt={10}>
           <Flex alignItems={"center"} justifyContent={"center"}>
-            <p> Retirá tu saldo</p>
+            Retirá tu saldo
             <FcInternal style={{ marginLeft: "10px" }} />
           </Flex>
         </Heading>
@@ -149,7 +149,7 @@ export const Withdrawal = () => {
           maxW="4xl"
           my={4}
         >
-          <p>
+         
             Podés egresar los fondos líquidos que tengas en tu cuenta de
             inversiones de manera ficticia, hacia tu cuenta de banco o billetera
             virtual. Esta operación es una emulación que se lleva a cabo dentro
@@ -158,7 +158,7 @@ export const Withdrawal = () => {
             para mostrar cómo se llevarían a cabo las operaciones financieras
             dentro de la plataforma. Si necesitás realizar una transferencia de
             dinero real, deberás hacerlo a través de una entidad financiera.
-          </p>
+         
         </Heading>
         <Flex flexWrap={"wrap"} w="100%" justifyContent={"center"}>
           <Box
@@ -170,7 +170,7 @@ export const Withdrawal = () => {
             m={2}
           >
             <Heading textAlign={"center"} fontSize={"35px"}>
-              <p> Retirá pesos </p>
+              Retirá pesos
             </Heading>
             <Text color={"GrayText"} textAlign={"center"} mb={4}>
               {stringARS}
@@ -258,7 +258,7 @@ export const Withdrawal = () => {
             m={2}
           >
             <Heading textAlign={"center"} fontSize={"35px"}>
-              <p> Retirá dólares </p>
+              Retirá dólares
             </Heading>
 
             <Text color={"GrayText"} textAlign={"center"} mb={4}>

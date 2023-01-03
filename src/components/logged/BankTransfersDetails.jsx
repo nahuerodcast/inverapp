@@ -37,7 +37,7 @@ export const BankTransfersDetails = () => {
                 alignItems={"center"}
                 justifyContent={"center"}
               >
-                <p>Empezá a invertir </p>
+               Empezá a invertir 
                 <strong style={{ marginLeft: "10px" }}> ahora </strong>
                 <FcMoneyTransfer style={{ marginLeft: "10px" }} />
               </Flex>
@@ -49,10 +49,10 @@ export const BankTransfersDetails = () => {
               color={"GrayText"}
               mb={4}
             >
-              <p>
+             
                 Para comenzar a invertir necesitas realizar una transferencia
                 bancaria automática hacia nuestras cuentas bancarias.
-              </p>
+              
             </Heading>
             <Divider />
             <Flex flexWrap={"wrap"} w="100%" justifyContent={"center"}>
@@ -62,7 +62,7 @@ export const BankTransfersDetails = () => {
                   fontSize={"36px"}
                   w={["inherit", "inherit", "sm", "sm"]}
                 >
-                  <p>Cargá pesos argentinos</p>
+                 Cargá pesos argentinos
                 </Heading>
                 <Text textAlign={"center"}>
                   CBU: 1430001713000119250011
@@ -97,7 +97,7 @@ export const BankTransfersDetails = () => {
                 m={2}
               >
                 <Heading textAlign={"center"} fontSize={"35px"}>
-                  <p> Cargá dólares americanos</p>
+                  Cargá dólares americanos
                 </Heading>
                 <Text textAlign={"center"}>
                   CBU: 1430001714000119250029

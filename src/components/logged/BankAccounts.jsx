@@ -26,7 +26,7 @@ export const BankAccounts = () => {
     onSnapshot(bankAccountsDoc, (doc) => {
       setBankArray(doc.data().accounts);
     });
-  }, []);
+  }, [bankAccountsDoc]);
 
   return (
     <>

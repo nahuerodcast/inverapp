@@ -50,7 +50,7 @@ export const SelectedModal = ({
       <ModalContent ref={initRef}>
         <ModalHeader mb={0} mt={4} fontSize={35} fontWeight={"bold"}>
           <Center>
-              <p>{id}</p>
+              {id}
             <Img src={image} alt={name} w="40px" mr={2} />
             {name}
           </Center>
