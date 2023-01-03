@@ -15,39 +15,36 @@ import {
 import { useDisclosure } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa";
 import { useState } from "react";
-import { onSnapshot, doc, setDoc } from "firebase/firestore";
-import { db } from "../../utils/init-firebase";
+import { setDoc } from "firebase/firestore";
 import { useToast } from "@chakra-ui/react";
-import { useAuth } from "../../contexts/AuthContext";
 
-export const NewMessageModal = ({ messageArray, newMessageDoc }) => {
+export const NewMessageModal = ({ messageArray, newMessageDoc, ...props }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [buttonValidation, setButtonValidation] = useState(false);
-  
 
   const toast = useToast();
   const sendData = () => {
     setIsSubmitting(true);
     async function sendForm() {
-        setIsSubmitting(true);
+      setIsSubmitting(true);
       try {
         const newMessage = [{ subject, message, inverappDate }];
         setDoc(newMessageDoc, {
           messages: [...messageArray, ...newMessage],
-        }).then(()=>{
-        onClose();
+        }).then(() => {
+          onClose();
           toast({
-          title: "Mensaje enviado con éxito.",
-          description: "Recibiras una respuesta a la brevedad",
-          status: "success",
-          duration: 2000,
-          isClosable: true,
-        });
-        setIsSubmitting(false);
+            title: "Mensaje enviado con éxito.",
+            description: "Recibiras una respuesta a la brevedad",
+            status: "success",
+            duration: 2000,
+            isClosable: true,
+          });
+          setIsSubmitting(false);
         });
       } catch (e) {
         console.error("Error adding document: ", e);
@@ -60,37 +57,39 @@ export const NewMessageModal = ({ messageArray, newMessageDoc }) => {
   const inverappDate = `${date.toLocaleDateString(
     "es-AR"
   )} -  ${date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
-  
-  const handleEsc = () => { 
+
+  const handleEsc = () => {
     setSubject("");
     setMessage("");
-  }
-  
-  useEffect(()=>{
-     setButtonValidation(subject && message);
-  },[subject, message])
-  
+  };
+
+  useEffect(() => {
+    setButtonValidation(subject && message);
+  }, [subject, message]);
 
   return (
     <>
       <Button
         leftIcon={<FaPlus />}
-        px={10}
         colorScheme="green"
         onClick={onOpen}
+        w="fit-content"
+        px={8}
+        {...props}
       >
         Nuevo mensaje
       </Button>
       <Modal
-       isOpen={isOpen} 
-       onClose={() => {
+        isOpen={isOpen}
+        onClose={() => {
           onClose();
-          handleEsc()
-        }} 
-        size="lg" 
-        isCentered 
+          handleEsc();
+        }}
+        size="lg"
+        isCentered
         onEsc={handleEsc}
-        onOverlayClick={handleEsc}>
+        onOverlayClick={handleEsc}
+      >
         <ModalOverlay />
         <ModalContent mx={["10vw", "10vw", "15vw", "15vw"]}>
           <ModalHeader>Nuevo mensaje</ModalHeader>
@@ -125,10 +124,10 @@ export const NewMessageModal = ({ messageArray, newMessageDoc }) => {
             </Button>
             <Button
               colorScheme="blue"
-                 onClick={()=>{
+              onClick={() => {
                 sendData();
-              handleEsc()
-                }}
+                handleEsc();
+              }}
               isLoading={isSubmitting}
               isDisabled={!buttonValidation}
             >

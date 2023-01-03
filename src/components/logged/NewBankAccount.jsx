@@ -74,7 +74,6 @@ export const NewBankAccount = () => {
     setButtonValidation(bank && account && currency);
   }, [bank, account, currency]);
 
-  console.log(buttonValidation);
   return (
     <>
       <Button

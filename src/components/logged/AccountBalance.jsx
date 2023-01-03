@@ -45,13 +45,13 @@ export const AccountBalance = () => {
           >
             <Flex justifyContent={"center"} w={"100%"} alignItems={"center"}>
               <Heading w={"400px"} textAlign={"center"}>
-                <p>{stringARS}</p>
+                {stringARS}
               </Heading>
             </Flex>
             <Divider orientation="vertical" />
             <Flex justifyContent={"center"} w={"100%"} alignItems={"center"}>
               <Heading w={"400px"} textAlign={"center"}>
-                <p>{stringUSD}</p>
+                {stringUSD}
               </Heading>
             </Flex>
           </Flex>
@@ -81,7 +81,7 @@ export const AccountBalance = () => {
         px={["10vw", "10vw", "15vw", "15vw"]}
       >
         <Heading fontWeight={"semibold"} mt={12}>
-          <p>ATENCIÓN</p>
+          ATENCIÓN
         </Heading>
         <Heading
           maxW={"4xl"}
@@ -91,7 +91,7 @@ export const AccountBalance = () => {
           color={"GrayText"}
           my={4}
         >
-          <p>
+          
             Las cuentas bancarias mencionadas no son cuentas reales en entidades
             financieras ni están sujetas a regulaciones bancarias. Son
             utilizadas únicamente en el simulador de inversiones "Inverapp" como
@@ -100,7 +100,7 @@ export const AccountBalance = () => {
             realizar transacciones bancarias reales ni están asociadas a ninguna
             institución financiera. Si necesitás abrir una cuenta bancaria
             legal, deberás hacerlo a través de una entidad financiera.
-          </p>
+          
         </Heading>
       </Flex>
     </Stack>

@@ -1,13 +1,8 @@
 import { Button } from "@chakra-ui/button";
-import { Flex, Heading, Divider, Box, Text } from "@chakra-ui/layout";
+import { Flex, Heading, Divider, Box } from "@chakra-ui/layout";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  FcBullish,
-  FcCustomerSupport,
-  FcMoneyTransfer,
-  FcReading,
-} from "react-icons/fc";
+import { FcBullish, FcCustomerSupport, FcMoneyTransfer } from "react-icons/fc";
 import { Portfolio } from "./Portfolio";
 import { HomeBalance } from "./HomeBalance";
 import { useBalance } from "../../contexts/BalanceContext";

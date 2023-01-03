@@ -12,7 +12,6 @@ import {
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { LoggedSearchCoin } from "./LoggedSearchCoin";
-import { Scrollbars } from "react-custom-scrollbars";
 import { useNavigate } from "react-router-dom";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
 import { useBalance } from "../../contexts/BalanceContext";
@@ -73,7 +72,7 @@ export const Trade = () => {
           mb={12}
         >
           <Heading my={4}>
-            <p> Operar </p>
+            Operar 
             <Text
               fontSize={"md"}
               color={"GrayText"}

@@ -14,7 +14,6 @@ import { useNavigate } from "react-router-dom";
 import { setDoc, doc } from "firebase/firestore";
 import { db } from "../../utils/init-firebase";
 import { useAuth } from "../../contexts/AuthContext";
-import { BankTransfersDetails } from "./BankTransfersDetails";
 import { useBalance } from "../../contexts/BalanceContext";
 import { FaArrowAltCircleLeft } from "react-icons/fa";
 
@@ -91,7 +90,7 @@ export const BankTransfers = () => {
                   justifyContent={"center"}
                   textAlign="center"
                 >
-                  <p>Simulá tu transferencia </p>
+                Simulá tu transferencia 
                   <FcIdea style={{ marginLeft: "10px" }} />
                 </Flex>
               </Heading>
@@ -102,10 +101,10 @@ export const BankTransfers = () => {
                 color={"GrayText"}
                 mb={4}
               >
-                <p>
+              
                   Podes simular tu transferencia con saldo falso, para que
                   puedas practicar en tu cuenta demo antes de invertir.
-                </p>
+                
               </Heading>
 
               <Flex flexDir={"column"} alignItems={"center"} w={"100%"}>
@@ -122,7 +121,7 @@ export const BankTransfers = () => {
                     w={"100%"}
                   >
                     <Heading textAlign={"center"}>
-                      <p>{stringARS}</p>
+                    {stringARS}
                     </Heading>
                   </Flex>
                   <Divider orientation="vertical" />
@@ -132,7 +131,7 @@ export const BankTransfers = () => {
                     alignItems={"center"}
                   >
                     <Heading textAlign={"center"}>
-                      <p>{stringUSD}</p>
+                    {stringUSD}
                     </Heading>
                   </Flex>
                 </Flex>

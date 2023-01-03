@@ -47,7 +47,7 @@ export const Portfolio = ({ arrayPortfolio }) => {
     onSnapshot(fbdoc, (doc) => {
       setDefaultCheckk(doc.data().currencyFlag);
     });
-  }, []);
+  }, [fbdoc]);
 
   const settings = () => {
     setDoc(fbdoc, {
@@ -58,10 +58,7 @@ export const Portfolio = ({ arrayPortfolio }) => {
 
   const [newArray, setNewArray] = useState(arrayPortfolio);
 
-   let totalPortfolio = newArray.reduce(
-    (a, b) => a + b.currentTotal,
-    0
-  );
+  let totalPortfolio = newArray.reduce((a, b) => a + b.currentTotal, 0);
 
   useEffect(() => {
     const newPortfolio = arrayPortfolio.reduce((acc, currentVal) => {
@@ -69,25 +66,27 @@ export const Portfolio = ({ arrayPortfolio }) => {
         (element) => element.symbol === currentVal.symbol
       );
       const filteredPrice = price.filter((p) =>
-              p.name.includes(currentVal.name)
-            );
-            
-      currentVal.currentTotal = currentVal.price * currentVal.quantity
-      
+        p.name.includes(currentVal.name)
+      );
+
+      currentVal.currentTotal = currentVal.price * currentVal.quantity;
+
       if (elementAlreadyExists) {
         return acc.map((element, i, arr) => {
           const filteredArray = arrayPortfolio.filter(
             (element) => element.symbol === currentVal.symbol
           );
           if (element.symbol === currentVal.symbol) {
-            console.log( filteredPrice )
             return {
               ...element,
               price:
                 filteredArray.reduce((a, b) => a + b.price, 0) /
                 filteredArray.length,
               quantity: element.quantity + currentVal.quantity,
-              currentTotal: filteredArray.reduce((a, b) => a + filteredPrice[0]?.current_price * b.quantity, 0)
+              currentTotal: filteredArray.reduce(
+                (a, b) => a + filteredPrice[0]?.current_price * b.quantity,
+                0
+              ),
             };
           }
           return element;
@@ -96,8 +95,8 @@ export const Portfolio = ({ arrayPortfolio }) => {
       return [...acc, currentVal];
     }, []);
     setNewArray(newPortfolio);
-  }, [arrayPortfolio,price]);
-  
+  }, [arrayPortfolio, price]);
+
   return (
     <Flex my={1} flexDir={"column"}>
       <Flex
@@ -185,7 +184,7 @@ export const Portfolio = ({ arrayPortfolio }) => {
       )}
 
       {newArray.length !== 0
-        ? newArray.map((portfolio) => {
+        && newArray.map((portfolio,i) => {
             const filteredPrice = price.filter((p) =>
               p.name.includes(portfolio.name)
             );
@@ -197,9 +196,10 @@ export const Portfolio = ({ arrayPortfolio }) => {
 
             return (
               <>
-                {portfolio.length !== 0 ? (
+                {portfolio.length !== 0 && (
                   <>
                     <Flex
+                      key={i}
                       flexDir={["column", "column", "row", "row"]}
                       justifyContent={"space-between"}
                       alignItems={"center"}
@@ -294,28 +294,24 @@ export const Portfolio = ({ arrayPortfolio }) => {
                     </Flex>
                     <Divider />
                   </>
-                ) : (
-                  " "
                 )}
               </>
             );
-          })
-        : ""}
-
+          })}
 
       {arrayPortfolio.length > 0 && (
         <Flex
           flexDir={"column"}
           alignItems={["center", "center", "flex-end", "flex-end"]}
         >
-          <Text mt={1} w={44} isTruncated fontSize="lg"  fontWeight="bold">
+          <Text mt={2} w={44} isTruncated fontSize="lg" fontWeight="bold">
             <Flex>
-               {defaultCheck ? 
-           <FormattedUsd usd={totalPortfolio.toFixed(2)} /> : 
-           <FormattedArs ars={totalPortfolio.toFixed(2) * dolar} />
-            } 
+              {defaultCheck ? (
+                <FormattedUsd usd={totalPortfolio.toFixed(2)} />
+              ) : (
+                <FormattedArs ars={totalPortfolio.toFixed(2) * dolar} />
+              )}
             </Flex>
-          
           </Text>
         </Flex>
       )}

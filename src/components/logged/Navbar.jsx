@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useColorMode } from "@chakra-ui/color-mode";
 import { Flex, Heading, Box, Text } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
@@ -25,7 +25,6 @@ import {
 import { Link as ReactLink } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { Avatar } from "@chakra-ui/avatar";
-import { MdMenuBook } from "react-icons/md";
 import { BsBank } from "react-icons/bs";
 
 export const Navbar = () => {

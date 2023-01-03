@@ -8,7 +8,6 @@ import { Progress, Button, Text } from "@chakra-ui/react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useBalance } from "../../contexts/BalanceContext";
 import { Avatar } from "@chakra-ui/avatar";
-import { SmallCloseIcon } from "@chakra-ui/icons";
 import { ResetPasswordButton } from "./ResetPasswordButton";
 import { BankAccounts } from "./BankAccounts";
 import { CgUser } from "react-icons/cg";
@@ -61,7 +60,7 @@ export const Settings = ({ defaultIndex }) => {
                 mt={8}
               />
               <Heading as="p" fontSize="lg" fontWeight="semibold" mt={1}>
-                <p> {currentUser.displayName}</p>
+                 {currentUser.displayName}
               </Heading>
               <Heading
                 fontSize="sm"
@@ -69,7 +68,7 @@ export const Settings = ({ defaultIndex }) => {
                 mb={8}
                 color="gray.500"
               >
-                <p> Cuenta demo</p>
+                 Cuenta demo
               </Heading>
             </Flex>
             <Flex justifyContent="space-between">

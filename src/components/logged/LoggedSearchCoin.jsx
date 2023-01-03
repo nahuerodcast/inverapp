@@ -9,7 +9,6 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
-  ModalFooter,
   ModalHeader,
   ModalOverlay,
   NumberInput,
@@ -161,11 +160,11 @@ export const LoggedSearchCoin = ({
             w={8}
             display={["none", "none", "inherit", "inherit"]}
           >
-            <p>{id}</p>
+           {id}
           </Heading>
           <Img src={image} alt={name} w="40px" mr={4} />
           <Heading fontSize={"lg"} w={160} fontWeight={"normal"}>
-            <p>{name}</p>
+           {name}
           </Heading>
           <Heading
             fontSize={"lg"}
@@ -173,14 +172,14 @@ export const LoggedSearchCoin = ({
             fontWeight={"normal"}
             display={["none", "none", "inherit", "inherit"]}
           >
-            <p>${price.toLocaleString()}</p>
+           ${price.toLocaleString()}
           </Heading>
           <Text
             fontSize={"lg"}
             w={120}
             display={["none", "none", "inherit", "inherit"]}
           >
-            <p>
+           
               {priceChange > 0 ? (
                 <Stat>
                   <StatHelpText>
@@ -195,14 +194,14 @@ export const LoggedSearchCoin = ({
                   </StatHelpText>
                 </Stat>
               )}
-            </p>
+            
           </Text>
           <Text
             fontSize={"lg"}
             w={"60px"}
             display={["none", "none", "inherit", "inherit"]}
           >
-            <p>{symbol.toUpperCase()}</p>
+           {symbol.toUpperCase()}
           </Text>
         </Flex>
         <Flex>

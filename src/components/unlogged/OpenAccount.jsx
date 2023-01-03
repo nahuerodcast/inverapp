@@ -73,7 +73,6 @@ export const OpenAccount = () => {
               setIsSubmitting(true);
               register(email, password)
                 .then((response) => {
-                  console.log(response);
                   toast({
                     description: "¡Cuenta creada con éxito!",
                     status: "success",
@@ -82,7 +81,6 @@ export const OpenAccount = () => {
                   });
                 })
                 .catch((error) => {
-                  console.log(error.message);
                   toast({
                     description: error.message,
                     status: "error",
